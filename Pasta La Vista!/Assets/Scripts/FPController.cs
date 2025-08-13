@@ -1,29 +1,23 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
 public class FPController : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float gravity = -9.81f;
-    public float jumpHeight = 2.5f; // Added jump height variable
-
     [Header("Look Settings")]
     public Transform cameraTransform;
-    public float lookSensitivity = 1f;
+    public float lookSensitivity = 2f;
     public float verticalLookLimit = 90f;
     private CharacterController controller;
     private Vector2 moveInput;
     private Vector2 lookInput;
     private Vector3 velocity;
     private float verticalRotation = 0f;
-
+    public float jumpHeight = 2.5f; // Added jump height variable
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-       
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -31,6 +25,7 @@ public class FPController : MonoBehaviour
     {
         HandleMovement();
         HandleLook();
+        
     }
     public void OnMovement(InputAction.CallbackContext context)
     {
@@ -60,7 +55,8 @@ public class FPController : MonoBehaviour
         cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
-    public void onJump(InputAction.CallbackContext context)
+
+        public void onJump(InputAction.CallbackContext context)
     {
         if (context.performed && controller.isGrounded)
         {
@@ -68,5 +64,4 @@ public class FPController : MonoBehaviour
         }
     }
 
-    
 }
