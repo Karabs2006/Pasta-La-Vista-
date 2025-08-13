@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 public class FPController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 100f;
+    public float moveSpeed = 4f;
     public float gravity = -9.81f;
     [Header("Look Settings")]
     public Transform cameraTransform;
@@ -45,6 +45,8 @@ public class FPController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
+        
     public void HandleLook()
     {
         float mouseX = lookInput.x * lookSensitivity;
