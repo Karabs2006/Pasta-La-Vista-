@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 public class FPController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 5f;
+    public float moveSpeed = 100f;
     public float gravity = -9.81f;
     [Header("Look Settings")]
     public Transform cameraTransform;
