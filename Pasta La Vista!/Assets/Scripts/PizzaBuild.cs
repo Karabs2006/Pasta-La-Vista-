@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PizzaBuild : MonoBehaviour
@@ -7,16 +8,20 @@ public class PizzaBuild : MonoBehaviour
     public GameObject crust;
     public GameObject cheese;
     public GameObject pepperoni;
+    public GameObject pizza;
     public Interact interact;
     bool buildPizza;
     bool crustPlaced;
     bool cheesePlaced;
     bool pepperoniPlaced;
+    bool finalPizza;
+    bool bakePizza;
     void Start()
     {
         crust.SetActive(false);
         cheese.SetActive(false);
         pepperoni.SetActive(false);
+        pizza.SetActive(false);
     }
 
     void Update()
@@ -29,6 +34,7 @@ public class PizzaBuild : MonoBehaviour
                 interact.dough.SetActive(false);
                 crustPlaced = true;
                 buildPizza = false;
+                finalPizza = false;
             }
 
             if (interact.cheese.activeSelf && Input.GetKeyDown(KeyCode.E) && crustPlaced)
@@ -37,7 +43,8 @@ public class PizzaBuild : MonoBehaviour
                 interact.cheese.SetActive(false);
                 cheesePlaced = true;
                 buildPizza = false;
-                
+                finalPizza = false;
+
             }
 
             if (interact.pepperoni.activeSelf && Input.GetKeyDown(KeyCode.E) && cheesePlaced)
@@ -46,12 +53,27 @@ public class PizzaBuild : MonoBehaviour
                 interact.pepperoni.SetActive(false);
                 pepperoniPlaced = true;
                 buildPizza = false;
+                finalPizza = true;
             }
 
+        }
+
+        if (finalPizza && buildPizza)
+            {
+                bakePizza = true;
+            }
+
+        if (bakePizza && Input.GetKeyDown(KeyCode.E))
+        {
+            pizza.SetActive(true);
+            crust.SetActive(false);
+            cheese.SetActive(false);
+            pepperoni.SetActive(false);
+            bakePizza = false;
         } 
 
         }
-    
+
 
     void OnTriggerEnter(Collider trigger)
     {
@@ -59,6 +81,6 @@ public class PizzaBuild : MonoBehaviour
         {
             buildPizza = true;
         }
-        
+    
     }
 }
