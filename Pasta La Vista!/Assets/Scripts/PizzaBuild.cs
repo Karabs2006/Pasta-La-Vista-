@@ -16,6 +16,7 @@ public class PizzaBuild : MonoBehaviour
     bool pepperoniPlaced;
     bool finalPizza;
     bool bakePizza;
+   
     void Start()
     {
         crust.SetActive(false);
@@ -70,6 +71,7 @@ public class PizzaBuild : MonoBehaviour
             cheese.SetActive(false);
             pepperoni.SetActive(false);
             bakePizza = false;
+        
         } 
 
         }
