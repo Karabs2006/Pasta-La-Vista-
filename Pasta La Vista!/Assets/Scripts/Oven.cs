@@ -8,15 +8,18 @@ public class Oven : MonoBehaviour
 {
     public GameObject bakedPizza;
     public GameObject rawPizza;
+    public GameObject bakedPizzaPlayer;
     public PizzaBuild pizzaBuild;
     public Slider slider;
     bool isBaking = false;
     bool nearOven;
+    bool pizzaBaked;
 
     void Start()
     {
         rawPizza.SetActive(false);
         bakedPizza.SetActive(false);
+        bakedPizzaPlayer.SetActive(false);
         nearOven = false;
         slider.value = 5;
 
@@ -27,27 +30,32 @@ public class Oven : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                rawPizza.SetActive(true);
                 pizzaBuild.pizza.SetActive(false);
+                rawPizza.SetActive(true);
                 nearOven = false;
                 StartCoroutine(BakePizza(bakedPizza));
             }
+        }
+
+
+        if (pizzaBaked && nearOven && Input.GetKeyDown(KeyCode.E))
+        {
+            bakedPizzaPlayer.SetActive(true);
         }
 
     }
 
     void OnTriggerEnter(Collider trigger)
     {
-        if (trigger.gameObject.name == "Player")
+        if (trigger.gameObject.name == "Player_Francesco")
         {
             nearOven = true;
         }
-
     }
 
     void OnTriggerExit(Collider trigger)
     {
-        if (trigger.gameObject.name == "Player")
+        if (trigger.gameObject.name == "Player_Francesco")
         {
             nearOven = false;
         }
@@ -66,6 +74,8 @@ public class Oven : MonoBehaviour
         obj.SetActive(true);
         rawPizza.SetActive(false);
         isBaking = false;
+        pizzaBaked = true;
+
 
 
     }
