@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PizzaBuild : MonoBehaviour
@@ -10,72 +9,58 @@ public class PizzaBuild : MonoBehaviour
     public GameObject pepperoni;
     public GameObject pizza;
     public Interact interact;
+
     bool buildPizza;
     bool crustPlaced;
     bool cheesePlaced;
     bool pepperoniPlaced;
-    bool finalPizza;
-    bool bakePizza;
-   
+
     void Start()
     {
         crust.SetActive(false);
         cheese.SetActive(false);
         pepperoni.SetActive(false);
         pizza.SetActive(false);
+
     }
 
     void Update()
     {
-        if (buildPizza)
+        if (!buildPizza) return;
+
+        if (interact.dough.activeSelf && Input.GetKeyDown(KeyCode.E))
         {
-            if (interact.dough.activeSelf && Input.GetKeyDown(KeyCode.E))
-            {
-                crust.SetActive(true);
-                interact.dough.SetActive(false);
-                crustPlaced = true;
-                buildPizza = false;
-                finalPizza = false;
-            }
-
-            if (interact.cheese.activeSelf && Input.GetKeyDown(KeyCode.E) && crustPlaced)
-            {
-                cheese.SetActive(true);
-                interact.cheese.SetActive(false);
-                cheesePlaced = true;
-                buildPizza = false;
-                finalPizza = false;
-
-            }
-
-            if (interact.pepperoni.activeSelf && Input.GetKeyDown(KeyCode.E) && cheesePlaced)
-            {
-                pepperoni.SetActive(true);
-                interact.pepperoni.SetActive(false);
-                pepperoniPlaced = true;
-                buildPizza = false;
-                finalPizza = true;
-            }
-
+            crust.SetActive(true);
+            interact.dough.SetActive(false);
+            crustPlaced = true;
+            buildPizza = false;
+            
         }
 
-        if (finalPizza && buildPizza)
-            {
-                bakePizza = true;
-            }
-
-        if (bakePizza && Input.GetKeyDown(KeyCode.E))
+        
+        if (interact.cheese.activeSelf && Input.GetKeyDown(KeyCode.E) && crustPlaced)
         {
+            cheese.SetActive(true);
+            interact.cheese.SetActive(false); 
+            cheesePlaced = true;
+            buildPizza = false;
+        }
+
+        
+        if (interact.pepperoni.activeSelf && Input.GetKeyDown(KeyCode.E) && cheesePlaced)
+        {
+            pepperoni.SetActive(true);
+            interact.pepperoni.SetActive(false); 
+            pepperoniPlaced = true;
+
             pizza.SetActive(true);
             crust.SetActive(false);
             cheese.SetActive(false);
             pepperoni.SetActive(false);
-            bakePizza = false;
-        
-        } 
 
+            buildPizza = false; 
         }
-
+    }
 
     void OnTriggerEnter(Collider trigger)
     {
@@ -83,6 +68,5 @@ public class PizzaBuild : MonoBehaviour
         {
             buildPizza = true;
         }
-    
     }
 }
