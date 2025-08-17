@@ -14,6 +14,8 @@ public class PizzaBuild : MonoBehaviour
     bool crustPlaced;
     bool cheesePlaced;
     bool pepperoniPlaced;
+    public bool hasPizza = false;
+    
 
     void Start()
     {
