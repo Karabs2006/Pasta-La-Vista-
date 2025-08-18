@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class Interact : MonoBehaviour
 {
     public GameObject cheese;
@@ -12,12 +13,14 @@ public class Interact : MonoBehaviour
     public GameObject dough;
     public GameObject customerPizza;
     private Gamepad gamepad;
+    public GameObject customer;
     public Oven oven;
     bool cheeseZone;
     bool pepZone;
     bool doughZone;
     bool givePizza;
-    
+    public bool nextCustomer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,7 +30,8 @@ public class Interact : MonoBehaviour
         customerPizza.SetActive(false);
         cheeseZone = false;
         pepZone = false;
-    
+        nextCustomer = false;
+
     }
 
     // Update is called once per frame
@@ -65,8 +69,7 @@ public class Interact : MonoBehaviour
 
             if (givePizza && oven.bakedPizzaPlayer.activeSelf)
             {
-                oven.bakedPizzaPlayer.SetActive(false);
-                customerPizza.SetActive(true);
+                StartCoroutine(NextCustomer());
             }
         }
 
@@ -89,7 +92,7 @@ public class Interact : MonoBehaviour
         {
             doughZone = true;
         }
-        
+
         if (trigger.gameObject.name == "CollectSpot")
         {
             givePizza = true;
@@ -114,11 +117,23 @@ public class Interact : MonoBehaviour
         {
             doughZone = false;
         }
-        
+
         if (other.gameObject.name == "CollectSpot")
         {
             givePizza = false;
         }
+
+    }
+
+    IEnumerator NextCustomer()
+    {
+        oven.bakedPizzaPlayer.SetActive(false);
+        customerPizza.SetActive(true);
+        nextCustomer = true;
+
+        yield return new WaitForSeconds(1f);
+        Destroy(customer);
+        customerPizza.SetActive(false);
 
     }
 }

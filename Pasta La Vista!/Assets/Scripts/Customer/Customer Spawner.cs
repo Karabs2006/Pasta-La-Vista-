@@ -3,21 +3,19 @@ using UnityEngine;
 public class CustomerSpawner : MonoBehaviour
 {
     public GameObject customerPrefab;
+    public Interact interact;
     public Transform spawnPoint;
-    public float spawnInterval = 30f;
+    //public float spawnInterval = 30f;
     private float timer;
     private GameObject currentCustomer;
 
+
     void Update()
     {
-        if (currentCustomer == null)
+        if (interact.nextCustomer)
         {
-            timer += Time.deltaTime;
-            if (timer >= spawnInterval)
-            {
-                SpawnCustomer();
-                timer = 0f;
-            }
+            SpawnCustomer();
+            interact.nextCustomer = false;
         }
     }
 
