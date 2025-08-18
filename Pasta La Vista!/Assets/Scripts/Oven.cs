@@ -48,6 +48,7 @@ public class Oven : MonoBehaviour
         if (pizzaBaked && nearOven && interactPressed)
         {
             bakedPizzaPlayer.SetActive(true);
+            bakedPizza.SetActive(false);
         }
 
     }
