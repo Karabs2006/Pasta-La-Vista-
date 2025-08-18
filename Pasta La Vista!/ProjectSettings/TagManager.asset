@@ -6,6 +6,9 @@ TagManager:
   tags:
   - GameObject
   - Customer
+  - Pizza
+  - Order Spot
+  - Exit Spot
   layers:
   - Default
   - TransparentFX
