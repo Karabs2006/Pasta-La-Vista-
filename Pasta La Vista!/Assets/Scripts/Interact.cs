@@ -10,10 +10,13 @@ public class Interact : MonoBehaviour
     public GameObject cheese;
     public GameObject pepperoni;
     public GameObject dough;
+    public GameObject customerPizza;
     private Gamepad gamepad;
+    public Oven oven;
     bool cheeseZone;
     bool pepZone;
     bool doughZone;
+    bool givePizza;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +24,7 @@ public class Interact : MonoBehaviour
         cheese.SetActive(false);
         pepperoni.SetActive(false);
         dough.SetActive(false);
+        customerPizza.SetActive(false);
         cheeseZone = false;
         pepZone = false;
     
@@ -37,14 +41,14 @@ public class Interact : MonoBehaviour
 
         if (interactPressed)
         {
-            if (cheeseZone && Input.GetKeyDown(KeyCode.E))
+            if (cheeseZone)
             {
                 cheese.SetActive(true);
                 pepperoni.SetActive(false);
                 dough.SetActive(false);
             }
 
-            if (pepZone && Input.GetKeyDown(KeyCode.E))
+            if (pepZone)
             {
                 pepperoni.SetActive(true);
                 cheese.SetActive(false);
@@ -52,11 +56,17 @@ public class Interact : MonoBehaviour
 
             }
 
-            if (doughZone && Input.GetKeyDown(KeyCode.E))
+            if (doughZone)
             {
                 dough.SetActive(true);
                 cheese.SetActive(false);
                 pepperoni.SetActive(false);
+            }
+
+            if (givePizza && oven.bakedPizzaPlayer.activeSelf)
+            {
+                oven.bakedPizzaPlayer.SetActive(false);
+                customerPizza.SetActive(true);
             }
         }
 
@@ -74,11 +84,17 @@ public class Interact : MonoBehaviour
             pepZone = true;
         }
 
-        
+
         if (trigger.gameObject.name == "Dough Collider")
         {
             doughZone = true;
         }
+        
+        if (trigger.gameObject.name == "CollectSpot")
+        {
+            givePizza = true;
+        }
+
 
     }
 
@@ -93,10 +109,16 @@ public class Interact : MonoBehaviour
         {
             pepZone = false;
         }
-        
+
         if (other.gameObject.name == "Dough Collider")
         {
             doughZone = false;
         }
+        
+        if (other.gameObject.name == "CollectSpot")
+        {
+            givePizza = false;
+        }
+
     }
 }

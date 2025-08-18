@@ -5,7 +5,6 @@ public class CustomerSpawner : MonoBehaviour
     public GameObject customerPrefab;
     public Transform spawnPoint;
     public float spawnInterval = 30f;
-
     private float timer;
     private GameObject currentCustomer;
 

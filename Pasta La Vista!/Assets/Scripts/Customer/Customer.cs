@@ -6,7 +6,6 @@ public class Customer : MonoBehaviour
     public Transform orderSpot;
     public Transform exitSpot;
     public float moveSpeed = 2f;
-
     private bool orderTaken = false;
     private bool hasPizza = false;
 
@@ -34,7 +33,8 @@ public class Customer : MonoBehaviour
                 Debug.Log("One pepperoni pizza, please!");
             }
         }
-        else if (hasPizza)
+
+        /*else if (hasPizza)
         {
             // Move to exit
             transform.position = Vector3.MoveTowards(
@@ -49,6 +49,7 @@ public class Customer : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        */
     }
 
     public void TakePizza()

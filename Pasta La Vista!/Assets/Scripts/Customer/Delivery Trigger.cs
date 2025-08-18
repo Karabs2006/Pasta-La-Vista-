@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DeliveryTrigger : MonoBehaviour
 {
-    void OnTriggerStay(Collider other)
+    /*void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
         {
@@ -17,4 +17,5 @@ public class DeliveryTrigger : MonoBehaviour
             }
         }
     }
+    */
 }
