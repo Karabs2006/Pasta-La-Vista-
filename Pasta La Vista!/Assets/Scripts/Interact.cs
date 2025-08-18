@@ -3,12 +3,14 @@ using System.Collections.Generic;
 //using System.Diagnostics.SymbolStore;
 //using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interact : MonoBehaviour
 {
     public GameObject cheese;
     public GameObject pepperoni;
     public GameObject dough;
+    private Gamepad gamepad;
     bool cheeseZone;
     bool pepZone;
     bool doughZone;
@@ -27,26 +29,35 @@ public class Interact : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cheeseZone && Input.GetKeyDown(KeyCode.E))
-        {
-            cheese.SetActive(true);
-            pepperoni.SetActive(false);
-            dough.SetActive(false);
-        }
 
-        if (pepZone && Input.GetKeyDown(KeyCode.E))
-        {
-            pepperoni.SetActive(true);
-            cheese.SetActive(false);
-            dough.SetActive(false);
+        gamepad = Gamepad.current;
 
-        }
+        bool interactPressed = Input.GetKeyDown(KeyCode.E) || (gamepad != null && gamepad.buttonWest.wasPressedThisFrame);
 
-        if (doughZone && Input.GetKeyDown(KeyCode.E))
+
+        if (interactPressed)
         {
-            dough.SetActive(true);
-            cheese.SetActive(false);
-            pepperoni.SetActive(false);
+            if (cheeseZone && Input.GetKeyDown(KeyCode.E))
+            {
+                cheese.SetActive(true);
+                pepperoni.SetActive(false);
+                dough.SetActive(false);
+            }
+
+            if (pepZone && Input.GetKeyDown(KeyCode.E))
+            {
+                pepperoni.SetActive(true);
+                cheese.SetActive(false);
+                dough.SetActive(false);
+
+            }
+
+            if (doughZone && Input.GetKeyDown(KeyCode.E))
+            {
+                dough.SetActive(true);
+                cheese.SetActive(false);
+                pepperoni.SetActive(false);
+            }
         }
 
     }
