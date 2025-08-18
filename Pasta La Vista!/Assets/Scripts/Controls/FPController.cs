@@ -14,7 +14,8 @@ public class FPController : MonoBehaviour
     private Vector2 lookInput;
     private Vector3 velocity;
     private float verticalRotation = 0f;
-    public float jumpHeight = 1f; // Added jump height variable
+    public float jumpHeight = 1f;
+    public bool interactPressed = false; // Added jump height variable
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -25,7 +26,7 @@ public class FPController : MonoBehaviour
     {
         HandleMovement();
         HandleLook();
-        
+
     }
     public void OnMovement(InputAction.CallbackContext context)
     {
@@ -46,7 +47,7 @@ public class FPController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-        
+
     public void HandleLook()
     {
         float mouseX = lookInput.x * lookSensitivity;
@@ -58,7 +59,7 @@ public class FPController : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
     }
 
-        public void onJump(InputAction.CallbackContext context)
+    public void onJump(InputAction.CallbackContext context)
     {
         if (context.performed && controller.isGrounded)
         {
@@ -66,4 +67,11 @@ public class FPController : MonoBehaviour
         }
     }
 
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            interactPressed = true; 
+        }
+    }
 }

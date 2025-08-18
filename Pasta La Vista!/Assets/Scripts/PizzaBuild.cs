@@ -9,8 +9,8 @@ public class PizzaBuild : MonoBehaviour
     public GameObject cheese;
     public GameObject pepperoni;
     public GameObject pizza;
-    public Gamepad gamepad;
     public Interact interact;
+    public FPController fPController;
     bool buildPizza;
     bool crustPlaced;
     bool cheesePlaced;
@@ -30,13 +30,8 @@ public class PizzaBuild : MonoBehaviour
     void Update()
     {
         if (!buildPizza) return;
-        
-        gamepad = Gamepad.current;
 
-        bool interactPressed = Input.GetKeyDown(KeyCode.E) || (gamepad != null && gamepad.buttonWest.wasPressedThisFrame);
-
-
-        if (interactPressed)
+        if (fPController.interactPressed)
         {
             if (interact.dough.activeSelf)
             {
@@ -44,6 +39,7 @@ public class PizzaBuild : MonoBehaviour
                 interact.dough.SetActive(false);
                 crustPlaced = true;
                 buildPizza = false;
+                fPController.interactPressed = false;
 
             }
 
@@ -54,6 +50,7 @@ public class PizzaBuild : MonoBehaviour
                 interact.cheese.SetActive(false);
                 cheesePlaced = true;
                 buildPizza = false;
+                fPController.interactPressed = false;
             }
 
 
@@ -69,6 +66,7 @@ public class PizzaBuild : MonoBehaviour
                 pepperoni.SetActive(false);
 
                 buildPizza = false;
+                fPController.interactPressed = false;
             }
         }
     }

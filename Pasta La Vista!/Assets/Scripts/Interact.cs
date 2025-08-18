@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-//using System.Diagnostics.SymbolStore;
-//using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -13,8 +11,8 @@ public class Interact : MonoBehaviour
     public GameObject pepperoni;
     public GameObject dough;
     public GameObject customerPizza;
-    private Gamepad gamepad;
     public GameObject customer;
+    public FPController fPController;
     public Oven oven;
     bool cheeseZone;
     bool pepZone;
@@ -22,7 +20,6 @@ public class Interact : MonoBehaviour
     bool givePizza;
     public bool nextCustomer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         cheese.SetActive(false);
@@ -35,22 +32,19 @@ public class Interact : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
 
-        gamepad = Gamepad.current;
-
-        bool interactPressed = Input.GetKeyDown(KeyCode.E) || (gamepad != null && gamepad.buttonWest.wasPressedThisFrame);
-
-
-        if (interactPressed)
+        if (fPController.interactPressed)
         {
             if (cheeseZone)
             {
                 cheese.SetActive(true);
                 pepperoni.SetActive(false);
                 dough.SetActive(false);
+                fPController.interactPressed = false;
+                
             }
 
             if (pepZone)
@@ -58,7 +52,7 @@ public class Interact : MonoBehaviour
                 pepperoni.SetActive(true);
                 cheese.SetActive(false);
                 dough.SetActive(false);
-
+                fPController.interactPressed = false;
             }
 
             if (doughZone)
@@ -66,6 +60,7 @@ public class Interact : MonoBehaviour
                 dough.SetActive(true);
                 cheese.SetActive(false);
                 pepperoni.SetActive(false);
+                fPController.interactPressed = false;
             }
 
             if (givePizza && oven.bakedPizzaPlayer.activeSelf)
@@ -75,6 +70,7 @@ public class Interact : MonoBehaviour
                 Destroy(customer);
                 customerPizza.SetActive(false);
                 SceneManager.LoadSceneAsync("GameScene");
+                fPController.interactPressed = false;
             }
         }
 
