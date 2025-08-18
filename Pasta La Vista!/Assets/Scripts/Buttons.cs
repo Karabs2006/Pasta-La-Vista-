@@ -14,12 +14,18 @@ public class Buttons : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (fPController.pausePressed)
         {
             if (pauseMenu.activeSelf)
+            {
                 ResumeGame();
+                fPController.pausePressed = false;
+            }
             else
+            {
                 PauseGame();
+                fPController.pausePressed = false;
+            }
         }
     }
 
@@ -43,10 +49,6 @@ public class Buttons : MonoBehaviour
 
     public void QuitGame()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
         Application.Quit();
-#endif
     }
 }

@@ -15,7 +15,9 @@ public class FPController : MonoBehaviour
     private Vector3 velocity;
     private float verticalRotation = 0f;
     public float jumpHeight = 1f;
-    public bool interactPressed = false; // Added jump height variable
+    public bool interactPressed = false;
+    public bool pausePressed = false;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -71,7 +73,15 @@ public class FPController : MonoBehaviour
     {
         if (context.performed)
         {
-            interactPressed = true; 
+            interactPressed = true;
+        }
+    }
+    
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            pausePressed = true; 
         }
     }
 }
