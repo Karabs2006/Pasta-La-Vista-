@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 //using System.ComponentModel.Design.Serialization;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Oven : MonoBehaviour
@@ -9,6 +10,7 @@ public class Oven : MonoBehaviour
     public GameObject bakedPizza;
     public GameObject rawPizza;
     public GameObject bakedPizzaPlayer;
+    public Gamepad gamepad;
     public PizzaBuild pizzaBuild;
     public Slider slider;
     bool isBaking = false;
@@ -26,9 +28,14 @@ public class Oven : MonoBehaviour
     }
     void Update()
     {
+        gamepad = Gamepad.current;
+
+        bool interactPressed = Input.GetKeyDown(KeyCode.E) || (gamepad != null && gamepad.buttonWest.wasPressedThisFrame);
+
+
         if (nearOven && pizzaBuild.pizza.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (interactPressed)
             {
                 pizzaBuild.pizza.SetActive(false);
                 rawPizza.SetActive(true);
@@ -38,7 +45,7 @@ public class Oven : MonoBehaviour
         }
 
 
-        if (pizzaBaked && nearOven && Input.GetKeyDown(KeyCode.E))
+        if (pizzaBaked && nearOven && interactPressed)
         {
             bakedPizzaPlayer.SetActive(true);
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PizzaBuild : MonoBehaviour
 {
@@ -8,8 +9,8 @@ public class PizzaBuild : MonoBehaviour
     public GameObject cheese;
     public GameObject pepperoni;
     public GameObject pizza;
+    public Gamepad gamepad;
     public Interact interact;
-
     bool buildPizza;
     bool crustPlaced;
     bool cheesePlaced;
@@ -29,38 +30,46 @@ public class PizzaBuild : MonoBehaviour
     void Update()
     {
         if (!buildPizza) return;
-
-        if (interact.dough.activeSelf && Input.GetKeyDown(KeyCode.E))
-        {
-            crust.SetActive(true);
-            interact.dough.SetActive(false);
-            crustPlaced = true;
-            buildPizza = false;
-            
-        }
-
         
-        if (interact.cheese.activeSelf && Input.GetKeyDown(KeyCode.E) && crustPlaced)
+        gamepad = Gamepad.current;
+
+        bool interactPressed = Input.GetKeyDown(KeyCode.E) || (gamepad != null && gamepad.buttonWest.wasPressedThisFrame);
+
+
+        if (interactPressed)
         {
-            cheese.SetActive(true);
-            interact.cheese.SetActive(false); 
-            cheesePlaced = true;
-            buildPizza = false;
-        }
+            if (interact.dough.activeSelf)
+            {
+                crust.SetActive(true);
+                interact.dough.SetActive(false);
+                crustPlaced = true;
+                buildPizza = false;
 
-        
-        if (interact.pepperoni.activeSelf && Input.GetKeyDown(KeyCode.E) && cheesePlaced)
-        {
-            pepperoni.SetActive(true);
-            interact.pepperoni.SetActive(false); 
-            pepperoniPlaced = true;
+            }
 
-            pizza.SetActive(true);
-            crust.SetActive(false);
-            cheese.SetActive(false);
-            pepperoni.SetActive(false);
 
-            buildPizza = false; 
+            if (interact.cheese.activeSelf)
+            {
+                cheese.SetActive(true);
+                interact.cheese.SetActive(false);
+                cheesePlaced = true;
+                buildPizza = false;
+            }
+
+
+            if (interact.pepperoni.activeSelf)
+            {
+                pepperoni.SetActive(true);
+                interact.pepperoni.SetActive(false);
+                pepperoniPlaced = true;
+
+                pizza.SetActive(true);
+                crust.SetActive(false);
+                cheese.SetActive(false);
+                pepperoni.SetActive(false);
+
+                buildPizza = false;
+            }
         }
     }
 
