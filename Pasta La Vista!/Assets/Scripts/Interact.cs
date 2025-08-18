@@ -4,6 +4,7 @@ using System.Collections.Generic;
 //using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class Interact : MonoBehaviour
@@ -69,7 +70,11 @@ public class Interact : MonoBehaviour
 
             if (givePizza && oven.bakedPizzaPlayer.activeSelf)
             {
-                StartCoroutine(NextCustomer());
+                oven.bakedPizzaPlayer.SetActive(false);
+                customerPizza.SetActive(true);
+                Destroy(customer);
+                customerPizza.SetActive(false);
+                SceneManager.LoadSceneAsync("GameScene");
             }
         }
 
@@ -125,15 +130,4 @@ public class Interact : MonoBehaviour
 
     }
 
-    IEnumerator NextCustomer()
-    {
-        oven.bakedPizzaPlayer.SetActive(false);
-        customerPizza.SetActive(true);
-        nextCustomer = true;
-
-        yield return new WaitForSeconds(1f);
-        Destroy(customer);
-        customerPizza.SetActive(false);
-
-    }
 }
