@@ -49,6 +49,7 @@ public class Oven : MonoBehaviour
         {
             bakedPizzaPlayer.SetActive(true);
             bakedPizza.SetActive(false);
+            slider.value = 5;
         }
 
     }
