@@ -28,11 +28,11 @@ public class Buttons : MonoBehaviour
             }
         }
         
-        if (fPController.quitPressed && pauseMenu.activeSelf)
-            {
-                QuitGame();
-                fPController.quitPressed = false;
-            }
+        if (fPController.quitPressed)
+    {
+        QuitGame();
+        fPController.quitPressed = false; // reset after handling
+    }
     }
 
     void PauseGame()
@@ -56,10 +56,5 @@ public class Buttons : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #endif
     }
-    }
-
+}
