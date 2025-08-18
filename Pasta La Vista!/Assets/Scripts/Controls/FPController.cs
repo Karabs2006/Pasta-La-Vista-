@@ -14,7 +14,7 @@ public class FPController : MonoBehaviour
     private Vector2 lookInput;
     private Vector3 velocity;
     private float verticalRotation = 0f;
-    public float jumpHeight = 2.5f; // Added jump height variable
+    public float jumpHeight = 1f; // Added jump height variable
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
