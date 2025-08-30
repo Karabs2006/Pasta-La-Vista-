@@ -74,19 +74,5 @@ public class Buttons : MonoBehaviour
         Application.Quit();
     }
 
-    // Scene loading functions
-    public void PlayIntroductionScene01()
-    {
-        SceneManager.LoadSceneAsync("IntroductionScene01");
-    }
-
-    public void PlayIntroductionScene02()
-    {
-        SceneManager.LoadSceneAsync("IntroductionScene02");
-    }
-
-    public void PlayGameScene()
-    {
-        SceneManager.LoadSceneAsync("GameScene");
-    }
+    
 }
