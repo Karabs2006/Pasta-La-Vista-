@@ -7,15 +7,15 @@ public class Customer : MonoBehaviour
     public Transform orderSpot;
     public Transform exitSpot;
     public Interact interact;
+    public Review review;
     public float moveSpeed = 2f;
     private List<GameObject> customers;
     private GameObject customer;  // current active customer
     private bool orderTaken = false;
     private bool customerLeaving = false;
 
-    private void Start()
+    void Start()
     {
-
         customers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Customer"));
         orderSpot = GameObject.FindWithTag("Order Spot").transform;
         exitSpot = GameObject.FindWithTag("Exit Spot").transform;
@@ -24,12 +24,13 @@ public class Customer : MonoBehaviour
         {
             if (cust != customer)
                 cust.SetActive(false);
-        };
+        }
+        ;
 
         // Pick the first customer and deactivate the others
         PickRandomCustomer();
-
     }
+
 
     void Update()
     {
@@ -48,12 +49,15 @@ public class Customer : MonoBehaviour
             {
                 orderTaken = true;
                 Debug.Log("One pepperoni pizza, please!");
+                StartCoroutine(Angry(customer));
+
             }
         }
 
         // After pizza taken, start leaving
         if (orderTaken && interact.takenPizza && !customerLeaving)
         {
+            review.reviewScore += 500;
             customerLeaving = true;
             StartCoroutine(Leave(customer));
         }
@@ -65,16 +69,6 @@ public class Customer : MonoBehaviour
         customer = customers[rand];
         customer.SetActive(true);
     }
-
-    /* void DeactivateOtherCustomers()
-     {
-         foreach (GameObject cust in customers)
-         {
-             if (cust != customer)
-                 cust.SetActive(false);
-         }
-     }
-     */
 
     IEnumerator Leave(GameObject cust)
     {
@@ -108,7 +102,22 @@ public class Customer : MonoBehaviour
 
         // Pick next random customer
         PickRandomCustomer();
-        
+
+    }
+
+    IEnumerator Angry(GameObject obj)
+    {
+        for (int i = 8; i >= 0; i--)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (i == 0)
+            {
+                StartCoroutine(Leave(obj));
+                review.reviewScore -= 500;
+            }
+        }
+
     }
 
 }
