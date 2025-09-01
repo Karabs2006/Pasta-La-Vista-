@@ -13,20 +13,21 @@ public class Customer : MonoBehaviour
     private GameObject customer;  // current active customer
     private bool orderTaken = false;
     private bool customerLeaving = false;
+    bool inLine;
 
     void Start()
     {
         customers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Customer"));
         orderSpot = GameObject.FindWithTag("Order Spot").transform;
         exitSpot = GameObject.FindWithTag("Exit Spot").transform;
+        inLine = false;
 
         foreach (GameObject cust in customers)
         {
             if (cust != customer)
                 cust.SetActive(false);
-        }
-        ;
-
+        };
+        
         // Pick the first customer and deactivate the others
         PickRandomCustomer();
     }
@@ -37,7 +38,7 @@ public class Customer : MonoBehaviour
         if (customer == null) return;
 
         // Customer walking to order spot
-        if (!orderTaken && !customerLeaving)
+        if (!orderTaken && !customerLeaving && !inLine)
         {
             customer.transform.position = Vector3.MoveTowards(
                 customer.transform.position,
@@ -48,6 +49,7 @@ public class Customer : MonoBehaviour
             if (Vector3.Distance(customer.transform.position, orderSpot.position) < 0.5f)
             {
                 orderTaken = true;
+                inLine = true;
                 Debug.Log("One pepperoni pizza, please!");
                 StartCoroutine(Angry(customer));
 
@@ -91,18 +93,19 @@ public class Customer : MonoBehaviour
         orderTaken = false;
         customerLeaving = false;
         interact.takenPizza = false;
-
+        inLine = false;
 
         // Deactivate all others
-        foreach (GameObject person in customers)
+        /*foreach (GameObject person in customers)
         {
             if (person != customer)
                 person.SetActive(false);
         }
-
+        */
+        
         // Pick next random customer
         PickRandomCustomer();
-
+            
     }
 
     IEnumerator Angry(GameObject obj)
@@ -115,6 +118,7 @@ public class Customer : MonoBehaviour
             {
                 StartCoroutine(Leave(obj));
                 review.reviewScore -= 500;
+                print("You suck bro");
             }
         }
 
