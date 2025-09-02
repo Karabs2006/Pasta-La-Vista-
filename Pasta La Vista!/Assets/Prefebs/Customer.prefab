@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2686388706764522449}
   - component: {fileID: 3589487746681377847}
   - component: {fileID: 7534732792324646341}
-  - component: {fileID: 8754171328050564420}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Customer
@@ -111,18 +110,3 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8754171328050564420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811363342389419230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e0d1d45cdc5c94489357a6c596b445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orderSpot: {fileID: 0}
-  exitSpot: {fileID: 0}
-  moveSpeed: 2
