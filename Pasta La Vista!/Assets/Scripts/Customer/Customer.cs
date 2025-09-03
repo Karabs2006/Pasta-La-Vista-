@@ -14,6 +14,7 @@ public class Customer : MonoBehaviour
     private bool orderTaken = false;
     private bool customerLeaving = false;
     bool inLine;
+    bool timesUp = false;
 
     void Start()
     {
@@ -26,10 +27,12 @@ public class Customer : MonoBehaviour
         {
             if (cust != customer)
                 cust.SetActive(false);
-        };
-        
+        }
+        ;
+
         // Pick the first customer and deactivate the others
         PickRandomCustomer();
+
     }
 
 
@@ -51,8 +54,7 @@ public class Customer : MonoBehaviour
                 orderTaken = true;
                 inLine = true;
                 Debug.Log("One pepperoni pizza, please!");
-                StartCoroutine(Angry(customer));
-
+                StartCoroutine(Timer());
             }
         }
 
@@ -95,33 +97,31 @@ public class Customer : MonoBehaviour
         interact.takenPizza = false;
         inLine = false;
 
-        // Deactivate all others
-        /*foreach (GameObject person in customers)
-        {
-            if (person != customer)
-                person.SetActive(false);
-        }
-        */
-        
         // Pick next random customer
         PickRandomCustomer();
-            
+
     }
 
     IEnumerator Angry(GameObject obj)
     {
-        for (int i = 8; i >= 0; i--)
+        yield return new WaitForSeconds(1f);
+        
+        review.reviewScore -= 500;
+        print("You suck bro");
+
+    }
+
+
+    IEnumerator Timer()
+    {
+       yield return new WaitForSeconds(10f);
+
+        if (!interact.takenPizza && !customerLeaving) // only leave if no pizza was given
         {
-            yield return new WaitForSeconds(1f);
-
-            if (i == 0)
-            {
-                StartCoroutine(Leave(obj));
-                review.reviewScore -= 500;
-                print("You suck bro");
-            }
+            StartCoroutine(Leave(customer));
+            review.reviewScore -= 500;
+            print("You suck!");
         }
-
     }
 
 }
