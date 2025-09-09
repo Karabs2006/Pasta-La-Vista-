@@ -8,6 +8,7 @@ public class Customer : MonoBehaviour
     public Transform exitSpot;
     public Interact interact;
     public Review review;
+    public Order orderScript;
     public float moveSpeed = 2f;
     private List<GameObject> customers;
     private GameObject customer;  // current active customer
@@ -32,6 +33,7 @@ public class Customer : MonoBehaviour
 
         // Pick the first customer and deactivate the others
         PickRandomCustomer();
+       
 
     }
 
@@ -54,6 +56,7 @@ public class Customer : MonoBehaviour
                 orderTaken = true;
                 inLine = true;
                 Debug.Log("One pepperoni pizza, please!");
+                orderScript.order.enabled = true;
                 StartCoroutine(Timer());
             }
         }
@@ -62,6 +65,7 @@ public class Customer : MonoBehaviour
         if (orderTaken && interact.takenPizza && !customerLeaving)
         {
             review.reviewScore += 500;
+            orderScript.order.enabled = false;
             customerLeaving = true;
             StartCoroutine(Leave(customer));
         }
@@ -75,7 +79,8 @@ public class Customer : MonoBehaviour
     }
 
     IEnumerator Leave(GameObject cust)
-    {
+    {   
+        orderScript.order.enabled = false;
         // Move customer toward exit over time
         while (Vector3.Distance(cust.transform.position, exitSpot.position) > 0.5f)
         {
@@ -117,7 +122,8 @@ public class Customer : MonoBehaviour
        yield return new WaitForSeconds(10f);
 
         if (!interact.takenPizza && !customerLeaving) // only leave if no pizza was given
-        {
+        {   
+            orderScript.reset = true;
             StartCoroutine(Leave(customer));
             review.reviewScore -= 500;
             print("You suck!");

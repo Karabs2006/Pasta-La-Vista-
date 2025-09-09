@@ -10,12 +10,14 @@ public class Interact : MonoBehaviour
     public GameObject dough;
     public FPController fPController;
     public Oven oven;
+    public Order order;
     bool cheeseZone;
     bool pepZone;
     bool doughZone;
     bool givePizza;
     public bool takenPizza;
     public bool nextCustomer;
+    int interactions = 0;
 
     void Start()
     {
@@ -39,7 +41,7 @@ public class Interact : MonoBehaviour
                 pepperoni.SetActive(false);
                 dough.SetActive(false);
                 fPController.interactPressed = false;
-                
+
             }
 
             if (pepZone)
@@ -61,8 +63,17 @@ public class Interact : MonoBehaviour
             if (givePizza && oven.bakedPizzaPlayer.activeSelf)
             {
                 oven.bakedPizzaPlayer.SetActive(false);
-                takenPizza = true;
                 fPController.interactPressed = false;
+                interactions++;
+
+                if (interactions == order.numPizza)
+                {
+                    takenPizza = true;
+                    order.enabled = false;
+                    interactions = 0;
+                }
+
+                
             }
         }
 
