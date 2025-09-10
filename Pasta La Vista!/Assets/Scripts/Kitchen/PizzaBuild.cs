@@ -16,6 +16,7 @@ public class PizzaBuild : MonoBehaviour
     bool cheesePlaced;
     bool pepperoniPlaced;
     public bool hasPizza = false;
+    public bool ovenEmpty= true;
     
 
     void Start()
@@ -31,7 +32,7 @@ public class PizzaBuild : MonoBehaviour
     {
         if (!buildPizza) return;
 
-        if (fPController.interactPressed)
+        if (fPController.interactPressed && ovenEmpty)
         {
             if (interact.dough.activeSelf)
             {
@@ -60,13 +61,17 @@ public class PizzaBuild : MonoBehaviour
                 interact.pepperoni.SetActive(false);
                 pepperoniPlaced = true;
 
-                pizza.SetActive(true);
-                crust.SetActive(false);
-                cheese.SetActive(false);
-                pepperoni.SetActive(false);
+                if (ovenEmpty)
+                {
+                    pizza.SetActive(true);
+                    crust.SetActive(false);
+                    cheese.SetActive(false);
+                    pepperoni.SetActive(false);
 
-                buildPizza = false;
-                fPController.interactPressed = false;
+                    buildPizza = false;
+                    fPController.interactPressed = false;
+                }
+               
             }
         }
     }

@@ -11,6 +11,7 @@ public class Oven : MonoBehaviour
     public GameObject bakedPizzaPlayer;
     public FPController fPController;
     public PizzaBuild pizzaBuild;
+    public Interact interact;
     public Slider slider;
     bool isBaking = false;
     bool nearOven;
@@ -35,6 +36,7 @@ public class Oven : MonoBehaviour
                 pizzaBuild.pizza.SetActive(false);
                 rawPizza.SetActive(true);
                 nearOven = false;
+                pizzaBuild.ovenEmpty = false;
                 StartCoroutine(BakePizza(bakedPizza));
                 fPController.interactPressed = false;
             }
@@ -45,8 +47,13 @@ public class Oven : MonoBehaviour
         {
             bakedPizzaPlayer.SetActive(true);
             bakedPizza.SetActive(false);
+            interact.cheese.SetActive(false);
+            interact.pepperoni.SetActive(false);
+            interact.dough.SetActive(false);
+            
             slider.value = 5;
             fPController.interactPressed = false;
+            pizzaBuild.ovenEmpty = true;
         }
 
     }
@@ -81,9 +88,7 @@ public class Oven : MonoBehaviour
         rawPizza.SetActive(false);
         isBaking = false;
         pizzaBaked = true;
-
-
-
+        
     }
 
 
