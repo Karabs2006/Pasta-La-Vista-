@@ -5,15 +5,18 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Oven : MonoBehaviour
-{
-    public GameObject bakedPizza;
-    public GameObject rawPizza;
-    public GameObject bakedPizzaPlayer;
-    public FPController fPController;
-    public PizzaBuild pizzaBuild;
-    public Interact interact;
-    public Slider slider;
-    bool isBaking = false;
+{   
+    [Header("Pizzas")]
+        public GameObject bakedPizza;
+        public GameObject rawPizza;
+        public GameObject bakedPizzaPlayer;
+
+    [Header("Scripts")]
+        public FPController fPController;
+        public PizzaBuild pizzaBuild;
+        public Interact interact;
+        public Slider slider;
+
     bool nearOven;
     bool pizzaBaked;
 
@@ -50,7 +53,7 @@ public class Oven : MonoBehaviour
             interact.cheese.SetActive(false);
             interact.pepperoni.SetActive(false);
             interact.dough.SetActive(false);
-            
+
             slider.value = 5;
             fPController.interactPressed = false;
             pizzaBuild.ovenEmpty = true;
@@ -77,7 +80,6 @@ public class Oven : MonoBehaviour
 
     IEnumerator BakePizza(GameObject obj)
     {
-        isBaking = true;
         for (int i = 5; i >= 0; i--)
         {
             slider.value = i;
@@ -86,7 +88,6 @@ public class Oven : MonoBehaviour
 
         obj.SetActive(true);
         rawPizza.SetActive(false);
-        isBaking = false;
         pizzaBaked = true;
         
     }

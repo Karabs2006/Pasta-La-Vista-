@@ -7,11 +7,13 @@ using Unity.VisualScripting;
 public class Review : MonoBehaviour
 {
     public int reviewScore = 3000;
-    public Image starOne;
-    public Image starTwo;
-    public Image starThree;
-    public Image starFour;
-    public Image starFive;
+
+    [Header("Stars")]
+        public Image starOne;
+        public Image starTwo;
+        public Image starThree;
+        public Image starFour;
+        public Image starFive;
     public List<Image> stars;
 
     void Start()

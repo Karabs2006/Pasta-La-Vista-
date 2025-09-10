@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class Customer : MonoBehaviour
 {
-    public Transform orderSpot;
-    public Transform exitSpot;
-    public Interact interact;
-    public Review review;
-    public Order orderScript;
-    public float moveSpeed = 2f;
+    [Header("Customer Destinations")]
+        public Transform orderSpot;
+        public Transform exitSpot;
+    
+    [Header("Scripts")]
+        public Interact interact;
+        public Review review;
+        public Order orderScript;
+
+    //Customers
+    float moveSpeed = 2f;
     private List<GameObject> customers;
-    private GameObject customer;  // current active customer
+    private GameObject customer;  
     private bool orderTaken = false;
     private bool customerLeaving = false;
     bool inLine;
-    bool timesUp = false;
 
     void Start()
     {

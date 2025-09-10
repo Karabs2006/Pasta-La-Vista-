@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Interact : MonoBehaviour
-{
-    public GameObject cheese;
-    public GameObject pepperoni;
-    public GameObject dough;
-    public FPController fPController;
-    public Oven oven;
-    public Order order;
-    bool cheeseZone;
-    bool pepZone;
-    bool doughZone;
-    bool givePizza;
-    public bool takenPizza;
-    public bool nextCustomer;
+{   
+    [Header("Player Ingredients")]
+        public GameObject cheese;
+        public GameObject pepperoni;
+        public GameObject dough;
+
+    [Header("Scripts")]
+        public FPController fPController;
+        public Oven oven;
+        public Order order;
+        
+    [Header("Booleans")]
+        bool cheeseZone;
+        bool pepZone;
+        bool doughZone;
+        bool givePizza;
+        public bool takenPizza;
+        public bool nextCustomer;
     int interactions = 0;
 
     void Start()
