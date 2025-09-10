@@ -55,7 +55,6 @@ public class Customer : MonoBehaviour
             {
                 orderTaken = true;
                 inLine = true;
-                Debug.Log("One pepperoni pizza, please!");
                 orderScript.order.enabled = true;
                 StartCoroutine(Timer());
             }
@@ -109,10 +108,8 @@ public class Customer : MonoBehaviour
 
     IEnumerator Angry(GameObject obj)
     {
-        yield return new WaitForSeconds(1f);
-        
+        yield return new WaitForSeconds(1f); 
         review.reviewScore -= 500;
-        print("You suck bro");
 
     }
 
