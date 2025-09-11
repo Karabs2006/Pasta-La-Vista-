@@ -76,9 +76,7 @@ public class Interact : MonoBehaviour
                     order.enabled = false;
                     interactions = 0;
                     
-                }
-
-                
+                } 
             }
         }
 
@@ -96,7 +94,6 @@ public class Interact : MonoBehaviour
             pepZone = true;
         }
 
-
         if (trigger.gameObject.name == "Dough Collider")
         {
             doughZone = true;
@@ -106,7 +103,6 @@ public class Interact : MonoBehaviour
         {
             givePizza = true;
         }
-
 
     }
 

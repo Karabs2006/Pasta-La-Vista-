@@ -13,7 +13,6 @@ public class Customer : MonoBehaviour
         public Interact interact;
         public Review review;
         public Order orderScript;
-
     //Customers
     float moveSpeed = 2f;
     private List<GameObject> customers;
@@ -22,7 +21,6 @@ public class Customer : MonoBehaviour
     private bool customerLeaving = false;
     bool inLine;
 
-
     void Start()
     {
         customers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Customer"));
@@ -30,19 +28,15 @@ public class Customer : MonoBehaviour
         exitSpot = GameObject.FindWithTag("Exit Spot").transform;
         inLine = false;
         
-
         foreach (GameObject cust in customers)
         {
             if (cust != customer)
                 cust.SetActive(false);
         }
         ;
-
         // Pick the first customer and deactivate the others
         PickRandomCustomer();
-       
     }
-
 
     void Update()
     {
@@ -69,7 +63,7 @@ public class Customer : MonoBehaviour
         // After pizza taken, start leaving
         if (orderTaken && interact.takenPizza && !customerLeaving)
         {   
-            orderScript.timer.enabled = false;
+            orderScript.timerSeconds.enabled = false;
             review.reviewScore += 500;
             orderScript.order.enabled = false;
             customerLeaving = true;
@@ -121,12 +115,16 @@ public class Customer : MonoBehaviour
 
     IEnumerator Timer()
     {
-        orderScript.timer.enabled = true;
-
+        orderScript.timer.SetActive(true);
         while (orderScript.time > 0)
         {
             orderScript.time--;
-            orderScript.timer.text = "Time Left: " + orderScript.time;
+            orderScript.timerSeconds.text = "" + orderScript.time;
+
+            if (orderScript.time <= 10)
+            {
+                orderScript.timerSeconds.color = Color.red;
+            }
             yield return new WaitForSeconds(1f);
         }
 
@@ -136,7 +134,7 @@ public class Customer : MonoBehaviour
         {
             StartCoroutine(Leave(customer));
             review.reviewScore -= 500;
-            orderScript.timer.enabled = false;
+            orderScript.timer.SetActive(false);
             print("You suck!");
         }
     }
