@@ -75,6 +75,7 @@ public class Interact : MonoBehaviour
                     takenPizza = true;
                     order.enabled = false;
                     interactions = 0;
+                    
                 }
 
                 

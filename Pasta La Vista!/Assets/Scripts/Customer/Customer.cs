@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Customer : MonoBehaviour
 {
@@ -21,12 +22,14 @@ public class Customer : MonoBehaviour
     private bool customerLeaving = false;
     bool inLine;
 
+
     void Start()
     {
         customers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Customer"));
         orderSpot = GameObject.FindWithTag("Order Spot").transform;
         exitSpot = GameObject.FindWithTag("Exit Spot").transform;
         inLine = false;
+        
 
         foreach (GameObject cust in customers)
         {
@@ -38,7 +41,6 @@ public class Customer : MonoBehaviour
         // Pick the first customer and deactivate the others
         PickRandomCustomer();
        
-
     }
 
 
@@ -66,7 +68,8 @@ public class Customer : MonoBehaviour
 
         // After pizza taken, start leaving
         if (orderTaken && interact.takenPizza && !customerLeaving)
-        {
+        {   
+            orderScript.timer.enabled = false;
             review.reviewScore += 500;
             orderScript.order.enabled = false;
             customerLeaving = true;
@@ -82,7 +85,7 @@ public class Customer : MonoBehaviour
     }
 
     IEnumerator Leave(GameObject cust)
-    {   
+    {
         orderScript.order.enabled = false;
         // Move customer toward exit over time
         while (Vector3.Distance(cust.transform.position, exitSpot.position) > 0.5f)
@@ -107,28 +110,34 @@ public class Customer : MonoBehaviour
 
         // Pick next random customer
         PickRandomCustomer();
-
+        orderScript.GenerateOrder();
     }
 
     IEnumerator Angry(GameObject obj)
     {
         yield return new WaitForSeconds(1f); 
         review.reviewScore -= 500;
-
     }
-
 
     IEnumerator Timer()
     {
-       yield return new WaitForSeconds(10f);
+        orderScript.timer.enabled = true;
 
-        if (!interact.takenPizza && !customerLeaving) // only leave if no pizza was given
-        {   
-            orderScript.reset = true;
+        while (orderScript.time > 0)
+        {
+            orderScript.time--;
+            orderScript.timer.text = "Time Left: " + orderScript.time;
+            yield return new WaitForSeconds(1f);
+        }
+
+        //yield return new WaitForSeconds(orderScript.time);
+
+        if (orderScript.time == 0 && !interact.takenPizza && !customerLeaving) // only leave if no pizza was given
+        {
             StartCoroutine(Leave(customer));
             review.reviewScore -= 500;
+            orderScript.timer.enabled = false;
             print("You suck!");
         }
     }
-
 }
