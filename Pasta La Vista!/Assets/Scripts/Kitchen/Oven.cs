@@ -46,7 +46,7 @@ public class Oven : MonoBehaviour
         }
 
 
-        if (pizzaBaked && nearOven && fPController.interactPressed)
+        if (pizzaBaked && nearOven && fPController.interactPressed && !pizzaBuild.ovenEmpty)
         {
             bakedPizzaPlayer.SetActive(true);
             bakedPizza.SetActive(false);

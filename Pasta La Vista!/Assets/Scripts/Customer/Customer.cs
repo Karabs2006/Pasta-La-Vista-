@@ -6,17 +6,17 @@ using TMPro;
 public class Customer : MonoBehaviour
 {
     [Header("Customer Destinations")]
-        public Transform orderSpot;
-        public Transform exitSpot;
-    
+    public Transform orderSpot;
+    public Transform exitSpot;
+
     [Header("Scripts")]
-        public Interact interact;
-        public Review review;
-        public Order orderScript;
+    public Interact interact;
+    public Review review;
+    public Order orderScript;
     //Customers
     float moveSpeed = 2f;
     private List<GameObject> customers;
-    private GameObject customer;  
+    private GameObject customer;
     private bool orderTaken = false;
     private bool customerLeaving = false;
     bool inLine;
@@ -27,7 +27,7 @@ public class Customer : MonoBehaviour
         orderSpot = GameObject.FindWithTag("Order Spot").transform;
         exitSpot = GameObject.FindWithTag("Exit Spot").transform;
         inLine = false;
-        
+
         foreach (GameObject cust in customers)
         {
             if (cust != customer)
@@ -63,11 +63,10 @@ public class Customer : MonoBehaviour
         // After pizza taken, start leaving
         if (orderTaken && interact.takenPizza && !customerLeaving)
         {   
-            orderScript.timerSeconds.enabled = false;
+            StartCoroutine(Leave(customer));
             review.reviewScore += 500;
             orderScript.order.enabled = false;
             customerLeaving = true;
-            StartCoroutine(Leave(customer));
         }
     }
 
@@ -81,6 +80,8 @@ public class Customer : MonoBehaviour
     IEnumerator Leave(GameObject cust)
     {
         orderScript.order.enabled = false;
+        orderScript.timer.SetActive(false);
+
         // Move customer toward exit over time
         while (Vector3.Distance(cust.transform.position, exitSpot.position) > 0.5f)
         {
@@ -109,13 +110,14 @@ public class Customer : MonoBehaviour
 
     IEnumerator Angry(GameObject obj)
     {
-        yield return new WaitForSeconds(1f); 
+        yield return new WaitForSeconds(1f);
         review.reviewScore -= 500;
     }
 
     IEnumerator Timer()
     {
         orderScript.timer.SetActive(true);
+
         while (orderScript.time > 0)
         {
             orderScript.time--;
@@ -128,14 +130,18 @@ public class Customer : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        //yield return new WaitForSeconds(orderScript.time);
-
         if (orderScript.time == 0 && !interact.takenPizza && !customerLeaving) // only leave if no pizza was given
         {
+            StopTimer();
             StartCoroutine(Leave(customer));
             review.reviewScore -= 500;
-            orderScript.timer.SetActive(false);
             print("You suck!");
         }
+    }
+
+    public void StopTimer()
+    {
+        StopCoroutine(Timer());
+        orderScript.timer.SetActive(false);
     }
 }
