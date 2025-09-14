@@ -19,6 +19,7 @@ public class Oven : MonoBehaviour
 
     bool nearOven;
     bool pizzaBaked;
+    public ParticleSystem steam;
 
     void Start()
     {
@@ -82,10 +83,12 @@ public class Oven : MonoBehaviour
     {
         for (int i = 5; i >= 0; i--)
         {
+            steam.Play();
             slider.value = i;
             yield return new WaitForSeconds(1f);
         }
 
+        steam.Stop();
         obj.SetActive(true);
         rawPizza.SetActive(false);
         pizzaBaked = true;
