@@ -5,19 +5,20 @@ using UnityEngine.InputSystem;
 
 public class PizzaBuild : MonoBehaviour
 {
-    public GameObject crust;
-    public GameObject cheese;
-    public GameObject pepperoni;
-    public GameObject pizza;
-    public Interact interact;
-    public FPController fPController;
-    bool buildPizza;
-    bool crustPlaced;
-    bool cheesePlaced;
-    bool pepperoniPlaced;
-    public bool hasPizza = false;
-    
+    [Header ("Raw Ingredients")]
+        public GameObject crust;
+        public GameObject cheese;
+        public GameObject pepperoni;
+        public GameObject pizza;
 
+    [Header ("Scripts")]
+        public Interact interact;
+        public FPController fPController;
+
+    [Header ("Booleans")]
+        bool buildPizza;
+        public bool ovenEmpty = true;
+    
     void Start()
     {
         crust.SetActive(false);
@@ -31,13 +32,12 @@ public class PizzaBuild : MonoBehaviour
     {
         if (!buildPizza) return;
 
-        if (fPController.interactPressed)
+        if (fPController.interactPressed && ovenEmpty)
         {
             if (interact.dough.activeSelf)
             {
                 crust.SetActive(true);
                 interact.dough.SetActive(false);
-                crustPlaced = true;
                 buildPizza = false;
                 fPController.interactPressed = false;
 
@@ -48,7 +48,6 @@ public class PizzaBuild : MonoBehaviour
             {
                 cheese.SetActive(true);
                 interact.cheese.SetActive(false);
-                cheesePlaced = true;
                 buildPizza = false;
                 fPController.interactPressed = false;
             }
@@ -58,15 +57,18 @@ public class PizzaBuild : MonoBehaviour
             {
                 pepperoni.SetActive(true);
                 interact.pepperoni.SetActive(false);
-                pepperoniPlaced = true;
 
-                pizza.SetActive(true);
-                crust.SetActive(false);
-                cheese.SetActive(false);
-                pepperoni.SetActive(false);
+                if (ovenEmpty)
+                {
+                    pizza.SetActive(true);
+                    crust.SetActive(false);
+                    cheese.SetActive(false);
+                    pepperoni.SetActive(false);
 
-                buildPizza = false;
-                fPController.interactPressed = false;
+                    buildPizza = false;
+                    fPController.interactPressed = false;
+                }
+               
             }
         }
     }

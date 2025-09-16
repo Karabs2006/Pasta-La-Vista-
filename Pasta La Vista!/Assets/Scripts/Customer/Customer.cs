@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Customer : MonoBehaviour
 {
+    [Header("Customer Destinations")]
     public Transform orderSpot;
     public Transform exitSpot;
+
+    [Header("Scripts")]
     public Interact interact;
     public Review review;
-    public float moveSpeed = 2f;
+    public Order orderScript;
+    //Customers
+    float moveSpeed = 2f;
     private List<GameObject> customers;
-    private GameObject customer;  // current active customer
+    private GameObject customer;
     private bool orderTaken = false;
     private bool customerLeaving = false;
     bool inLine;
@@ -26,12 +32,11 @@ public class Customer : MonoBehaviour
         {
             if (cust != customer)
                 cust.SetActive(false);
-        };
-        
+        }
+        ;
         // Pick the first customer and deactivate the others
         PickRandomCustomer();
     }
-
 
     void Update()
     {
@@ -50,18 +55,18 @@ public class Customer : MonoBehaviour
             {
                 orderTaken = true;
                 inLine = true;
-                Debug.Log("One pepperoni pizza, please!");
-                StartCoroutine(Angry(customer));
-
+                orderScript.order.enabled = true;
+                StartCoroutine(Timer());
             }
         }
 
         // After pizza taken, start leaving
         if (orderTaken && interact.takenPizza && !customerLeaving)
-        {
-            review.reviewScore += 500;
-            customerLeaving = true;
+        {   
             StartCoroutine(Leave(customer));
+            review.reviewScore += 500;
+            orderScript.order.enabled = false;
+            customerLeaving = true;
         }
     }
 
@@ -74,6 +79,9 @@ public class Customer : MonoBehaviour
 
     IEnumerator Leave(GameObject cust)
     {
+        orderScript.order.enabled = false;
+        orderScript.timer.SetActive(false);
+
         // Move customer toward exit over time
         while (Vector3.Distance(cust.transform.position, exitSpot.position) > 0.5f)
         {
@@ -95,33 +103,45 @@ public class Customer : MonoBehaviour
         interact.takenPizza = false;
         inLine = false;
 
-        // Deactivate all others
-        /*foreach (GameObject person in customers)
-        {
-            if (person != customer)
-                person.SetActive(false);
-        }
-        */
-        
         // Pick next random customer
         PickRandomCustomer();
-            
+        orderScript.GenerateOrder();
     }
 
     IEnumerator Angry(GameObject obj)
     {
-        for (int i = 8; i >= 0; i--)
-        {
-            yield return new WaitForSeconds(1f);
-
-            if (i == 0)
-            {
-                StartCoroutine(Leave(obj));
-                review.reviewScore -= 500;
-                print("You suck bro");
-            }
-        }
-
+        yield return new WaitForSeconds(1f);
+        review.reviewScore -= 500;
     }
 
+    IEnumerator Timer()
+    {
+        orderScript.timer.SetActive(true);
+
+        while (orderScript.time > 0)
+        {
+            orderScript.time--;
+            orderScript.timerSeconds.text = "" + orderScript.time;
+
+            if (orderScript.time <= 10)
+            {
+                orderScript.timerSeconds.color = Color.red;
+            }
+            yield return new WaitForSeconds(1f);
+        }
+
+        if (orderScript.time == 0 && !interact.takenPizza && !customerLeaving) // only leave if no pizza was given
+        {
+            StopTimer();
+            StartCoroutine(Leave(customer));
+            review.reviewScore -= 500;
+            print("You suck!");
+        }
+    }
+
+    public void StopTimer()
+    {
+        StopCoroutine(Timer());
+        orderScript.timer.SetActive(false);
+    }
 }

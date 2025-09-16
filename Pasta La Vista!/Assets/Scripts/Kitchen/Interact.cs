@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Interact : MonoBehaviour
-{
-    public GameObject cheese;
-    public GameObject pepperoni;
-    public GameObject dough;
-    public FPController fPController;
-    public Oven oven;
-    bool cheeseZone;
-    bool pepZone;
-    bool doughZone;
-    bool givePizza;
-    public bool takenPizza;
-    public bool nextCustomer;
+{   
+    [Header("Player Ingredients")]
+        public GameObject cheese;
+        public GameObject pepperoni;
+        public GameObject dough;
+
+    [Header("Scripts")]
+        public FPController fPController;
+        public Oven oven;
+        public Order order;
+        
+    [Header("Booleans")]
+        bool cheeseZone;
+        bool pepZone;
+        bool doughZone;
+        bool givePizza;
+        public bool takenPizza;
+        public bool nextCustomer;
+    int interactions = 0;
 
     void Start()
     {
@@ -39,7 +45,7 @@ public class Interact : MonoBehaviour
                 pepperoni.SetActive(false);
                 dough.SetActive(false);
                 fPController.interactPressed = false;
-                
+
             }
 
             if (pepZone)
@@ -61,8 +67,16 @@ public class Interact : MonoBehaviour
             if (givePizza && oven.bakedPizzaPlayer.activeSelf)
             {
                 oven.bakedPizzaPlayer.SetActive(false);
-                takenPizza = true;
                 fPController.interactPressed = false;
+                interactions++;
+
+                if (interactions == order.numPizza)
+                {
+                    takenPizza = true;
+                    order.enabled = false;
+                    interactions = 0;
+                    
+                } 
             }
         }
 
@@ -80,7 +94,6 @@ public class Interact : MonoBehaviour
             pepZone = true;
         }
 
-
         if (trigger.gameObject.name == "Dough Collider")
         {
             doughZone = true;
@@ -90,7 +103,6 @@ public class Interact : MonoBehaviour
         {
             givePizza = true;
         }
-
 
     }
 
