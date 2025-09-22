@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/*Title: How to make a Car in Unity - Simple Car Controller
+Author: Brackeys
+Date Accessed: December 2023
+Code Version: Unity 2019+ Compatible
+Availability: https://www.youtube.com/watch?v=Z4HA8zJhGEk
+*/
 public class CarAI : MonoBehaviour
 {
     public Transform exitPoint;
