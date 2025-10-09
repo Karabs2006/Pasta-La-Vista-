@@ -37,9 +37,9 @@ public class Interact : MonoBehaviour
     void Update()
     {
 
-        if (fPController.interactPressed)
+        if (fPController.interactPressed )
         {
-            if (cheeseZone)
+            if (cheeseZone && !oven.bakedPizzaPlayer.activeSelf)
             {
                 cheese.SetActive(true);
                 pepperoni.SetActive(false);
@@ -48,7 +48,7 @@ public class Interact : MonoBehaviour
 
             }
 
-            if (pepZone)
+            if (pepZone && !oven.bakedPizzaPlayer.activeSelf)
             {
                 pepperoni.SetActive(true);
                 cheese.SetActive(false);
@@ -56,7 +56,7 @@ public class Interact : MonoBehaviour
                 fPController.interactPressed = false;
             }
 
-            if (doughZone)
+            if (doughZone && !oven.bakedPizzaPlayer.activeSelf)
             {
                 dough.SetActive(true);
                 cheese.SetActive(false);

@@ -14,8 +14,9 @@ public class PizzaBuild : MonoBehaviour
     [Header ("Scripts")]
         public Interact interact;
         public FPController fPController;
+    //public Oven oven;
 
-    [Header ("Booleans")]
+    [Header("Booleans")]
         bool buildPizza;
         public bool ovenEmpty = true;
     
