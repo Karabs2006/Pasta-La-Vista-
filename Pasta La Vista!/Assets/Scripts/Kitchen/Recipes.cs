@@ -48,7 +48,7 @@ public class Recipes : MonoBehaviour
 
     public void Resume()
     {
-        playerInTrigger = false;
+        fPController.interactPressed = false;
         recipeActive = false;
         Time.timeScale = 1f;
         recipes.SetActive(false);
