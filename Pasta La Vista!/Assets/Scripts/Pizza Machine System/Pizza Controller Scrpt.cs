@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PizzaController : MonoBehaviour
 {
-    // Assign these in Inspector - all child objects of the pizza
+    
     public GameObject doughLayer;
     public GameObject sauceLayer;
     public GameObject cheeseLayer;
@@ -12,10 +12,10 @@ public class PizzaController : MonoBehaviour
 
     void Start()
     {
-        // Make sure pizza has the correct tag
+        
         gameObject.tag = "Pizza";
 
-        // Start as pizza base (dough only)
+       
         ResetToDough();
     }
 
@@ -31,7 +31,7 @@ public class PizzaController : MonoBehaviour
 
     public void AddSauce()
     {
-        if (doughLayer.activeSelf) // Only if we have dough
+        if (doughLayer.activeSelf) 
         {
             sauceLayer.SetActive(true);
             Debug.Log("Sauce added to pizza!");
@@ -40,7 +40,7 @@ public class PizzaController : MonoBehaviour
 
     public void AddCheese()
     {
-        if (doughLayer.activeSelf && sauceLayer.activeSelf) // Only if we have dough and sauce
+        if (doughLayer.activeSelf && sauceLayer.activeSelf) 
         {
             cheeseLayer.SetActive(true);
             Debug.Log("Cheese added to pizza!");
@@ -49,7 +49,7 @@ public class PizzaController : MonoBehaviour
 
     public void AddPepperoni()
     {
-        if (doughLayer.activeSelf && sauceLayer.activeSelf && cheeseLayer.activeSelf) // Only if complete so far
+        if (doughLayer.activeSelf && sauceLayer.activeSelf && cheeseLayer.activeSelf) 
         {
             pepperoniLayer.SetActive(true);
             Debug.Log("Pepperoni added to pizza!");
@@ -60,7 +60,7 @@ public class PizzaController : MonoBehaviour
     {
         if (doughLayer.activeSelf && sauceLayer.activeSelf && cheeseLayer.activeSelf && pepperoniLayer.activeSelf)
         {
-            // Hide raw pizza, show baked version
+            
             doughLayer.SetActive(false);
             sauceLayer.SetActive(false);
             cheeseLayer.SetActive(false);
@@ -72,7 +72,7 @@ public class PizzaController : MonoBehaviour
 
     public void BoxPizza()
     {
-        if (bakedPizzaLayer.activeSelf) // Only if baked
+        if (bakedPizzaLayer.activeSelf) 
         {
             bakedPizzaLayer.SetActive(false);
             boxedPizzaLayer.SetActive(true);
