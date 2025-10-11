@@ -1,24 +1,37 @@
 using UnityEngine;
 
+using UnityEngine;
+
 public class DoughMachine : MonoBehaviour
 {
-    public GameObject pizzaBasePrefab; // Pizza with only dough visible
-    public float spawnInterval = 5f;
+    public GameObject pizzaPrefab;
+    public float spawnTime = 3f;
 
     private float timer;
+
+    void Start()
+    {
+        // Spawn first pizza immediately
+        SpawnPizza();
+    }
 
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+
+        if (timer >= spawnTime)
         {
-            SpawnPizzaBase();
+            SpawnPizza();
             timer = 0f;
         }
     }
 
-    void SpawnPizzaBase()
+    void SpawnPizza()
     {
-        Instantiate(pizzaBasePrefab, transform.position, Quaternion.identity);
+        if (pizzaPrefab != null)
+        {
+            Instantiate(pizzaPrefab, transform.position, Quaternion.identity);
+            Debug.Log("Pizza spawned!");
+        }
     }
 }
