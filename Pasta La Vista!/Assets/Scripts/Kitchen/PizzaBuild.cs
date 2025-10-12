@@ -5,11 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PizzaBuild : MonoBehaviour
 {
-    [Header ("Raw Ingredients")]
+    [Header ("Ingredients")]
         public GameObject crust;
         public GameObject cheese;
         public GameObject pepperoni;
         public GameObject pizza;
+        //public GameObject cheesePizza;
 
     [Header ("Scripts")]
         public Interact interact;
@@ -19,14 +20,13 @@ public class PizzaBuild : MonoBehaviour
     [Header("Booleans")]
         bool buildPizza;
         public bool ovenEmpty = true;
-    
+   
     void Start()
     {
         crust.SetActive(false);
         cheese.SetActive(false);
         pepperoni.SetActive(false);
         pizza.SetActive(false);
-
     }
 
     void Update()
@@ -51,6 +51,7 @@ public class PizzaBuild : MonoBehaviour
                 interact.cheese.SetActive(false);
                 buildPizza = false;
                 fPController.interactPressed = false;
+             
             }
 
 
@@ -65,12 +66,12 @@ public class PizzaBuild : MonoBehaviour
                     crust.SetActive(false);
                     cheese.SetActive(false);
                     pepperoni.SetActive(false);
-
                     buildPizza = false;
                     fPController.interactPressed = false;
                 }
-               
+
             }
+
         }
     }
 
