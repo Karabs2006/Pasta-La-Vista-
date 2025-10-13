@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Order : MonoBehaviour
 {   
@@ -9,22 +10,32 @@ public class Order : MonoBehaviour
     public GameObject timer;
     public int numPizza;
     public int time;
-    const int seconds = 20;
+    public int pizzaType;
+    const int seconds = 5;
+    public List<string> pizzas;
 
     void Start()
     {
+        pizzas = new List<string>
+        {   
+            " Cheese Pizzas",
+            " Classic Pepperoni"
+        };
+
         order.enabled = false;
-        numPizza = Random.Range(1, 4);
-        order.text = "Could I get " + numPizza + " pizzas please!";
+        numPizza = Random.Range(1, 3);
+        pizzaType = Random.Range(0, pizzas.Count);
+        order.text = "Could I get " + numPizza + pizzas[pizzaType];
         timer.SetActive(false);
         time = seconds * numPizza;
     }
 
     public void GenerateOrder()
     {
-        numPizza = Random.Range(1, 4);
+        numPizza = Random.Range(1, 3);
+        pizzaType = Random.Range(0, pizzas.Count);
         time = seconds * numPizza; // fresh time each customer
-        order.text = "Could I get " + numPizza + " pizzas please!";
+        order.text = "Could I get " + numPizza + pizzas[pizzaType];
         timerSeconds.color = Color.white;
     }
 

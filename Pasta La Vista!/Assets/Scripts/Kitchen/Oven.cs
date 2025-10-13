@@ -5,12 +5,18 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Oven : MonoBehaviour
-{   
-    [Header("Pizzas")]
-        public GameObject bakedPizza;
-        public GameObject rawPizza;
-        public GameObject bakedPizzaPlayer;
+{
 
+    [Header("Classic Pepperoni Pizza")]
+        public GameObject bakedPizza;
+        public GameObject bakedPizzaPlayer;
+        public GameObject rawPizza;
+
+    [Header("Plain Cheese Pizza")]
+        public GameObject rawCheesePizza;
+        public GameObject bakedCheesePizza;
+        public GameObject bakedCheesePlayer;
+        
     [Header("Scripts")]
         public FPController fPController;
         public PizzaBuild pizzaBuild;
@@ -19,6 +25,7 @@ public class Oven : MonoBehaviour
 
     bool nearOven;
     bool pizzaBaked;
+    bool cheesePizzaBaked;
     public ParticleSystem steam;
 
     void Start()
@@ -26,13 +33,18 @@ public class Oven : MonoBehaviour
         rawPizza.SetActive(false);
         bakedPizza.SetActive(false);
         bakedPizzaPlayer.SetActive(false);
+
+        rawCheesePizza.SetActive(false);
+        bakedCheesePizza.SetActive(false);
+        bakedCheesePlayer.SetActive(false);
+
         nearOven = false;
         slider.value = 5;
 
     }
     void Update()
     {
-        
+        // CLASSIC PEPPERONI
         if (nearOven && pizzaBuild.pizza.activeSelf)
         {
             if (fPController.interactPressed)
@@ -46,11 +58,39 @@ public class Oven : MonoBehaviour
             }
         }
 
-
         if (pizzaBaked && nearOven && fPController.interactPressed && !pizzaBuild.ovenEmpty)
         {
             bakedPizzaPlayer.SetActive(true);
             bakedPizza.SetActive(false);
+            interact.cheese.SetActive(false);
+            interact.pepperoni.SetActive(false);
+            interact.dough.SetActive(false);
+
+            slider.value = 5;
+            fPController.interactPressed = false;
+            pizzaBuild.ovenEmpty = true;
+        }
+
+
+        // PLAIN CHEESE
+
+        if (nearOven && pizzaBuild.cheesePizza.activeSelf)
+        {
+            if (fPController.interactPressed)
+            {
+                pizzaBuild.cheesePizza.SetActive(false);
+                rawCheesePizza.SetActive(true);
+                nearOven = false;
+                pizzaBuild.ovenEmpty = false;
+                StartCoroutine(BakePizza(bakedCheesePizza));
+                fPController.interactPressed = false;
+            }
+        }
+
+        if (cheesePizzaBaked && nearOven && fPController.interactPressed && !pizzaBuild.ovenEmpty)
+        {
+            bakedCheesePlayer.SetActive(true);
+            bakedCheesePizza.SetActive(false);
             interact.cheese.SetActive(false);
             interact.pepperoni.SetActive(false);
             interact.dough.SetActive(false);
@@ -90,8 +130,19 @@ public class Oven : MonoBehaviour
 
         steam.Stop();
         obj.SetActive(true);
-        rawPizza.SetActive(false);
-        pizzaBaked = true;
+
+        if (obj == bakedPizza)
+        {
+            rawPizza.SetActive(false);
+            pizzaBaked = true;
+        }
+        
+        if(obj == bakedCheesePizza)
+        {
+            rawCheesePizza.SetActive(false); 
+            cheesePizzaBaked = true;
+        }
+        
         
     }
 

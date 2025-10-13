@@ -10,7 +10,8 @@ public class PizzaBuild : MonoBehaviour
         public GameObject cheese;
         public GameObject pepperoni;
         public GameObject pizza;
-        //public GameObject cheesePizza;
+        public GameObject cheesePizza;
+        public GameObject pepPizza;
 
     [Header ("Scripts")]
         public Interact interact;
@@ -20,6 +21,9 @@ public class PizzaBuild : MonoBehaviour
     [Header("Booleans")]
         bool buildPizza;
         public bool ovenEmpty = true;
+        bool doughPlaced = false;
+        bool cheesePlaced = false;
+        bool pepPlaced = false;
    
     void Start()
     {
@@ -27,6 +31,8 @@ public class PizzaBuild : MonoBehaviour
         cheese.SetActive(false);
         pepperoni.SetActive(false);
         pizza.SetActive(false);
+        cheesePizza.SetActive(false);
+        pepPizza.SetActive(false);
     }
 
     void Update()
@@ -41,6 +47,7 @@ public class PizzaBuild : MonoBehaviour
                 interact.dough.SetActive(false);
                 buildPizza = false;
                 fPController.interactPressed = false;
+                doughPlaced = true;
 
             }
 
@@ -51,7 +58,8 @@ public class PizzaBuild : MonoBehaviour
                 interact.cheese.SetActive(false);
                 buildPizza = false;
                 fPController.interactPressed = false;
-             
+                cheesePlaced = true;
+
             }
 
 
@@ -59,6 +67,7 @@ public class PizzaBuild : MonoBehaviour
             {
                 pepperoni.SetActive(true);
                 interact.pepperoni.SetActive(false);
+                pepPlaced = true;
 
                 if (ovenEmpty)
                 {
@@ -66,6 +75,9 @@ public class PizzaBuild : MonoBehaviour
                     crust.SetActive(false);
                     cheese.SetActive(false);
                     pepperoni.SetActive(false);
+
+                    cheesePlaced = false;
+                    doughPlaced = false;
                     buildPizza = false;
                     fPController.interactPressed = false;
                 }
@@ -73,6 +85,33 @@ public class PizzaBuild : MonoBehaviour
             }
 
         }
+
+        // CHEESE PIZZA
+        if (cheesePlaced && doughPlaced && fPController.interactPressed)
+        {
+            cheesePizza.SetActive(true);
+            fPController.interactPressed = false;
+            crust.SetActive(false);
+            cheese.SetActive(false);
+            pepperoni.SetActive(false);
+
+        }
+
+        //PEPPERONI
+        if (cheesePlaced && doughPlaced && pepPlaced && fPController.interactPressed)
+        {
+            pepPizza.SetActive(true);
+            fPController.interactPressed = false;
+            crust.SetActive(false);
+            cheese.SetActive(false);
+            pepperoni.SetActive(false);
+
+        }
+
+
+
+        
+
     }
 
     void OnTriggerEnter(Collider trigger)
