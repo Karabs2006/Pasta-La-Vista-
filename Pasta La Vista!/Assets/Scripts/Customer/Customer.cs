@@ -13,6 +13,7 @@ public class Customer : MonoBehaviour
     public Interact interact;
     public Review review;
     public Order orderScript;
+    public FPController fPController;
     //Customers
     float moveSpeed = 2f;
     private List<GameObject> customers;
@@ -53,6 +54,7 @@ public class Customer : MonoBehaviour
 
             if (Vector3.Distance(customer.transform.position, orderSpot.position) < 0.5f)
             {
+                interact.givePizza = true;
                 orderTaken = true;
                 inLine = true;
                 orderScript.order.enabled = true;
@@ -78,7 +80,9 @@ public class Customer : MonoBehaviour
     }
 
     IEnumerator Leave(GameObject cust)
-    {
+    {  
+        fPController.interactPressed = false; 
+        interact.givePizza = false;
         orderScript.order.enabled = false;
         orderScript.timer.SetActive(false);
 
@@ -131,17 +135,20 @@ public class Customer : MonoBehaviour
         }
 
         if (orderScript.time == 0 && !interact.takenPizza && !customerLeaving) // only leave if no pizza was given
-        {
+        {   
             StopTimer();
             StartCoroutine(Leave(customer));
             review.reviewScore -= 500;
             print("You suck!");
+            interact.givePizza = false;
         }
     }
 
     public void StopTimer()
-    {
+    {   
+
         StopCoroutine(Timer());
         orderScript.timer.SetActive(false);
+        fPController.interactPressed = false;
     }
 }

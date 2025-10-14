@@ -5,16 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PizzaBuild : MonoBehaviour
 {
-    [Header ("Raw Ingredients")]
+    [Header ("Ingredients")]
         public GameObject crust;
         public GameObject cheese;
-        public GameObject pepperoni;
         public GameObject pizza;
-<<<<<<< HEAD
         public GameObject cheesePizza;
-        public GameObject pepPizza;
-=======
->>>>>>> parent of dcd5598 (Dustbin added)
+        //public GameObject pepPizza;
 
     [Header ("Scripts")]
         public Interact interact;
@@ -24,26 +20,17 @@ public class PizzaBuild : MonoBehaviour
     [Header("Booleans")]
         bool buildPizza;
         public bool ovenEmpty = true;
-<<<<<<< HEAD
-        bool doughPlaced = false;
-        bool cheesePlaced = false;
+        public bool doughPlaced = false;
+        public bool cheesePlaced = false;
         bool pepPlaced = false;
    
-=======
-    
->>>>>>> parent of dcd5598 (Dustbin added)
     void Start()
     {
         crust.SetActive(false);
-        cheese.SetActive(false);
-        pepperoni.SetActive(false);
+        cheese.SetActive(false); 
         pizza.SetActive(false);
-<<<<<<< HEAD
         cheesePizza.SetActive(false);
-        pepPizza.SetActive(false);
-=======
-
->>>>>>> parent of dcd5598 (Dustbin added)
+        //pepPizza.SetActive(false);
     }
 
     void Update()
@@ -69,20 +56,18 @@ public class PizzaBuild : MonoBehaviour
                 interact.cheese.SetActive(false);
                 buildPizza = false;
                 fPController.interactPressed = false;
-<<<<<<< HEAD
                 cheesePlaced = true;
 
-=======
->>>>>>> parent of dcd5598 (Dustbin added)
             }
 
 
             if (interact.pepperoni.activeSelf)
             {
-                pepperoni.SetActive(true);
                 interact.pepperoni.SetActive(false);
                 pepPlaced = true;
+                buildPizza = false;
 
+                /*
                 if (ovenEmpty)
                 {
                     pizza.SetActive(true);
@@ -90,16 +75,26 @@ public class PizzaBuild : MonoBehaviour
                     cheese.SetActive(false);
                     pepperoni.SetActive(false);
 
-<<<<<<< HEAD
                     cheesePlaced = false;
                     doughPlaced = false;
-=======
->>>>>>> parent of dcd5598 (Dustbin added)
                     buildPizza = false;
                     fPController.interactPressed = false;
                 }
-               
+                */
+
+                if (cheesePlaced && doughPlaced && pepPlaced)
+                {
+                    pizza.SetActive(true);
+                    fPController.interactPressed = false;
+                    crust.SetActive(false);
+                    cheese.SetActive(false);
+                    doughPlaced = false;
+                    cheesePlaced = false;
+                    pepPlaced = false;
+                }
+
             }
+
         }
 
         // CHEESE PIZZA
@@ -109,25 +104,8 @@ public class PizzaBuild : MonoBehaviour
             fPController.interactPressed = false;
             crust.SetActive(false);
             cheese.SetActive(false);
-            pepperoni.SetActive(false);
-
         }
-
-        //PEPPERONI
-        if (cheesePlaced && doughPlaced && pepPlaced && fPController.interactPressed)
-        {
-            pepPizza.SetActive(true);
-            fPController.interactPressed = false;
-            crust.SetActive(false);
-            cheese.SetActive(false);
-            pepperoni.SetActive(false);
-
-        }
-
-
-
-        
-
+  
     }
 
     void OnTriggerEnter(Collider trigger)

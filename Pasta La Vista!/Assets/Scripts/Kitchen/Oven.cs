@@ -48,9 +48,12 @@ public class Oven : MonoBehaviour
         if (nearOven && pizzaBuild.pizza.activeSelf)
         {
             if (fPController.interactPressed)
-            {
-                pizzaBuild.pizza.SetActive(false);
+            {   
                 rawPizza.SetActive(true);
+                pizzaBuild.pizza.SetActive(false);
+                rawCheesePizza.SetActive(false);
+                bakedCheesePizza.SetActive(false);
+
                 nearOven = false;
                 pizzaBuild.ovenEmpty = false;
                 StartCoroutine(BakePizza(bakedPizza));
@@ -62,6 +65,11 @@ public class Oven : MonoBehaviour
         {
             bakedPizzaPlayer.SetActive(true);
             bakedPizza.SetActive(false);
+
+            bakedCheesePlayer.SetActive(false);
+            bakedCheesePizza.SetActive(false);
+            rawCheesePizza.SetActive(false);
+
             interact.cheese.SetActive(false);
             interact.pepperoni.SetActive(false);
             interact.dough.SetActive(false);
@@ -77,13 +85,19 @@ public class Oven : MonoBehaviour
         if (nearOven && pizzaBuild.cheesePizza.activeSelf)
         {
             if (fPController.interactPressed)
-            {
-                pizzaBuild.cheesePizza.SetActive(false);
+            {   
                 rawCheesePizza.SetActive(true);
+                pizzaBuild.cheesePizza.SetActive(false);
+                rawPizza.SetActive(false);
+                bakedPizza.SetActive(false);
+
                 nearOven = false;
                 pizzaBuild.ovenEmpty = false;
                 StartCoroutine(BakePizza(bakedCheesePizza));
                 fPController.interactPressed = false;
+
+                pizzaBuild.doughPlaced = false;
+                pizzaBuild.cheesePlaced = false;
             }
         }
 
@@ -91,6 +105,11 @@ public class Oven : MonoBehaviour
         {
             bakedCheesePlayer.SetActive(true);
             bakedCheesePizza.SetActive(false);
+
+            bakedPizzaPlayer.SetActive(false);
+            bakedPizza.SetActive(false);
+            rawPizza.SetActive(false);
+
             interact.cheese.SetActive(false);
             interact.pepperoni.SetActive(false);
             interact.dough.SetActive(false);

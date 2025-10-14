@@ -15,23 +15,19 @@ public class Interact : MonoBehaviour
         public Order order;
         
     [Header("Booleans")]
-        bool cheeseZone;
-        bool pepZone;
-        bool doughZone;
-        bool givePizza;
-        public bool takenPizza;
-        public bool nextCustomer;
-    int interactions = 0;
+        bool cheeseZone = false;
+        bool pepZone = false;
+        bool doughZone = false;
+        public bool givePizza = false;
+        public bool takenPizza = false;
+        public bool nextCustomer = false;
+        int interactions = 0;
 
     void Start()
     {
         cheese.SetActive(false);
         pepperoni.SetActive(false);
         dough.SetActive(false);
-        cheeseZone = false;
-        pepZone = false;
-        nextCustomer = false;
-        takenPizza = false;
     }
 
     void Update()
@@ -67,6 +63,21 @@ public class Interact : MonoBehaviour
             if (givePizza && oven.bakedPizzaPlayer.activeSelf)
             {
                 oven.bakedPizzaPlayer.SetActive(false);
+                fPController.interactPressed = false;
+                interactions++;
+
+                if (interactions == order.numPizza)
+                {
+                    takenPizza = true;
+                    order.enabled = false;
+                    interactions = 0;
+
+                }
+            }
+            
+            if (givePizza && oven.bakedCheesePlayer.activeSelf)
+            {
+                oven.bakedCheesePlayer.SetActive(false);
                 fPController.interactPressed = false;
                 interactions++;
 
