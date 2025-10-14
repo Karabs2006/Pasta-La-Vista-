@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Oven : MonoBehaviour
 {
-
     [Header("Classic Pepperoni Pizza")]
         public GameObject bakedPizza;
         public GameObject bakedPizzaPlayer;
@@ -22,11 +21,12 @@ public class Oven : MonoBehaviour
         public PizzaBuild pizzaBuild;
         public Interact interact;
         public Slider slider;
+        public Order order;
 
-    bool nearOven;
-    bool pizzaBaked;
-    bool cheesePizzaBaked;
-    public ParticleSystem steam;
+        bool nearOven;
+        bool pizzaBaked;
+        bool cheesePizzaBaked;
+        public ParticleSystem steam;
 
     void Start()
     {
@@ -62,7 +62,8 @@ public class Oven : MonoBehaviour
         }
 
         if (pizzaBaked && nearOven && fPController.interactPressed && !pizzaBuild.ovenEmpty)
-        {
+        {   
+            order.isPepPizzaHeld = true;
             bakedPizzaPlayer.SetActive(true);
             bakedPizza.SetActive(false);
 
@@ -77,12 +78,14 @@ public class Oven : MonoBehaviour
             slider.value = 5;
             fPController.interactPressed = false;
             pizzaBuild.ovenEmpty = true;
-        }
 
+            pizzaBaked = false;
+            cheesePizzaBaked = false;
+        }
 
         // PLAIN CHEESE
 
-        if (nearOven && pizzaBuild.cheesePizza.activeSelf)
+        else if (nearOven && pizzaBuild.cheesePizza.activeSelf)
         {
             if (fPController.interactPressed)
             {   
@@ -103,6 +106,7 @@ public class Oven : MonoBehaviour
 
         if (cheesePizzaBaked && nearOven && fPController.interactPressed && !pizzaBuild.ovenEmpty)
         {
+            order.isCheesePizzaHeld = true;
             bakedCheesePlayer.SetActive(true);
             bakedCheesePizza.SetActive(false);
 
@@ -117,6 +121,9 @@ public class Oven : MonoBehaviour
             slider.value = 5;
             fPController.interactPressed = false;
             pizzaBuild.ovenEmpty = true;
+
+            pizzaBaked = false;
+            cheesePizzaBaked = false;
         }
 
     }

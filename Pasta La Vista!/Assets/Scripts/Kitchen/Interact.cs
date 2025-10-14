@@ -60,8 +60,11 @@ public class Interact : MonoBehaviour
                 fPController.interactPressed = false;
             }
 
-            if (givePizza && oven.bakedPizzaPlayer.activeSelf)
-            {
+            if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
+            {  
+                if (order.pizzaType == 1)
+                {
+                order.isPepPizzaHeld = false;
                 oven.bakedPizzaPlayer.SetActive(false);
                 fPController.interactPressed = false;
                 interactions++;
@@ -71,12 +74,17 @@ public class Interact : MonoBehaviour
                     takenPizza = true;
                     order.enabled = false;
                     interactions = 0;
-
+                    
                 }
+                } 
+                
             }
             
-            if (givePizza && oven.bakedCheesePlayer.activeSelf)
-            {
+            if (givePizza && oven.bakedCheesePlayer.activeSelf && order.isCheesePizzaHeld)
+            {   
+                if (order.pizzaType == 0)
+                {
+                order.isCheesePizzaHeld = false;
                 oven.bakedCheesePlayer.SetActive(false);
                 fPController.interactPressed = false;
                 interactions++;
@@ -88,6 +96,8 @@ public class Interact : MonoBehaviour
                     interactions = 0;
                     
                 } 
+                }
+                
             }
         }
 
