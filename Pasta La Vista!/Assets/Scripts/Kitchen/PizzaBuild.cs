@@ -5,13 +5,16 @@ using UnityEngine.InputSystem;
 
 public class PizzaBuild : MonoBehaviour
 {
-    [Header ("Ingredients")]
+    [Header ("Raw Ingredients")]
         public GameObject crust;
         public GameObject cheese;
         public GameObject pepperoni;
         public GameObject pizza;
+<<<<<<< HEAD
         public GameObject cheesePizza;
         public GameObject pepPizza;
+=======
+>>>>>>> parent of dcd5598 (Dustbin added)
 
     [Header ("Scripts")]
         public Interact interact;
@@ -21,18 +24,26 @@ public class PizzaBuild : MonoBehaviour
     [Header("Booleans")]
         bool buildPizza;
         public bool ovenEmpty = true;
+<<<<<<< HEAD
         bool doughPlaced = false;
         bool cheesePlaced = false;
         bool pepPlaced = false;
    
+=======
+    
+>>>>>>> parent of dcd5598 (Dustbin added)
     void Start()
     {
         crust.SetActive(false);
         cheese.SetActive(false);
         pepperoni.SetActive(false);
         pizza.SetActive(false);
+<<<<<<< HEAD
         cheesePizza.SetActive(false);
         pepPizza.SetActive(false);
+=======
+
+>>>>>>> parent of dcd5598 (Dustbin added)
     }
 
     void Update()
@@ -58,8 +69,11 @@ public class PizzaBuild : MonoBehaviour
                 interact.cheese.SetActive(false);
                 buildPizza = false;
                 fPController.interactPressed = false;
+<<<<<<< HEAD
                 cheesePlaced = true;
 
+=======
+>>>>>>> parent of dcd5598 (Dustbin added)
             }
 
 
@@ -76,14 +90,16 @@ public class PizzaBuild : MonoBehaviour
                     cheese.SetActive(false);
                     pepperoni.SetActive(false);
 
+<<<<<<< HEAD
                     cheesePlaced = false;
                     doughPlaced = false;
+=======
+>>>>>>> parent of dcd5598 (Dustbin added)
                     buildPizza = false;
                     fPController.interactPressed = false;
                 }
-
+               
             }
-
         }
 
         // CHEESE PIZZA
