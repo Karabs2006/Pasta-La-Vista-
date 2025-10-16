@@ -14,6 +14,7 @@ public class Customer : MonoBehaviour
     public Review review;
     public Order orderScript;
     public FPController fPController;
+    public Animator animator;
     //Customers
     float moveSpeed = 2f;
     private List<GameObject> customers;
@@ -54,6 +55,7 @@ public class Customer : MonoBehaviour
 
             if (Vector3.Distance(customer.transform.position, orderSpot.position) < 0.5f)
             {
+                animator.SetBool("AtOrderSpot", true);
                 interact.givePizza = true;
                 orderTaken = true;
                 inLine = true;
@@ -81,6 +83,8 @@ public class Customer : MonoBehaviour
 
     IEnumerator Leave(GameObject cust)
     {  
+        customer.transform.Rotate(0f, 180f, 0f);
+        animator.SetBool("AtOrderSpot", false);
         fPController.interactPressed = false; 
         interact.givePizza = false;
         orderScript.order.enabled = false;
