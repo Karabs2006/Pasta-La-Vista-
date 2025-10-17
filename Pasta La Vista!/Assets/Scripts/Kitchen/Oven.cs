@@ -74,6 +74,7 @@ public class Oven : MonoBehaviour
             interact.cheese.SetActive(false);
             interact.pepperoni.SetActive(false);
             interact.dough.SetActive(false);
+            interact.sauce.SetActive(false);
 
             slider.value = 5;
             fPController.interactPressed = false;
@@ -117,6 +118,7 @@ public class Oven : MonoBehaviour
             interact.cheese.SetActive(false);
             interact.pepperoni.SetActive(false);
             interact.dough.SetActive(false);
+            interact.sauce.SetActive(false);
 
             slider.value = 5;
             fPController.interactPressed = false;
