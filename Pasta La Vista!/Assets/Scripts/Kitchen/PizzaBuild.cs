@@ -8,6 +8,7 @@ public class PizzaBuild : MonoBehaviour
     [Header ("Ingredients")]
         public GameObject crust;
         public GameObject cheese;
+        public GameObject sauce;
         public GameObject pizza;
         public GameObject cheesePizza;
         //public GameObject pepPizza;
@@ -22,12 +23,14 @@ public class PizzaBuild : MonoBehaviour
         public bool ovenEmpty = true;
         public bool doughPlaced = false;
         public bool cheesePlaced = false;
+        public bool saucePlaced = false;
         bool pepPlaced = false;
    
     void Start()
     {
         crust.SetActive(false);
-        cheese.SetActive(false); 
+        cheese.SetActive(false);
+        sauce.SetActive(false);
         pizza.SetActive(false);
         cheesePizza.SetActive(false);
         //pepPizza.SetActive(false);
@@ -49,8 +52,18 @@ public class PizzaBuild : MonoBehaviour
 
             }
 
+            if (interact.sauce.activeSelf && doughPlaced)
+            {
+                sauce.SetActive(true);
+                interact.sauce.SetActive(false);
+                buildPizza = false;
+                fPController.interactPressed = false;
+                saucePlaced = true;
 
-            if (interact.cheese.activeSelf)
+            }
+
+
+            if (interact.cheese.activeSelf && saucePlaced)
             {
                 cheese.SetActive(true);
                 interact.cheese.SetActive(false);
@@ -59,6 +72,8 @@ public class PizzaBuild : MonoBehaviour
                 cheesePlaced = true;
 
             }
+
+            
 
 
             if (interact.pepperoni.activeSelf)
@@ -82,15 +97,17 @@ public class PizzaBuild : MonoBehaviour
                 }
                 */
 
-                if (cheesePlaced && doughPlaced && pepPlaced)
+                if (cheesePlaced && doughPlaced && pepPlaced && saucePlaced)
                 {
                     pizza.SetActive(true);
-                    fPController.interactPressed = false;
                     crust.SetActive(false);
                     cheese.SetActive(false);
+                    sauce.SetActive(false);
                     doughPlaced = false;
                     cheesePlaced = false;
                     pepPlaced = false;
+                    saucePlaced = false;
+                    fPController.interactPressed = false;
                 }
 
             }
@@ -98,12 +115,13 @@ public class PizzaBuild : MonoBehaviour
         }
 
         // CHEESE PIZZA
-        if (cheesePlaced && doughPlaced && fPController.interactPressed)
+        if (cheesePlaced && doughPlaced && saucePlaced && fPController.interactPressed)
         {
             cheesePizza.SetActive(true);
             fPController.interactPressed = false;
             crust.SetActive(false);
             cheese.SetActive(false);
+            sauce.SetActive(false);
         }
   
     }
