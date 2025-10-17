@@ -14,13 +14,13 @@ public class CarAI : MonoBehaviour
 
     void Start()
     {
-        // Store the starting height
+      
         initialY = transform.position.y;
     }
 
     void Update()
     {
-        // Move toward exit point but maintain Y position
+        
         Vector3 targetPosition = exitPoint.position;
         targetPosition.y = initialY; // Keep original height
 
@@ -30,15 +30,15 @@ public class CarAI : MonoBehaviour
             speed * Time.deltaTime
         );
 
-        // Rotate to face exit (horizontal only)
+    
         Vector3 lookDirection = exitPoint.position - transform.position;
-        lookDirection.y = 0; // Ignore vertical difference
+        lookDirection.y = 0; 
         if (lookDirection != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(lookDirection);
         }
 
-        // Destroy when reached exit
+       
         if (Vector3.Distance(transform.position, targetPosition) < 1f)
         {
             Destroy(gameObject);
