@@ -11,7 +11,7 @@ public class Order : MonoBehaviour
     public int numPizza;
     public int time;
     public int pizzaType;
-    const int seconds = 30;
+    const int seconds = 35;
     public List<string> pizzas;
 
     public bool isCheesePizzaHeld = false;
