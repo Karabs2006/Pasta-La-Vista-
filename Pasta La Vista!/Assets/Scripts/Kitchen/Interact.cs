@@ -8,6 +8,7 @@ public class Interact : MonoBehaviour
         public GameObject cheese;
         public GameObject pepperoni;
         public GameObject dough;
+        public GameObject sauce;
 
     [Header("Scripts")]
         public FPController fPController;
@@ -18,6 +19,7 @@ public class Interact : MonoBehaviour
         bool cheeseZone = false;
         bool pepZone = false;
         bool doughZone = false;
+        bool sauceZone = false;
         public bool givePizza = false;
         public bool takenPizza = false;
         public bool nextCustomer = false;
@@ -28,6 +30,7 @@ public class Interact : MonoBehaviour
         cheese.SetActive(false);
         pepperoni.SetActive(false);
         dough.SetActive(false);
+        sauce.SetActive(false);
     }
 
     void Update()
@@ -40,6 +43,7 @@ public class Interact : MonoBehaviour
                 cheese.SetActive(true);
                 pepperoni.SetActive(false);
                 dough.SetActive(false);
+                sauce.SetActive(false);
                 fPController.interactPressed = false;
 
             }
@@ -49,12 +53,23 @@ public class Interact : MonoBehaviour
                 pepperoni.SetActive(true);
                 cheese.SetActive(false);
                 dough.SetActive(false);
+                sauce.SetActive(false);
                 fPController.interactPressed = false;
             }
 
             if (doughZone && !oven.bakedPizzaPlayer.activeSelf)
             {
                 dough.SetActive(true);
+                cheese.SetActive(false);
+                pepperoni.SetActive(false);
+                sauce.SetActive(false);
+                fPController.interactPressed = false;
+            }
+
+            if (sauceZone && !oven.bakedPizzaPlayer.activeSelf)
+            {
+                sauce.SetActive(true);
+                dough.SetActive(false);
                 cheese.SetActive(false);
                 pepperoni.SetActive(false);
                 fPController.interactPressed = false;
@@ -120,6 +135,11 @@ public class Interact : MonoBehaviour
             doughZone = true;
         }
 
+        if (trigger.gameObject.name == "Sauce Collider")
+        {
+            sauceZone = true;
+        }
+
         if (trigger.gameObject.name == "CollectSpot")
         {
             givePizza = true;
@@ -142,6 +162,11 @@ public class Interact : MonoBehaviour
         if (other.gameObject.name == "Dough Collider")
         {
             doughZone = false;
+        }
+
+        if (other.gameObject.name == "Sauce Collider")
+        {
+            sauceZone = false;
         }
 
         if (other.gameObject.name == "CollectSpot")
