@@ -19,22 +19,20 @@ public class SteveReview : MonoBehaviour
         stars[2].enabled = false;
         stars[3].enabled = false;
         stars[4].enabled = false;
-
-        StartCoroutine(Review()); 
     }
     
-    IEnumerator Review()
+    public IEnumerator Review()
     {
-        yield return new WaitForSeconds(40f);
+        yield return new WaitForSeconds(30f);
         stars[2].enabled = true;
-        yield return new WaitForSeconds(40f);
+        yield return new WaitForSeconds(20f);
         stars[3].enabled = true;
-        yield return new WaitForSeconds(50f);
+        yield return new WaitForSeconds(40f);
         stars[4].enabled = true;
         yield return new WaitForSeconds(30f);
         stars[4].enabled = false;
         stars[3].enabled = false;
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(20f);
         stars[3].enabled = true;
     }
 }

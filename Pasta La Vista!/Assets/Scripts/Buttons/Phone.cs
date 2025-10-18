@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Phone : MonoBehaviour
 {
@@ -44,8 +45,7 @@ public class Phone : MonoBehaviour
             foreach (Image star in stars)
             {
                 star.enabled = true;
-            }
-            ;
+            };
         }
 
         else if (review.reviewScore >= 4000 && review.reviewScore < 5000)
