@@ -6,8 +6,7 @@ public class CustomerSpawner : MonoBehaviour
     public Interact interact;
     public Transform spawnPoint;
     private GameObject currentCustomer;
-
-
+    
     void Update()
     {
         if (interact.nextCustomer)

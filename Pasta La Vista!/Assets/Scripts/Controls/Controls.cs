@@ -144,6 +144,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Phone"",
+                    ""type"": ""Button"",
+                    ""id"": ""be78d984-852f-4054-8573-9c00e6f2a95f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -410,6 +419,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Quit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92b12338-9a3d-4dfc-8a98-fcf4fd120c2a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Phone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ced1f981-6a52-4f41-85cf-9e7a2bba9a31"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Phone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -424,6 +455,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Quit = m_Player.FindAction("Quit", throwIfNotFound: true);
+        m_Player_Phone = m_Player.FindAction("Phone", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -510,6 +542,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Quit;
+    private readonly InputAction m_Player_Phone;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -545,6 +578,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Quit".
         /// </summary>
         public InputAction @Quit => m_Wrapper.m_Player_Quit;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Phone".
+        /// </summary>
+        public InputAction @Phone => m_Wrapper.m_Player_Phone;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -589,6 +626,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Quit.started += instance.OnQuit;
             @Quit.performed += instance.OnQuit;
             @Quit.canceled += instance.OnQuit;
+            @Phone.started += instance.OnPhone;
+            @Phone.performed += instance.OnPhone;
+            @Phone.canceled += instance.OnPhone;
         }
 
         /// <summary>
@@ -618,6 +658,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Quit.started -= instance.OnQuit;
             @Quit.performed -= instance.OnQuit;
             @Quit.canceled -= instance.OnQuit;
+            @Phone.started -= instance.OnPhone;
+            @Phone.performed -= instance.OnPhone;
+            @Phone.canceled -= instance.OnPhone;
         }
 
         /// <summary>
@@ -700,5 +743,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnQuit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Phone" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPhone(InputAction.CallbackContext context);
     }
 }
