@@ -1,12 +1,13 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Collections;
 
-public class Review : MonoBehaviour
+public class Phone : MonoBehaviour
 {
-    public int reviewScore = 3000;
+    public FPController fPController;
+    public GameObject phone;
+    public Review review;
 
     [Header("Stars")]
         public Image starOne;
@@ -18,6 +19,7 @@ public class Review : MonoBehaviour
 
     void Start()
     {
+        phone.SetActive(false);
         stars.Add(starOne);
         stars.Add(starTwo);
         stars.Add(starThree);
@@ -25,19 +27,28 @@ public class Review : MonoBehaviour
         stars.Add(starFive);
     }
 
-
     void Update()
     {
-        if (reviewScore == 5000)
+        if (fPController.phonePressed)
+        {
+            phone.SetActive(true);
+            fPController.phonePressed = false;
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            fPController.lookSensitivity = 0f;
+        }
+
+
+        if (review.reviewScore == 5000)
         {
             foreach (Image star in stars)
             {
                 star.enabled = true;
-            }
-            ;
+            };
         }
 
-        else if (reviewScore >= 4000 && reviewScore < 5000)
+        else if (review.reviewScore >= 4000 && review.reviewScore < 5000)
         {
             stars[0].enabled = true;
             stars[1].enabled = true;
@@ -46,7 +57,7 @@ public class Review : MonoBehaviour
             stars[4].enabled = false; ;
         }
 
-        else if (reviewScore >= 3000 && reviewScore < 4000)
+        else if (review.reviewScore >= 3000 && review.reviewScore < 4000)
         {
             stars[0].enabled = true;
             stars[1].enabled = true;
@@ -55,7 +66,7 @@ public class Review : MonoBehaviour
             stars[4].enabled = false; ;
         }
 
-        else if (reviewScore >= 2000 && reviewScore < 3000)
+        else if (review.reviewScore >= 2000 && review.reviewScore< 3000)
         {
             stars[0].enabled = true;
             stars[1].enabled = true;
@@ -64,7 +75,7 @@ public class Review : MonoBehaviour
             stars[4].enabled = false; ;
         }
 
-        else if (reviewScore >= 1000 && reviewScore < 2000)
+        else if (review.reviewScore >= 1000 && review.reviewScore < 2000)
         {
             stars[0].enabled = true;
             stars[1].enabled = false;
@@ -73,7 +84,7 @@ public class Review : MonoBehaviour
             stars[4].enabled = false;
         }
 
-        else if (reviewScore == 0)
+        else if (review.reviewScore == 0)
         {
             foreach (Image star in stars)
             {
@@ -82,4 +93,23 @@ public class Review : MonoBehaviour
             ;
         }
     }
+
+
+    public void ResumeGame()
+    {
+        phone.SetActive(false);
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        fPController.lookSensitivity = 2f;
+    }
+
+    
 }
+
+
+    
+
+
+
+
