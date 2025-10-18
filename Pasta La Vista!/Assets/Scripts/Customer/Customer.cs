@@ -6,29 +6,55 @@ using TMPro;
 public class Customer : MonoBehaviour
 {
     [Header("Customer Destinations")]
-    public Transform orderSpot;
-    public Transform exitSpot;
+        public Transform orderSpot;
+        public Transform exitSpot;
 
     [Header("Scripts")]
-    public Interact interact;
-    public Review review;
-    public Order orderScript;
-    public FPController fPController;
-    public Animator animator;
-    //Customers
-    float moveSpeed = 2f;
-    private List<GameObject> customers;
-    private GameObject customer;
-    private bool orderTaken = false;
-    private bool customerLeaving = false;
-    bool inLine;
+        public Interact interact;
+        public Review review;
+        public Order orderScript;
+        public FPController fPController;
+        public Animator animator;
+
+    [Header("Materials")]
+        public Material pink;
+        public Material blue;
+        public Material brown;
+        public Material green;
+
+    [Header("Game Objects")]
+        private GameObject customer;
+        public GameObject custMaterial;
+    
+    //Lists
+        private List<GameObject> customers;
+        private List<Material> materials;
+
+    //Variables
+        float moveSpeed = 2f;
+        private bool orderTaken = false;
+        private bool customerLeaving = false;
+        bool inLine;
+        new Renderer renderer;
 
     void Start()
     {
         customers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Customer"));
+        materials = new List<Material>
+        {
+            pink,
+            blue,
+            brown,
+            green
+        };
+
+        renderer = custMaterial.GetComponent<Renderer>();
+        renderer.material = brown;
+        
         orderSpot = GameObject.FindWithTag("Order Spot").transform;
         exitSpot = GameObject.FindWithTag("Exit Spot").transform;
         inLine = false;
+        
 
         foreach (GameObject cust in customers)
         {
@@ -38,6 +64,7 @@ public class Customer : MonoBehaviour
         ;
         // Pick the first customer and deactivate the others
         PickRandomCustomer();
+ 
     }
 
     void Update()
@@ -77,8 +104,11 @@ public class Customer : MonoBehaviour
     void PickRandomCustomer()
     {
         int rand = Random.Range(0, customers.Count);
+        int mat = Random.Range(0, materials.Count);
         customer = customers[rand];
+        renderer.material = materials[mat];
         customer.SetActive(true);
+
     }
 
     IEnumerator Leave(GameObject cust)
@@ -102,7 +132,8 @@ public class Customer : MonoBehaviour
         }
 
         // Customer reached exit
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
+        customer.transform.Rotate(0f, 180f, 0f);
         cust.SetActive(false);
 
         // Reset flags for next customer
@@ -150,7 +181,6 @@ public class Customer : MonoBehaviour
 
     public void StopTimer()
     {   
-
         StopCoroutine(Timer());
         orderScript.timer.SetActive(false);
         fPController.interactPressed = false;
