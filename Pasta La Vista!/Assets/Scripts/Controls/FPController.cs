@@ -17,6 +17,7 @@ public class FPController : MonoBehaviour
     public float jumpHeight = 1f;
     public bool interactPressed = false;
     public bool pausePressed = false;
+    public bool phonePressed = false;
     public bool quitPressed;
 
     private void Awake()
@@ -75,6 +76,14 @@ public class FPController : MonoBehaviour
         if (context.performed)
         {
             interactPressed = true;
+        }
+    }
+
+    public void OnPhone(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            phonePressed = true;
         }
     }
 

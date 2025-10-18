@@ -6,6 +6,7 @@ public class Buttons : MonoBehaviour
     [Header("Pause Menu Settings")]
     public GameObject pauseMenu;
     public FPController fPController;
+    public Phone phone;
 
     void Start()
     {
@@ -19,7 +20,7 @@ public class Buttons : MonoBehaviour
         if (fPController != null)
         {
             // Handle pause/resume
-            if (fPController.pausePressed)
+            if (fPController.pausePressed && !phone.phone.activeSelf)
             {
                 if (pauseMenu != null)
                 {
