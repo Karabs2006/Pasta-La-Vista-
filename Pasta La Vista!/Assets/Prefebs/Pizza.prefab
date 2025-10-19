@@ -880,6 +880,7 @@ MonoBehaviour:
   pepperoniLayer: {fileID: 2371464645725087805}
   bakedPizzaLayer: {fileID: 2038490625450190070}
   boxedPizzaLayer: {fileID: 125697423658456035}
+  pizzaActive: 0
 --- !u!54 &7577880300948622096
 Rigidbody:
   m_ObjectHideFlags: 0
