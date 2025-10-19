@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class Review : MonoBehaviour
 {
@@ -79,11 +80,17 @@ public class Review : MonoBehaviour
 
         else if (reviewScore == 0)
         {
-            foreach (Image star in stars)
+
+            SceneManager.LoadSceneAsync("GameOverScene");
+            /*foreach (Image star in stars)
             {
                 star.enabled = false;
             }
             ;
+
+            SceneManager.LoadSceneAsync("GameOverScene");
+            */
+
         }
     }
     

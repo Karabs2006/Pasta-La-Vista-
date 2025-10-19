@@ -26,7 +26,8 @@ public class Oven : MonoBehaviour
         bool nearOven;
         bool pizzaBaked;
         bool cheesePizzaBaked;
-        public ParticleSystem steam;
+    public ParticleSystem steam;
+    public bool cheesePizzaActive = false;
 
     void Start()
     {
@@ -126,6 +127,11 @@ public class Oven : MonoBehaviour
 
             pizzaBaked = false;
             cheesePizzaBaked = false;
+        }
+
+        if(bakedCheesePlayer.activeSelf)
+        {
+            cheesePizzaActive = true;
         }
 
     }

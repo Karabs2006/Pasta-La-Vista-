@@ -6,6 +6,7 @@ public class Buttons : MonoBehaviour
     [Header("Pause Menu Settings")]
     public GameObject pauseMenu;
     public FPController fPController;
+    public GameManager gameManager;
     public Phone phone;
 
     void Start()
@@ -65,6 +66,7 @@ public class Buttons : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
+        gameManager.controls.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         fPController.lookSensitivity = 2f;

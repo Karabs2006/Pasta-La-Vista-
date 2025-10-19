@@ -25,6 +25,10 @@ public class Interact : MonoBehaviour
         public bool nextCustomer = false;
         int interactions = 0;
 
+    [Header("Audio")]
+        public AudioSource audioSource;
+        public AudioClip audioClip;
+        
     void Start()
     {
         cheese.SetActive(false);
@@ -38,42 +42,43 @@ public class Interact : MonoBehaviour
 
         if (fPController.interactPressed )
         {
-            if (cheeseZone && !oven.bakedPizzaPlayer.activeSelf)
+            if (cheeseZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
             {
-                cheese.SetActive(true);
-                pepperoni.SetActive(false);
-                dough.SetActive(false);
-                sauce.SetActive(false);
-                fPController.interactPressed = false;
+                    cheese.SetActive(true);
+                    pepperoni.SetActive(false);
+                    dough.SetActive(false);
+                    sauce.SetActive(false);
+                    fPController.interactPressed = false;
 
             }
 
-            if (pepZone && !oven.bakedPizzaPlayer.activeSelf)
-            {
-                pepperoni.SetActive(true);
-                cheese.SetActive(false);
-                dough.SetActive(false);
-                sauce.SetActive(false);
-                fPController.interactPressed = false;
-            }
+                else if (pepZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
+                {
+                    pepperoni.SetActive(true);
+                    cheese.SetActive(false);
+                    dough.SetActive(false);
+                    sauce.SetActive(false);
+                    fPController.interactPressed = false;
+                }
 
-            if (doughZone && !oven.bakedPizzaPlayer.activeSelf)
-            {
-                dough.SetActive(true);
-                cheese.SetActive(false);
-                pepperoni.SetActive(false);
-                sauce.SetActive(false);
-                fPController.interactPressed = false;
-            }
+                else if (doughZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
+                {
+                    dough.SetActive(true);
+                    cheese.SetActive(false);
+                    pepperoni.SetActive(false);
+                    sauce.SetActive(false);
+                    fPController.interactPressed = false;
+                }
 
-            if (sauceZone && !oven.bakedPizzaPlayer.activeSelf)
-            {
-                sauce.SetActive(true);
-                dough.SetActive(false);
-                cheese.SetActive(false);
-                pepperoni.SetActive(false);
-                fPController.interactPressed = false;
-            }
+                else if (sauceZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
+                {
+                    sauce.SetActive(true);
+                    dough.SetActive(false);
+                    cheese.SetActive(false);
+                    pepperoni.SetActive(false);
+                    fPController.interactPressed = false;
+                }
+            
 
             if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
             {  
@@ -86,10 +91,10 @@ public class Interact : MonoBehaviour
 
                 if (interactions == order.numPizza)
                 {
+                    audioSource.PlayOneShot(audioClip);
                     takenPizza = true;
                     order.enabled = false;
                     interactions = 0;
-                    
                 }
                 } 
                 
@@ -99,18 +104,20 @@ public class Interact : MonoBehaviour
             {   
                 if (order.pizzaType == 0)
                 {
-                order.isCheesePizzaHeld = false;
-                oven.bakedCheesePlayer.SetActive(false);
-                fPController.interactPressed = false;
-                interactions++;
+                    oven.cheesePizzaActive = false;
+                    order.isCheesePizzaHeld = false;
+                    oven.bakedCheesePlayer.SetActive(false);
+                    fPController.interactPressed = false;
+                    interactions++;
 
-                if (interactions == order.numPizza)
-                {
-                    takenPizza = true;
-                    order.enabled = false;
-                    interactions = 0;
-                    
-                } 
+                    if (interactions == order.numPizza)
+                    {
+                        audioSource.PlayOneShot(audioClip);
+                        takenPizza = true;
+                        order.enabled = false;
+                        interactions = 0;
+                        
+                    } 
                 }
                 
             }
