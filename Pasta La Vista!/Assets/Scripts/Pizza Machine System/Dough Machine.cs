@@ -1,12 +1,11 @@
 using UnityEngine;
 
-using UnityEngine;
 
 public class DoughMachine : MonoBehaviour
 {
     public GameObject pizzaPrefab;
+  
     public float spawnTime = 3f;
-
     private float timer;
 
     void Start()
@@ -31,7 +30,7 @@ public class DoughMachine : MonoBehaviour
         if (pizzaPrefab != null)
         {
             Instantiate(pizzaPrefab, transform.position, Quaternion.identity);
-            Debug.Log("Pizza spawned!");
+
         }
     }
 }

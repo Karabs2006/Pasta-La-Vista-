@@ -8,6 +8,8 @@ public class Phone : MonoBehaviour
     public FPController fPController;
     public GameObject phone;
     public Review review;
+    public AudioSource audioSource;
+    public AudioClip equipPhone;
 
     [Header("Stars")]
         public Image starOne;
@@ -32,6 +34,7 @@ public class Phone : MonoBehaviour
         if (fPController.phonePressed)
         {
             phone.SetActive(true);
+            audioSource.PlayOneShot(equipPhone);
             fPController.phonePressed = false;
             Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
@@ -103,6 +106,8 @@ public class Phone : MonoBehaviour
         Cursor.visible = false;
         fPController.lookSensitivity = 2f;
     }
+
+    
 
     
 }

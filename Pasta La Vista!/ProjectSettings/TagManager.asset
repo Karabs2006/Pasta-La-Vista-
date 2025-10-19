@@ -9,6 +9,9 @@ TagManager:
   - Pizza
   - Order Spot
   - Exit Spot
+  - Steve_Order Spot
+  - Steve_Exit Spot
+  - SteveCustomer
   layers:
   - Default
   - TransparentFX

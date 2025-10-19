@@ -25,6 +25,17 @@ public class Customer : MonoBehaviour
     [Header("Game Objects")]
         private GameObject customer;
         public GameObject custMaterial;
+
+    [Header("Audio")]
+        AudioSource audioSource;
+        AudioClip audioClip;
+        public AudioSource angryCustomer;
+        public AudioSource maleOrder;
+        public AudioSource femaleOrder;
+        public AudioClip angrySound;
+        public AudioClip male;
+        public AudioClip female;
+        
     
     //Lists
         private List<GameObject> customers;
@@ -88,6 +99,20 @@ public class Customer : MonoBehaviour
                 inLine = true;
                 orderScript.order.enabled = true;
                 StartCoroutine(Timer());
+
+                if (renderer.material == pink || brown)
+                {
+                    audioSource = femaleOrder;
+                    audioClip = female;
+                    audioSource.PlayOneShot(audioClip);
+                }
+                
+                else if (renderer.material == blue || green)
+                {
+                    audioSource = maleOrder;
+                    audioClip = male;
+                    audioSource.PlayOneShot(audioClip);
+                }
             }
         }
 
@@ -174,7 +199,7 @@ public class Customer : MonoBehaviour
             StopTimer();
             StartCoroutine(Leave(customer));
             review.reviewScore -= 500;
-            print("You suck!");
+            angryCustomer.PlayOneShot(angrySound);
             interact.givePizza = false;
         }
     }

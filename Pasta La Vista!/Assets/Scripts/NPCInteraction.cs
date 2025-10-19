@@ -12,7 +12,7 @@ public class NPCInteraction : MonoBehaviour
     // The dialogue panel (UI container) that holds the text
     public GameObject dialoguePanel;
 
-    // Keeps track of which line of dialogue we’re currently on
+    // Keeps track of which line of dialogue we're currently on
     private int currentLine = 0;
 
     // Flags to check if the player is near the NPC and if dialogue is active
@@ -26,7 +26,7 @@ public class NPCInteraction : MonoBehaviour
         {
             if (!isTalking)
             {
-                // Start the dialogue if it’s not already active
+                // Start the dialogue if it's not already active
                 StartDialogue();
             }
             else
@@ -67,7 +67,7 @@ public class NPCInteraction : MonoBehaviour
         dialoguePanel.SetActive(false); // Hide the dialogue UI
     }
 
-    // Detect when the player enters the NPC’s trigger zone
+    // Detect when the player enters the NPC's trigger zone
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -76,7 +76,7 @@ public class NPCInteraction : MonoBehaviour
         }
     }
 
-    // Detect when the player leaves the NPC’s trigger zone
+    // Detect when the player leaves the NPC's trigger zone
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))

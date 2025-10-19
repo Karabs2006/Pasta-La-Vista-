@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 using Unity.VisualScripting;
 
 public class Review : MonoBehaviour
@@ -43,7 +44,8 @@ public class Review : MonoBehaviour
             stars[1].enabled = true;
             stars[2].enabled = true;
             stars[3].enabled = true;
-            stars[4].enabled = false; ;
+            stars[4].enabled = false;
+
         }
 
         else if (reviewScore >= 3000 && reviewScore < 4000)
@@ -52,7 +54,8 @@ public class Review : MonoBehaviour
             stars[1].enabled = true;
             stars[2].enabled = true;
             stars[3].enabled = false;
-            stars[4].enabled = false; ;
+            stars[4].enabled = false;
+
         }
 
         else if (reviewScore >= 2000 && reviewScore < 3000)
@@ -61,7 +64,8 @@ public class Review : MonoBehaviour
             stars[1].enabled = true;
             stars[2].enabled = false;
             stars[3].enabled = false;
-            stars[4].enabled = false; ;
+            stars[4].enabled = false;
+
         }
 
         else if (reviewScore >= 1000 && reviewScore < 2000)
@@ -82,4 +86,6 @@ public class Review : MonoBehaviour
             ;
         }
     }
+    
+    
 }

@@ -1,21 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class PizzaController : MonoBehaviour
 {
-    
     public GameObject doughLayer;
     public GameObject sauceLayer;
     public GameObject cheeseLayer;
     public GameObject pepperoniLayer;
     public GameObject bakedPizzaLayer;
     public GameObject boxedPizzaLayer;
+    public bool pizzaActive = false;
 
     void Start()
     {
-        
         gameObject.tag = "Pizza";
-
-       
         ResetToDough();
     }
 
@@ -34,7 +32,7 @@ public class PizzaController : MonoBehaviour
         if (doughLayer.activeSelf) 
         {
             sauceLayer.SetActive(true);
-            Debug.Log("Sauce added to pizza!");
+            
         }
     }
 
@@ -43,7 +41,7 @@ public class PizzaController : MonoBehaviour
         if (doughLayer.activeSelf && sauceLayer.activeSelf) 
         {
             cheeseLayer.SetActive(true);
-            Debug.Log("Cheese added to pizza!");
+            
         }
     }
 
@@ -52,7 +50,7 @@ public class PizzaController : MonoBehaviour
         if (doughLayer.activeSelf && sauceLayer.activeSelf && cheeseLayer.activeSelf) 
         {
             pepperoniLayer.SetActive(true);
-            Debug.Log("Pepperoni added to pizza!");
+            
         }
     }
 
@@ -66,17 +64,24 @@ public class PizzaController : MonoBehaviour
             cheeseLayer.SetActive(false);
             pepperoniLayer.SetActive(false);
             bakedPizzaLayer.SetActive(true);
-            Debug.Log("Pizza baked!");
+            
         }
     }
 
     public void BoxPizza()
     {
-        if (bakedPizzaLayer.activeSelf) 
+        if (bakedPizzaLayer.activeSelf)
         {
             bakedPizzaLayer.SetActive(false);
             boxedPizzaLayer.SetActive(true);
-            Debug.Log("Pizza boxed!");
         }
+    }
+    
+    IEnumerator NextPizza ()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(boxedPizzaLayer);
+
+        
     }
 }
