@@ -7,6 +7,7 @@ public class Phone : MonoBehaviour
 {
     public FPController fPController;
     public GameObject phone;
+    public GameObject pauseMenu;
     public Review review;
     public AudioSource audioSource;
     public AudioClip equipPhone;
@@ -101,6 +102,7 @@ public class Phone : MonoBehaviour
     public void ResumeGame()
     {
         phone.SetActive(false);
+        pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

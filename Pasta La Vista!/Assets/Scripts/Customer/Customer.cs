@@ -156,11 +156,12 @@ public class Customer : MonoBehaviour
             yield return null; // wait 1 frame before next movement
         }
 
+        cust.SetActive(false);
+
         // Customer reached exit
         yield return new WaitForSeconds(2f);
         customer.transform.Rotate(0f, 180f, 0f);
-        cust.SetActive(false);
-
+        
         // Reset flags for next customer
         orderTaken = false;
         customerLeaving = false;

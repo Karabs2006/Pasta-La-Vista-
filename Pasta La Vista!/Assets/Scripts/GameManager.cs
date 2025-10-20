@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     }
     public void Controls()
     {
-         controls.SetActive(true);
+        controls.SetActive(true);
     }
+    
 }

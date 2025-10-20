@@ -20,6 +20,7 @@ public class SteveCustomers : MonoBehaviour
     [Header("Game Objects")]
     public GameObject customer;
     public GameObject custMaterial;
+    public GameObject pizzaBox;
 
     private List<Material> materials;
 
@@ -32,6 +33,7 @@ public class SteveCustomers : MonoBehaviour
     void Start()
     {
         materials = new List<Material> { pink, blue, brown, green };
+        pizzaBox.SetActive(false);
 
         renderer = custMaterial.GetComponent<Renderer>();
         renderer.material = brown;
@@ -64,7 +66,9 @@ public class SteveCustomers : MonoBehaviour
     }
 
     void PickRandomCustomer()
-    {
+    {   
+        animator.SetBool("TookPizza", false);
+        pizzaBox.SetActive(false);
         int mat = Random.Range(0, materials.Count);
         renderer.material = materials[mat];
         customer.SetActive(true);
@@ -76,7 +80,9 @@ public class SteveCustomers : MonoBehaviour
 
     IEnumerator Leave(GameObject cust)
     {
+        pizzaBox.SetActive(true);
         customerLeaving = true;
+        animator.SetBool("TookPizza", true);
         animator.SetBool("AtOrderSpot", false);
         cust.transform.Rotate(0f, 180f, 0f);
 
@@ -90,11 +96,10 @@ public class SteveCustomers : MonoBehaviour
             yield return null;
         }
 
+        cust.SetActive(false);
         yield return new WaitForSeconds(2f);
 
         cust.transform.Rotate(0f, 180f, 0f);
-        cust.SetActive(false);
-
         PickRandomCustomer();
     }
 
