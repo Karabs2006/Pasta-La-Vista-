@@ -14,12 +14,14 @@ public class Interact : MonoBehaviour
         public FPController fPController;
         public Oven oven;
         public Order order;
+        public ButtonsTutorial buttonsTutorial;
         
     [Header("Booleans")]
         bool cheeseZone = false;
         bool pepZone = false;
         bool doughZone = false;
         bool sauceZone = false;
+        bool firstOrder = false;
         public bool givePizza = false;
         public bool takenPizza = false;
         public bool nextCustomer = false;
@@ -89,13 +91,18 @@ public class Interact : MonoBehaviour
                 fPController.interactPressed = false;
                 interactions++;
 
-                if (interactions == order.numPizza)
-                {
-                    audioSource.PlayOneShot(audioClip);
-                    takenPizza = true;
-                    order.enabled = false;
-                    interactions = 0;
-                }
+                    if (interactions == order.numPizza)
+                    {
+                        audioSource.PlayOneShot(audioClip);
+                        takenPizza = true;
+                        order.enabled = false;
+                        interactions = 0;
+                    }
+                
+                    if (firstOrder && !buttonsTutorial.firstOrderTutorial)
+                    {
+                        StartCoroutine(LoadDelay());
+                    }
                 } 
                 
             }
@@ -116,8 +123,13 @@ public class Interact : MonoBehaviour
                         takenPizza = true;
                         order.enabled = false;
                         interactions = 0;
-                        
+
                     } 
+                    
+                    if(firstOrder && !buttonsTutorial.firstOrderTutorial)
+                    {
+                        StartCoroutine(LoadDelay());
+                    }
                 }
                 
             }
@@ -181,6 +193,20 @@ public class Interact : MonoBehaviour
             givePizza = false;
         }
 
+    }
+
+    void Pause()
+    {
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        fPController.lookSensitivity = 0f;
+    }
+    IEnumerator LoadDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Pause();
+        buttonsTutorial.phone.SetActive(true);
     }
 
 }

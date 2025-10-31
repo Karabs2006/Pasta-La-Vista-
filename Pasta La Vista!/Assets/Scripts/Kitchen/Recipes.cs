@@ -7,13 +7,12 @@ public class Recipes : MonoBehaviour
     bool recipeActive = false;
     bool playerInTrigger = false;
     public GameObject recipes;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         recipes.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {   
         if (playerInTrigger && fPController.interactPressed)
