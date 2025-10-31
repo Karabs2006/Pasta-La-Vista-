@@ -11,7 +11,7 @@ public class OrderTutorial : MonoBehaviour
     public int numPizza;
     public int time;
     public int pizzaType;
-    const int seconds = 30;
+    const int seconds = 200;
     public List<string> pizzas;
 
     public bool isCheesePizzaHeld = false;
@@ -26,7 +26,7 @@ public class OrderTutorial : MonoBehaviour
         };
 
         order.enabled = false;
-        numPizza = Random.Range(1, 3);
+        numPizza = Random.Range(1, 2);
         pizzaType = Random.Range(0, pizzas.Count);
         order.text = "Could I get " + numPizza + pizzas[pizzaType];
         timer.SetActive(false);
@@ -35,7 +35,7 @@ public class OrderTutorial : MonoBehaviour
 
     public void GenerateOrder()
     {
-        numPizza = Random.Range(1, 3);
+        numPizza = Random.Range(1, 2);
         pizzaType = Random.Range(0, pizzas.Count);
         time = seconds * numPizza; // fresh time each customer
         order.text = "Could I get " + numPizza + pizzas[pizzaType];

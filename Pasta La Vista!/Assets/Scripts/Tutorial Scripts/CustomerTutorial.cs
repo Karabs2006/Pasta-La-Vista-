@@ -12,7 +12,7 @@ public class CustomerTutorial : MonoBehaviour
     [Header("Scripts")]
         public Interact interact;
         public Review review;
-        public Order orderScript;
+        public OrderTutorial orderScript;
         public FPController fPController;
         public Animator animator;
 
@@ -211,4 +211,5 @@ public class CustomerTutorial : MonoBehaviour
         orderScript.timer.SetActive(false);
         fPController.interactPressed = false;
     }
+    
 }

@@ -11,6 +11,7 @@ public class Phone : MonoBehaviour
     public Review review;
     public AudioSource audioSource;
     public AudioClip equipPhone;
+    public ButtonsTutorial buttonsTutorial;
 
     [Header("Stars")]
         public Image starOne;
@@ -36,6 +37,10 @@ public class Phone : MonoBehaviour
         {
             phone.SetActive(true);
             audioSource.PlayOneShot(equipPhone);
+
+            buttonsTutorial.phone.SetActive(false);
+            buttonsTutorial.firstOrderTutorial = true;
+
             fPController.phonePressed = false;
             Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;

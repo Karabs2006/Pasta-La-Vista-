@@ -11,12 +11,13 @@ public class PizzaBuild : MonoBehaviour
         public GameObject sauce;
         public GameObject pizza;
         public GameObject cheesePizza;
-        //public GameObject pepPizza;
+        
 
     [Header ("Scripts")]
         public Interact interact;
         public FPController fPController;
-    //public Oven oven;
+        public ButtonsTutorial buttonsTutorial;
+
 
     [Header("Booleans")]
         bool buildPizza;
@@ -25,6 +26,7 @@ public class PizzaBuild : MonoBehaviour
         public bool cheesePlaced = false;
         public bool saucePlaced = false;
         bool pepPlaced = false;
+        bool pizzaEquiped = false;
 
     [Header("Audio")]
         public AudioSource audioSource;
@@ -37,7 +39,7 @@ public class PizzaBuild : MonoBehaviour
         sauce.SetActive(false);
         pizza.SetActive(false);
         cheesePizza.SetActive(false);
-        //pepPizza.SetActive(false);
+        
     }
 
     void Update()
@@ -106,7 +108,8 @@ public class PizzaBuild : MonoBehaviour
                 */
 
                 if (cheesePlaced && doughPlaced && pepPlaced && saucePlaced)
-                {
+                {   
+                    pizzaEquiped = true;
                     pizza.SetActive(true);
                     crust.SetActive(false);
                     cheese.SetActive(false);
@@ -116,6 +119,11 @@ public class PizzaBuild : MonoBehaviour
                     pepPlaced = false;
                     saucePlaced = false;
                     fPController.interactPressed = false;
+
+                    if(pizzaEquiped && !buttonsTutorial.buildTutorial)
+                    {   
+                        StartCoroutine(LoadDelay());
+                    }
                 }
 
             }
@@ -125,11 +133,17 @@ public class PizzaBuild : MonoBehaviour
         // CHEESE PIZZA
         if (cheesePlaced && doughPlaced && saucePlaced && fPController.interactPressed)
         {
+            pizzaEquiped = true;
             cheesePizza.SetActive(true);
             fPController.interactPressed = false;
             crust.SetActive(false);
             cheese.SetActive(false);
             sauce.SetActive(false);
+
+            if(pizzaEquiped && !buttonsTutorial.buildTutorial)
+            {   
+                StartCoroutine(LoadDelay());  
+            }
         }
   
     }
@@ -140,5 +154,20 @@ public class PizzaBuild : MonoBehaviour
         {
             buildPizza = true;
         }
+    }
+
+    IEnumerator LoadDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Pause();
+        buttonsTutorial.baking.SetActive(true);
+    }
+
+    void Pause()
+    {
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        fPController.lookSensitivity = 0f;
     }
 }

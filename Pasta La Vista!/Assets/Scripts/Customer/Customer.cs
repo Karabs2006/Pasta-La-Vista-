@@ -173,12 +173,6 @@ public class Customer : MonoBehaviour
         orderScript.GenerateOrder();
     }
 
-    IEnumerator Angry(GameObject obj)
-    {
-        yield return new WaitForSeconds(1f);
-        review.reviewScore -= 500;
-    }
-
     IEnumerator Timer()
     {
         orderScript.timer.SetActive(true);
