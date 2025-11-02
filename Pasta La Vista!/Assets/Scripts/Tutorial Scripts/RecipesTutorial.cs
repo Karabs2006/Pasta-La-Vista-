@@ -4,7 +4,7 @@ using System.Collections;
 public class RecipesTutorial : MonoBehaviour
 {
     public FPController fPController;
-    public ButtonsTutorial buttonsTutorial;
+    public Tutorial tutorial;
     bool recipeActive = false;
     bool playerInTrigger = false;
     bool pressedOnce = false;
@@ -26,6 +26,7 @@ public class RecipesTutorial : MonoBehaviour
         {
             recipes.SetActive(true);
             Pause();
+            tutorial.phaseTwo = true;
         }
 
     }
@@ -57,10 +58,11 @@ public class RecipesTutorial : MonoBehaviour
         fPController.lookSensitivity = 2f;
         pressedOnce = true;
 
-        if (pressedOnce && !buttonsTutorial.pizzaBuild)
+        if (pressedOnce && !tutorial.pizzaBuild)
         {
             Pause();
-            buttonsTutorial.pizzaBuilding.SetActive(true);
+            tutorial.pizzaBuilding.SetActive(true);
+          
         }
 
     }
@@ -72,9 +74,5 @@ public class RecipesTutorial : MonoBehaviour
         Cursor.visible = true;
         fPController.lookSensitivity = 0f;
     }
-    
-    IEnumerator trigger()
-    {
-        yield return new WaitForSeconds(1f);
-    }
+
 }

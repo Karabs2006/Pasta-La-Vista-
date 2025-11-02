@@ -10,7 +10,7 @@ public class CustomerTutorial : MonoBehaviour
         public Transform exitSpot;
 
     [Header("Scripts")]
-        public Interact interact;
+        public InteractTutorial interact;
         public Review review;
         public OrderTutorial orderScript;
         public FPController fPController;

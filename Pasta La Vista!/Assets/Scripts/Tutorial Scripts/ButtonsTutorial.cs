@@ -1,129 +1,77 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
-
 
 public class ButtonsTutorial : MonoBehaviour
-{   
-    [Header("Scripts")]
-        public FPController fPController;
-        public Recipes recipeScript;
-    
-    [Header("Game Objects")]
-        public GameObject intro;
-        public GameObject movement;
-        public GameObject customer;
-        public GameObject recipes;
-        public GameObject pizzaBuilding;
-        public GameObject baking;
-        public GameObject phone;
-        public GameObject rivalReviews;
-        public GameObject playerReviews;
-        public GameObject outro;
-
-    [Header("Booleans")]
-        public bool pizzaBuild = false;
-        public bool buildTutorial = false;
-        public bool firstOrderTutorial = false;
-
+{
+    [Header("Pause Menu Settings")]
+    public GameObject pauseMenu;
+    public FPController fPController;
+    public GameManager gameManager;
+    public PhoneTutorial phone;
 
     void Start()
     {
-        intro.SetActive(true);
-        Pause();
-
-        movement.SetActive(false);
-        customer.SetActive(false);
-        recipes.SetActive(false);
-        pizzaBuilding.SetActive(false);
-        baking.SetActive(false);
-        phone.SetActive(false);
-        rivalReviews.SetActive(false);
-        playerReviews.SetActive(false);
-        outro.SetActive(false);
-         
-    }
-
-    public void LoadMovement()//Intro
-    {
-        intro.SetActive(false);
-        movement.SetActive(true);
-    }
-
-    public void LoadCustomer()
-    {
-        movement.SetActive(false);
-        StartCoroutine(TimedLoad(customer,5));
-    }
-
-    public void CloseCustomer() //Put on Customer
-    {
-        customer.SetActive(false);
-        StartCoroutine(TimedLoad(recipes,3));
-    }
-
-    public void CloseRecipes()//Same Name
-    {
-        Resume();
-        recipes.SetActive(false);
-    }
-
-    public void CloseBuilding()//Same Name
-    {   
-        Resume();
-        pizzaBuild = true;
-        pizzaBuilding.SetActive(false);
-        
-    }
-
-    public void CloseBaking()//Same Name
-    {   
-        Resume();
-        buildTutorial = true;
-        baking.SetActive(false);
-    }
-
-    public void LoadReviews()
-    {
-        rivalReviews.SetActive(false);
-        playerReviews.SetActive(true);
-    }
-
-    public void LoadOutro()
-    {
-        playerReviews.SetActive(false);
-        outro.SetActive(true);
-    }
-
-    public void LoadGame()
-    {
-        SceneManager.LoadSceneAsync("GameScene");
-    }
-
-    IEnumerator TimedLoad(GameObject obj, float i)
-    {
-        Resume();
-        yield return new WaitForSeconds(i);
-        Pause();
-        obj.SetActive(true);
-    }
+        pauseMenu.SetActive(false);
     
-    void Pause()
+    }
+
+    void Update()
+    {
+        if (fPController != null)
+        {
+            // Handle pause/resume
+            if (fPController.pausePressed && !phone.phone.activeSelf)
+            {
+                if (pauseMenu != null)
+                {
+                    if (pauseMenu.activeSelf)
+                        ResumeGame();
+                    else
+                        PauseGame();
+                }
+                else
+                {
+                    Debug.LogWarning("PauseMenu is not assigned in the Inspector!");
+                }
+
+                fPController.pausePressed = false;
+            }
+
+            // Handle quit
+            if (fPController.quitPressed)
+            {
+                QuitGame();
+                fPController.quitPressed = false;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("fPController is not assigned in the Inspector!");
+        }
+    }
+
+
+    // Pause menu functions
+    void PauseGame()
     {   
         Time.timeScale = 0f;
+        pauseMenu.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         fPController.lookSensitivity = 0f;
     }
 
-    void Resume()
+    public void ResumeGame()
     {
         Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
+        gameManager.controls.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        fPController.lookSensitivity = 2f; 
+        fPController.lookSensitivity = 2f;
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
-

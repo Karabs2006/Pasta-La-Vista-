@@ -14,8 +14,7 @@ public class Interact : MonoBehaviour
         public FPController fPController;
         public Oven oven;
         public Order order;
-        public ButtonsTutorial buttonsTutorial;
-        
+
     [Header("Booleans")]
         bool cheeseZone = false;
         bool pepZone = false;
@@ -99,10 +98,6 @@ public class Interact : MonoBehaviour
                         interactions = 0;
                     }
                 
-                    if (firstOrder && !buttonsTutorial.firstOrderTutorial)
-                    {
-                        StartCoroutine(LoadDelay());
-                    }
                 } 
                 
             }
@@ -126,10 +121,6 @@ public class Interact : MonoBehaviour
 
                     } 
                     
-                    if(firstOrder && !buttonsTutorial.firstOrderTutorial)
-                    {
-                        StartCoroutine(LoadDelay());
-                    }
                 }
                 
             }
@@ -201,12 +192,6 @@ public class Interact : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         fPController.lookSensitivity = 0f;
-    }
-    IEnumerator LoadDelay()
-    {
-        yield return new WaitForSeconds(0.5f);
-        Pause();
-        buttonsTutorial.phone.SetActive(true);
     }
 
 }

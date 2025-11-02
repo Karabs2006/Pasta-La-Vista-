@@ -16,9 +16,7 @@ public class PizzaBuild : MonoBehaviour
     [Header ("Scripts")]
         public Interact interact;
         public FPController fPController;
-        public ButtonsTutorial buttonsTutorial;
-
-
+       
     [Header("Booleans")]
         bool buildPizza;
         public bool ovenEmpty = true;
@@ -92,21 +90,6 @@ public class PizzaBuild : MonoBehaviour
                 pepPlaced = true;
                 buildPizza = false;
 
-                /*
-                if (ovenEmpty)
-                {
-                    pizza.SetActive(true);
-                    crust.SetActive(false);
-                    cheese.SetActive(false);
-                    pepperoni.SetActive(false);
-
-                    cheesePlaced = false;
-                    doughPlaced = false;
-                    buildPizza = false;
-                    fPController.interactPressed = false;
-                }
-                */
-
                 if (cheesePlaced && doughPlaced && pepPlaced && saucePlaced)
                 {   
                     pizzaEquiped = true;
@@ -120,10 +103,6 @@ public class PizzaBuild : MonoBehaviour
                     saucePlaced = false;
                     fPController.interactPressed = false;
 
-                    if(pizzaEquiped && !buttonsTutorial.buildTutorial)
-                    {   
-                        StartCoroutine(LoadDelay());
-                    }
                 }
 
             }
@@ -140,10 +119,6 @@ public class PizzaBuild : MonoBehaviour
             cheese.SetActive(false);
             sauce.SetActive(false);
 
-            if(pizzaEquiped && !buttonsTutorial.buildTutorial)
-            {   
-                StartCoroutine(LoadDelay());  
-            }
         }
   
     }
@@ -156,18 +131,4 @@ public class PizzaBuild : MonoBehaviour
         }
     }
 
-    IEnumerator LoadDelay()
-    {
-        yield return new WaitForSeconds(0.5f);
-        Pause();
-        buttonsTutorial.baking.SetActive(true);
-    }
-
-    void Pause()
-    {
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        fPController.lookSensitivity = 0f;
-    }
 }
