@@ -12,6 +12,7 @@ TagManager:
   - Steve_Order Spot
   - Steve_Exit Spot
   - SteveCustomer
+  - Scooter
   layers:
   - Default
   - TransparentFX
