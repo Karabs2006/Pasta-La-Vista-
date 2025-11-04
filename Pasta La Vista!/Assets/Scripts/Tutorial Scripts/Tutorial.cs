@@ -30,6 +30,8 @@ public class Tutorial : MonoBehaviour
         public bool phaseTwo = false;
         public bool phaseThree = false;
 
+        public AudioSource buttonAudio;
+
 
     void Start()
     {
@@ -59,24 +61,28 @@ public class Tutorial : MonoBehaviour
     {
         intro.SetActive(false);
         movement.SetActive(true);
+        PlaySound();
     }
 
     public void LoadCustomer()
     {
         movement.SetActive(false);
-        StartCoroutine(TimedLoad(customer,5));
+        StartCoroutine(TimedLoad(customer, 5));
+        PlaySound();
     }
 
     public void CloseCustomer() //Put on Customer
     {
         customer.SetActive(false);
-        StartCoroutine(TimedLoad(recipes,3));
+        StartCoroutine(TimedLoad(recipes, 3));
+        PlaySound();
     }
 
     public void CloseRecipes()//Same Name
     {
         Resume();
         recipes.SetActive(false);
+        PlaySound();
     }
 
     public void CloseBuilding()//Same Name
@@ -84,6 +90,7 @@ public class Tutorial : MonoBehaviour
         Resume();
         pizzaBuild = true;
         pizzaBuilding.SetActive(false);
+        PlaySound();
         
     }
 
@@ -93,21 +100,25 @@ public class Tutorial : MonoBehaviour
         buildTutorial = true;
         phaseTwo = true;
         baking.SetActive(false);
+        PlaySound();
     }
 
     public void LoadReviews()
     {
         rivalReviews.SetActive(false);
         playerReviews.SetActive(true);
+        PlaySound();
     }
 
     public void LoadOutro()
     {
         playerReviews.SetActive(false);
         outro.SetActive(true);
+        PlaySound();
+        
     }
 
-    public void LoadGame()
+    public void LoadingScreen()
     {
         SceneManager.LoadSceneAsync("GameScene");
     }
@@ -133,7 +144,12 @@ public class Tutorial : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        fPController.lookSensitivity = 2f; 
+        fPController.lookSensitivity = 0.45f;
+    }
+    
+    public void PlaySound()
+    {
+        buttonAudio.Play();
     }
 
 }

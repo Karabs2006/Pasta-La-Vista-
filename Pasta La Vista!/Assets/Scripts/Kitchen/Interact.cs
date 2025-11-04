@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Interact : MonoBehaviour
 {   
-    [Header("Player Ingredients")]
+    [Header("Game Objects")]
         public GameObject cheese;
         public GameObject pepperoni;
         public GameObject dough;
         public GameObject sauce;
+        public GameObject collectSpot;
 
     [Header("Scripts")]
         public FPController fPController;
@@ -42,7 +43,8 @@ public class Interact : MonoBehaviour
     {
 
         if (fPController.interactPressed )
-        {
+        {   
+            if(!oven.pizzaEquipped){
             if (cheeseZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
             {
                     cheese.SetActive(true);
@@ -79,13 +81,14 @@ public class Interact : MonoBehaviour
                     pepperoni.SetActive(false);
                     fPController.interactPressed = false;
                 }
-            
+            }
 
-            if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
+           if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
             {  
                 if (order.pizzaType == 1)
                 {
                 order.isPepPizzaHeld = false;
+                oven.pizzaEquipped = false;
                 oven.bakedPizzaPlayer.SetActive(false);
                 fPController.interactPressed = false;
                 interactions++;
@@ -107,6 +110,7 @@ public class Interact : MonoBehaviour
                 if (order.pizzaType == 0)
                 {
                     oven.cheesePizzaActive = false;
+                    oven.pizzaEquipped = false;
                     order.isCheesePizzaHeld = false;
                     oven.bakedCheesePlayer.SetActive(false);
                     fPController.interactPressed = false;
@@ -150,7 +154,7 @@ public class Interact : MonoBehaviour
             sauceZone = true;
         }
 
-        if (trigger.gameObject.name == "CollectSpot")
+        if (trigger.gameObject == collectSpot)
         {
             givePizza = true;
         }
@@ -179,7 +183,7 @@ public class Interact : MonoBehaviour
             sauceZone = false;
         }
 
-        if (other.gameObject.name == "CollectSpot")
+        if (other.gameObject == collectSpot)
         {
             givePizza = false;
         }

@@ -28,6 +28,10 @@ public class Oven : MonoBehaviour
         bool cheesePizzaBaked;
     public ParticleSystem steam;
     public bool cheesePizzaActive = false;
+    public bool pizzaEquipped = false;
+    public AudioSource timerClicking;
+    public AudioSource timerRing;
+
 
     void Start()
     {
@@ -63,8 +67,9 @@ public class Oven : MonoBehaviour
         }
 
         if (pizzaBaked && nearOven && fPController.interactPressed && !pizzaBuild.ovenEmpty)
-        {   
+        {
             order.isPepPizzaHeld = true;
+            pizzaEquipped = true;
             bakedPizzaPlayer.SetActive(true);
             bakedPizza.SetActive(false);
 
@@ -109,6 +114,7 @@ public class Oven : MonoBehaviour
         if (cheesePizzaBaked && nearOven && fPController.interactPressed && !pizzaBuild.ovenEmpty)
         {
             order.isCheesePizzaHeld = true;
+            pizzaEquipped = true;
             bakedCheesePlayer.SetActive(true);
             bakedCheesePizza.SetActive(false);
 
@@ -127,11 +133,6 @@ public class Oven : MonoBehaviour
 
             pizzaBaked = false;
             cheesePizzaBaked = false;
-        }
-
-        if(bakedCheesePlayer.activeSelf)
-        {
-            cheesePizzaActive = true;
         }
 
     }
@@ -158,11 +159,14 @@ public class Oven : MonoBehaviour
         for (int i = 5; i >= 0; i--)
         {
             steam.Play();
+            timerClicking.Play();
             slider.value = i;
             yield return new WaitForSeconds(1f);
         }
 
         steam.Stop();
+        timerClicking.Stop();
+        timerRing.Play();
         obj.SetActive(true);
 
         if (obj == bakedPizza)
