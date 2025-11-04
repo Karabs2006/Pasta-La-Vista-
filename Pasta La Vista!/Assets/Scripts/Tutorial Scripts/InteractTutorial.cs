@@ -42,6 +42,8 @@ public class InteractTutorial : MonoBehaviour
     void Update()
     {
             if (fPController.interactPressed && tutorial.phaseTwo)
+        {
+            if (!oven.pizzaEquipped)
             {
                 if (cheeseZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
                 {
@@ -79,6 +81,7 @@ public class InteractTutorial : MonoBehaviour
                     pepperoni.SetActive(false);
                     fPController.interactPressed = false;
                 }
+            }
 
 
                 if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
@@ -86,6 +89,7 @@ public class InteractTutorial : MonoBehaviour
                     if (order.pizzaType == 1)
                     {
                         order.isPepPizzaHeld = false;
+                        oven.pizzaEquipped = false;
                         oven.bakedPizzaPlayer.SetActive(false);
                         fPController.interactPressed = false;
                         interactions++;
@@ -114,6 +118,7 @@ public class InteractTutorial : MonoBehaviour
                     if (order.pizzaType == 0)
                     {
                         oven.cheesePizzaActive = false;
+                        oven.pizzaEquipped = false;
                         order.isCheesePizzaHeld = false;
                         oven.bakedCheesePlayer.SetActive(false);
                         fPController.interactPressed = false;

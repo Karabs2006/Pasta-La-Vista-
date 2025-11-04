@@ -5,7 +5,7 @@ using System.Collections;
 
 public class PhoneTutorial : MonoBehaviour
 {
-     public FPController fPController;
+    public FPController fPController;
     public GameObject phone;
     public GameObject pauseMenu;
     public Review review;
@@ -120,6 +120,7 @@ public class PhoneTutorial : MonoBehaviour
     public void ResumeGame()
     {
         tutorial.Pause();
+        tutorial.PlaySound();
         tutorial.firstPhonePickup = false;
 
         phone.SetActive(false);

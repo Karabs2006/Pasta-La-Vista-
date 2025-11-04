@@ -7,7 +7,7 @@ public class FPController : MonoBehaviour
     public float gravity = -9.81f;
     [Header("Look Settings")]
     public Transform cameraTransform;
-    public float lookSensitivity = 0.3f;
+    public float lookSensitivity = 0.45f;
     public float verticalLookLimit = 90f;
     private CharacterController controller;
     private Vector2 moveInput;
@@ -19,6 +19,7 @@ public class FPController : MonoBehaviour
     public bool pausePressed = false;
     public bool phonePressed = false;
     public bool quitPressed;
+    public AudioSource walkingAudio;
 
     private void Awake()
     {
@@ -49,6 +50,19 @@ public class FPController : MonoBehaviour
             velocity.y = -2f;
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        bool isMoving = moveInput.magnitude > 0.1f && controller.isGrounded;
+
+        if (isMoving)
+        {
+            if (!walkingAudio.isPlaying)
+                walkingAudio.Play();
+        }
+        else
+        {
+            if (walkingAudio.isPlaying)
+                walkingAudio.Stop();
+        }
     }
 
 

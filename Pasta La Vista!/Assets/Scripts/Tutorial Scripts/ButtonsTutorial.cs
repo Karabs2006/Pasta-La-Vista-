@@ -7,11 +7,11 @@ public class ButtonsTutorial : MonoBehaviour
     public FPController fPController;
     public GameManager gameManager;
     public PhoneTutorial phone;
+    public Tutorial tutorial;
 
     void Start()
     {
         pauseMenu.SetActive(false);
-    
     }
 
     void Update()
@@ -62,12 +62,13 @@ public class ButtonsTutorial : MonoBehaviour
 
     public void ResumeGame()
     {
+        tutorial.buttonAudio.Play();
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
         gameManager.controls.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        fPController.lookSensitivity = 2f;
+        fPController.lookSensitivity = 0.45f;
     }
 
     public void QuitGame()

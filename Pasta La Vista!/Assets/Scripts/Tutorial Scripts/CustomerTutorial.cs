@@ -94,7 +94,6 @@ public class CustomerTutorial : MonoBehaviour
             if (Vector3.Distance(customer.transform.position, orderSpot.position) < 0.5f)
             {
                 animator.SetBool("AtOrderSpot", true);
-                interact.givePizza = true;
                 orderTaken = true;
                 inLine = true;
                 orderScript.order.enabled = true;

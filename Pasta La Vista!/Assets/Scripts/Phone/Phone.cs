@@ -106,7 +106,7 @@ public class Phone : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        fPController.lookSensitivity = 2f;
+        fPController.lookSensitivity = 0.45f;
     }
 
     

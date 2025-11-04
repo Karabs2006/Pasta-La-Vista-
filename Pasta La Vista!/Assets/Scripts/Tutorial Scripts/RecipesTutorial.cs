@@ -10,6 +10,7 @@ public class RecipesTutorial : MonoBehaviour
     bool pressedOnce = false;
     public GameObject recipes;
     
+    
     void Start()
     {
         recipes.SetActive(false);
@@ -48,6 +49,7 @@ public class RecipesTutorial : MonoBehaviour
     public void Resume()
     {
         recipes.SetActive(false);
+        tutorial.PlaySound();
 
         fPController.interactPressed = false;
         recipeActive = false;
@@ -55,7 +57,7 @@ public class RecipesTutorial : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        fPController.lookSensitivity = 2f;
+        fPController.lookSensitivity = 0.45f;
         pressedOnce = true;
 
         if (pressedOnce && !tutorial.pizzaBuild)
