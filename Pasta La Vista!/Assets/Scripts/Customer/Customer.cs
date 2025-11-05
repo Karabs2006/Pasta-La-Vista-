@@ -15,6 +15,7 @@ public class Customer : MonoBehaviour
         public Order orderScript;
         public FPController fPController;
         public Animator animator;
+        public StartWork startWork;
 
     [Header("Materials")]
         public Material pink;
@@ -50,8 +51,9 @@ public class Customer : MonoBehaviour
 
     void Start()
     {
-        customers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Customer"));
-        materials = new List<Material>
+        
+            customers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Customer"));
+            materials = new List<Material>
         {
             pink,
             blue,
@@ -59,23 +61,22 @@ public class Customer : MonoBehaviour
             green
         };
 
-        renderer = custMaterial.GetComponent<Renderer>();
-        renderer.material = brown;
-        
-        orderSpot = GameObject.FindWithTag("Order Spot").transform;
-        exitSpot = GameObject.FindWithTag("Exit Spot").transform;
-        inLine = false;
-        
+            renderer = custMaterial.GetComponent<Renderer>();
+            renderer.material = brown;
 
-        foreach (GameObject cust in customers)
-        {
-            if (cust != customer)
-                cust.SetActive(false);
-        }
-        ;
-        // Pick the first customer and deactivate the others
-        PickRandomCustomer();
- 
+            orderSpot = GameObject.FindWithTag("Order Spot").transform;
+            exitSpot = GameObject.FindWithTag("Exit Spot").transform;
+            inLine = false;
+
+
+            foreach (GameObject cust in customers)
+            {
+                if (cust != customer)
+                    cust.SetActive(false);
+            };
+
+            // Pick the first customer and deactivate the others
+            PickRandomCustomer();
     }
 
     void Update()
