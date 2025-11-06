@@ -1,3 +1,15 @@
+/*Title: How to Make an Object Move Towards Another Object in Unity
+Author: Brackeys
+Date Accessed: 25 October 2025
+Code Version: Unity 2020+ Compatible
+Availability: https://www.youtube.com/watch?v=rhoQd6IAtDo
+
+Title: Unity Tutorial -Waypoint System for AI Movement
+Author: SpeedTutor
+Date Accessed: 25 October 2025
+Code Version: Unity 2019+ Compatible
+Availability: https://www.youtube.com/watch?v=U6H7U0R2mh0
+*/
 using UnityEngine;
 
 public class ScooterMovement : MonoBehaviour
@@ -15,7 +27,7 @@ public class ScooterMovement : MonoBehaviour
 
     void Start()
     {
-        // Get the conveyor movement component
+        
         conveyorMovement = GetComponent<ScooterConveyorMovement>();
     }
 

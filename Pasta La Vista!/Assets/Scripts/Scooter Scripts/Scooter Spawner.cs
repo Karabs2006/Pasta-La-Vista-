@@ -1,3 +1,10 @@
+/*Title: Working with Prefabs in Unity - Instantiate and Destroy
+Author: Unity Technologies
+Date Accessed: 15 October 2025
+Code Version: Unity 2021+ Compatible
+Availability: https://www.youtube.com/watch?v=6dVRB7aAaEI
+*/
+
 using UnityEngine;
 
 public class ScooterSpawner : MonoBehaviour
@@ -15,7 +22,7 @@ public class ScooterSpawner : MonoBehaviour
 
     void SpawnScooter()
     {
-        // Spawn scooter at spawn point
+        
         GameObject scooter = Instantiate(scooterPrefab, spawnPoint.position, spawnPoint.rotation);
 
         // Set the land point
@@ -24,7 +31,5 @@ public class ScooterSpawner : MonoBehaviour
         {
             movement.SetLandPoint(landPoint);
         }
-
-        Debug.Log("Spawned scooter moving to land point");
     }
 }

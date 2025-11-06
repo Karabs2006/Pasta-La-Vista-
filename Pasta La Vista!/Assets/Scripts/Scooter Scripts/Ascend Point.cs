@@ -1,3 +1,10 @@
+/*Title: Unity Coroutines Tutorial - WaitForSeconds, Start, Stop
+Author: Brackeys
+Date Accessed: 25 October 2025
+Code Version: Unity 2019+ Compatible
+Availability: https://www.youtube.com/watch?v=Qxs3GrhcZIEN
+*/ 
+
 using UnityEngine;
 using System.Collections;
 
@@ -16,7 +23,7 @@ public class AscendTrigger : MonoBehaviour
 
     IEnumerator AscendScooter(GameObject scooter)
     {
-        Debug.Log("Ascend Point: Scooter starting ascent");
+       
 
         // Disable conveyor movement
         ScooterConveyorMovement movement = scooter.GetComponent<ScooterConveyorMovement>();
@@ -36,11 +43,11 @@ public class AscendTrigger : MonoBehaviour
             yield return null;
         }
 
-        // Destroy scooter
+     
         if (scooter != null)
         {
             Destroy(scooter);
-            Debug.Log("Scooter deleted at delete point");
+          
         }
     }
 }

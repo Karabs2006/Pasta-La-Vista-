@@ -1,3 +1,10 @@
+/* Title: Unity Triggers and Collision Detection
+Author: Brackeys
+Date Accessed: 25 October 2025
+Code Version: Unity 2019+ Compatible
+Availability: https://www.youtube.com/watch?v=gAB64vfbrhI
+*/
+
 using UnityEngine;
 using System.Collections;
 
@@ -15,18 +22,15 @@ public class CollectionPointStopSimple : MonoBehaviour
 
     IEnumerator StopScooter(GameObject scooter)
     {
-        
-
-        // Stop the scooter by disabling its movement script temporarily
         ScooterConveyorMovement movement = scooter.GetComponent<ScooterConveyorMovement>();
         if (movement != null)
         {
             movement.enabled = false;
 
-            // Wait
+           
             yield return new WaitForSeconds(stopTime);
 
-            // Resume
+ 
             movement.enabled = true;
           
         }

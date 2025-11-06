@@ -77,11 +77,4 @@ public class PizzaController : MonoBehaviour
         }
     }
     
-    IEnumerator NextPizza ()
-    {
-        yield return new WaitForSeconds(2f);
-        Destroy(boxedPizzaLayer);
-
-        
-    }
 }

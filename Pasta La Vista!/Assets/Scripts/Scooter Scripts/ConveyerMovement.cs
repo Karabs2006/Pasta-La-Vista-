@@ -11,14 +11,13 @@ public class ScooterConveyorMovement : MonoBehaviour
 
     void Update()
     {
-        // If on conveyor and done waiting, move forward
+
         if (isOnConveyor && hasWaited)
         {
             transform.Translate(Vector3.forward * conveyorSpeed * Time.deltaTime, Space.World);
         }
     }
 
-    // Call this when scooter lands on conveyor
     public void StartConveyorMovement()
     {
         StartCoroutine(WaitThenMove());
@@ -27,7 +26,7 @@ public class ScooterConveyorMovement : MonoBehaviour
     IEnumerator WaitThenMove()
     {
 
-        // Wait at collection point
+        
         yield return new WaitForSeconds(waitTime);
 
         // Start moving on conveyor
