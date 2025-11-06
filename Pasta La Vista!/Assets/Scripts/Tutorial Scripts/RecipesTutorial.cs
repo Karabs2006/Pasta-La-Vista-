@@ -57,7 +57,7 @@ public class RecipesTutorial : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        fPController.lookSensitivity = 0.45f;
+        fPController.lookSensitivity = 0.6f;
         pressedOnce = true;
 
         if (pressedOnce && !tutorial.pizzaBuild)

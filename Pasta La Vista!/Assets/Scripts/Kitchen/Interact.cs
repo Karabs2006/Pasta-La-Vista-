@@ -10,6 +10,7 @@ public class Interact : MonoBehaviour
         public GameObject dough;
         public GameObject sauce;
         public GameObject collectSpot;
+        public Animator animator;
 
     [Header("Scripts")]
         public FPController fPController;
@@ -44,7 +45,8 @@ public class Interact : MonoBehaviour
 
         if (fPController.interactPressed )
         {   
-            if(!oven.pizzaEquipped){
+            if(!oven.pizzaEquipped)
+            {
             if (cheeseZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
             {
                     cheese.SetActive(true);
@@ -52,6 +54,7 @@ public class Interact : MonoBehaviour
                     dough.SetActive(false);
                     sauce.SetActive(false);
                     fPController.interactPressed = false;
+                    animator.SetBool("heldObject", true);
 
             }
 
@@ -62,6 +65,7 @@ public class Interact : MonoBehaviour
                     dough.SetActive(false);
                     sauce.SetActive(false);
                     fPController.interactPressed = false;
+                    animator.SetBool("heldObject", true);
                 }
 
                 else if (doughZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
@@ -71,6 +75,7 @@ public class Interact : MonoBehaviour
                     pepperoni.SetActive(false);
                     sauce.SetActive(false);
                     fPController.interactPressed = false;
+                    animator.SetBool("heldObject", true);
                 }
 
                 else if (sauceZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
@@ -80,7 +85,12 @@ public class Interact : MonoBehaviour
                     cheese.SetActive(false);
                     pepperoni.SetActive(false);
                     fPController.interactPressed = false;
+                    animator.SetBool("heldObject", true);
                 }
+            }
+            else
+            {
+                 animator.SetBool("heldObject", false);
             }
 
            if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
@@ -99,6 +109,7 @@ public class Interact : MonoBehaviour
                         takenPizza = true;
                         order.enabled = false;
                         interactions = 0;
+                        animator.SetBool("heldObject", false);
                     }
                 
                 } 
@@ -122,6 +133,7 @@ public class Interact : MonoBehaviour
                         takenPizza = true;
                         order.enabled = false;
                         interactions = 0;
+                        animator.SetBool("heldObject", false);
 
                     } 
                     

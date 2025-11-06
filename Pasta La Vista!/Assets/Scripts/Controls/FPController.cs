@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class FPController : MonoBehaviour
@@ -7,7 +8,7 @@ public class FPController : MonoBehaviour
     public float gravity = -9.81f;
     [Header("Look Settings")]
     public Transform cameraTransform;
-    public float lookSensitivity = 0.45f;
+    public float lookSensitivity = 0.6f;
     public float verticalLookLimit = 90f;
     private CharacterController controller;
     private Vector2 moveInput;
@@ -20,6 +21,7 @@ public class FPController : MonoBehaviour
     public bool phonePressed = false;
     public bool quitPressed;
     public AudioSource walkingAudio;
+    public Animator animator;
 
     private void Awake()
     {
@@ -58,11 +60,14 @@ public class FPController : MonoBehaviour
         {
             if (!walkingAudio.isPlaying)
                 walkingAudio.Play();
+            animator.SetBool("playerWalking", true);
         }
         else
         {
             if (walkingAudio.isPlaying)
                 walkingAudio.Stop();
+
+                animator.SetBool("playerWalking", false);
         }
     }
 

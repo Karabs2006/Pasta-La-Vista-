@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class Oven : MonoBehaviour
 {
-    [Header("Classic Pepperoni Pizza")]
+    [Header("Pepperoni Pizza Objects")]
         public GameObject bakedPizza;
         public GameObject bakedPizzaPlayer;
         public GameObject rawPizza;
 
-    [Header("Plain Cheese Pizza")]
+    [Header("Plain Cheese Pizza Objects")]
         public GameObject rawCheesePizza;
         public GameObject bakedCheesePizza;
         public GameObject bakedCheesePlayer;
@@ -27,6 +27,7 @@ public class Oven : MonoBehaviour
         bool pizzaBaked;
         bool cheesePizzaBaked;
     public ParticleSystem steam;
+    public Animator animator;
     public bool cheesePizzaActive = false;
     public bool pizzaEquipped = false;
 
@@ -69,6 +70,7 @@ public class Oven : MonoBehaviour
                 timerClicking.Play();
                 StartCoroutine(BakePizza(bakedPizza));
                 fPController.interactPressed = false;
+                animator.SetBool("heldObject", false);
             }
         }
 
@@ -93,6 +95,7 @@ public class Oven : MonoBehaviour
 
             pizzaBaked = false;
             cheesePizzaBaked = false;
+
         }
 
         // PLAIN CHEESE
@@ -116,6 +119,7 @@ public class Oven : MonoBehaviour
 
                 pizzaBuild.doughPlaced = false;
                 pizzaBuild.cheesePlaced = false;
+                animator.SetBool("heldObject", false);
             }
         }
 
@@ -140,11 +144,13 @@ public class Oven : MonoBehaviour
 
             pizzaBaked = false;
             cheesePizzaBaked = false;
+            
         }
     
         if(bakedCheesePlayer.activeSelf || bakedPizzaPlayer.activeSelf)
         {
             pizzaEquipped = true;
+            animator.SetBool("heldObject", true);
         }
     }
 

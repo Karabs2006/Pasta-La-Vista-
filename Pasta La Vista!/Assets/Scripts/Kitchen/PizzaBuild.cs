@@ -28,7 +28,8 @@ public class PizzaBuild : MonoBehaviour
 
     [Header("Audio")]
         public AudioSource audioSource;
-        public AudioClip audioClip;
+    public AudioClip audioClip;
+    public Animator animator;
     
     void Start()
     {
@@ -54,6 +55,7 @@ public class PizzaBuild : MonoBehaviour
                 buildPizza = false;
                 fPController.interactPressed = false;
                 doughPlaced = true;
+                animator.SetBool("heldObject", false);
 
             }
 
@@ -65,9 +67,9 @@ public class PizzaBuild : MonoBehaviour
                 buildPizza = false;
                 fPController.interactPressed = false;
                 saucePlaced = true;
+                animator.SetBool("heldObject", false);
 
             }
-
 
             if (interact.cheese.activeSelf && saucePlaced)
             {
@@ -77,11 +79,9 @@ public class PizzaBuild : MonoBehaviour
                 buildPizza = false;
                 fPController.interactPressed = false;
                 cheesePlaced = true;
+                animator.SetBool("heldObject", false);
 
             }
-
-            
-
 
             if (interact.pepperoni.activeSelf)
             {
@@ -102,6 +102,7 @@ public class PizzaBuild : MonoBehaviour
                     pepPlaced = false;
                     saucePlaced = false;
                     fPController.interactPressed = false;
+                    animator.SetBool("heldObject", true);
 
                 }
 
@@ -118,6 +119,7 @@ public class PizzaBuild : MonoBehaviour
             crust.SetActive(false);
             cheese.SetActive(false);
             sauce.SetActive(false);
+            animator.SetBool("heldObject", true);
 
         }
   

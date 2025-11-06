@@ -68,7 +68,7 @@ public class ButtonsTutorial : MonoBehaviour
         gameManager.controls.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        fPController.lookSensitivity = 0.45f;
+        fPController.lookSensitivity = 0.6f;
     }
 
     public void QuitGame()
