@@ -103,7 +103,7 @@ public class SteveCustomers : MonoBehaviour
         PickRandomCustomer();
     }
 
-    IEnumerator Timer(int time = 15)
+    IEnumerator Timer(int time = 7)
     {
         while (time > 0)
         {
