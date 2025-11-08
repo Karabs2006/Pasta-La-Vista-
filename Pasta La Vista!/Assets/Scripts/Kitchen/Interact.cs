@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
@@ -22,7 +20,6 @@ public class Interact : MonoBehaviour
         bool pepZone = false;
         bool doughZone = false;
         bool sauceZone = false;
-        bool firstOrder = false;
         public bool givePizza = false;
         public bool takenPizza = false;
         public bool nextCustomer = false;
@@ -134,14 +131,10 @@ public class Interact : MonoBehaviour
                         order.enabled = false;
                         interactions = 0;
                         animator.SetBool("heldObject", false);
-
                     } 
-                    
                 }
-                
             }
         }
-
     }
 
     void OnTriggerEnter(Collider trigger)

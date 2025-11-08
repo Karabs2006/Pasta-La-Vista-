@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +6,7 @@ public class GameManager : MonoBehaviour
     public PhoneTime phoneTime;
     public GameObject controls;
     public AudioSource buttonAudio;
+    public int count = 0;
     void Start()
     {   
         controls.SetActive(false);

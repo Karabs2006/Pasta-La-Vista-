@@ -1,9 +1,6 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
 public class Review : MonoBehaviour

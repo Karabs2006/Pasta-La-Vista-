@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Oven : MonoBehaviour
@@ -23,14 +21,14 @@ public class Oven : MonoBehaviour
         public Slider slider;
         public Order order;
 
-        bool nearOven;
+        public bool nearOven;
         bool pizzaBaked;
         bool cheesePizzaBaked;
     public ParticleSystem steam;
     public Animator animator;
     public bool cheesePizzaActive = false;
     public bool pizzaEquipped = false;
-
+    public GameManager gameManager;
     [Header("Audio")]
         public AudioSource timerClicking;
         public AudioSource timerRing;
@@ -71,6 +69,7 @@ public class Oven : MonoBehaviour
                 StartCoroutine(BakePizza(bakedPizza));
                 fPController.interactPressed = false;
                 animator.SetBool("heldObject", false);
+                gameManager.count++;
             }
         }
 
@@ -95,6 +94,7 @@ public class Oven : MonoBehaviour
 
             pizzaBaked = false;
             cheesePizzaBaked = false;
+            gameManager.count--;
 
         }
 
@@ -120,6 +120,7 @@ public class Oven : MonoBehaviour
                 pizzaBuild.doughPlaced = false;
                 pizzaBuild.cheesePlaced = false;
                 animator.SetBool("heldObject", false);
+                gameManager.count++;
             }
         }
 
@@ -144,6 +145,7 @@ public class Oven : MonoBehaviour
 
             pizzaBaked = false;
             cheesePizzaBaked = false;
+            gameManager.count--;
             
         }
     

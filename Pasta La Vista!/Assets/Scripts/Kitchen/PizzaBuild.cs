@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PizzaBuild : MonoBehaviour
 {
@@ -16,6 +13,7 @@ public class PizzaBuild : MonoBehaviour
     [Header ("Scripts")]
         public Interact interact;
         public FPController fPController;
+    public GameManager gameManager;
        
     [Header("Booleans")]
         bool buildPizza;
@@ -28,7 +26,7 @@ public class PizzaBuild : MonoBehaviour
 
     [Header("Audio")]
         public AudioSource audioSource;
-    public AudioClip audioClip;
+        public AudioClip audioClip;
     public Animator animator;
     
     void Start()
@@ -45,7 +43,7 @@ public class PizzaBuild : MonoBehaviour
     {
         if (!buildPizza) return;
 
-        if (fPController.interactPressed && ovenEmpty)
+        if (fPController.interactPressed && gameManager.count < 2 && gameManager.count >=0)
         {
             if (interact.dough.activeSelf)
             {
@@ -103,11 +101,8 @@ public class PizzaBuild : MonoBehaviour
                     saucePlaced = false;
                     fPController.interactPressed = false;
                     animator.SetBool("heldObject", true);
-
                 }
-
             }
-
         }
 
         // CHEESE PIZZA
@@ -120,7 +115,6 @@ public class PizzaBuild : MonoBehaviour
             cheese.SetActive(false);
             sauce.SetActive(false);
             animator.SetBool("heldObject", true);
-
         }
   
     }
