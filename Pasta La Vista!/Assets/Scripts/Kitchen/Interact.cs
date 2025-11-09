@@ -8,6 +8,8 @@ public class Interact : MonoBehaviour
         public GameObject dough;
         public GameObject sauce;
         public GameObject collectSpot;
+        public GameObject pizzaBox;
+        public GameObject pizzaBoxZone;
         public Animator animator;
 
     [Header("Scripts")]
@@ -20,13 +22,17 @@ public class Interact : MonoBehaviour
         bool pepZone = false;
         bool doughZone = false;
         bool sauceZone = false;
+        bool inBoxZone = false;
         public bool givePizza = false;
         public bool takenPizza = false;
         public bool nextCustomer = false;
+        public bool pepBox = false;
+        public bool cheeseBox = false;
         int interactions = 0;
 
     [Header("Audio")]
         public AudioSource audioSource;
+        public AudioSource boxingSound;
         public AudioClip audioClip;
         
     void Start()
@@ -35,6 +41,7 @@ public class Interact : MonoBehaviour
         pepperoni.SetActive(false);
         dough.SetActive(false);
         sauce.SetActive(false);
+        pizzaBox.SetActive(false);
     }
 
     void Update()
@@ -90,7 +97,7 @@ public class Interact : MonoBehaviour
                 animator.SetBool("heldObject", false);
             }
 
-            if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
+            if (givePizza && pepBox)
             {
                 if (order.pizzaType == 1)
                 {
@@ -98,6 +105,8 @@ public class Interact : MonoBehaviour
                     oven.pizzaEquipped = false;
                     oven.bakedPizzaPlayer.SetActive(false);
                     fPController.interactPressed = false;
+                    pizzaBox.SetActive(false);
+                    pepBox = false;
                     interactions++;
 
                     if (interactions == order.numPizza)
@@ -107,13 +116,14 @@ public class Interact : MonoBehaviour
                         order.enabled = false;
                         interactions = 0;
                         animator.SetBool("heldObject", false);
+                        pizzaBox.SetActive(false);
                     }
 
                 }
 
             }
 
-            if (givePizza && oven.bakedCheesePlayer.activeSelf && order.isCheesePizzaHeld)
+            if (givePizza && cheeseBox)
             {
                 if (order.pizzaType == 0)
                 {
@@ -122,6 +132,8 @@ public class Interact : MonoBehaviour
                     order.isCheesePizzaHeld = false;
                     oven.bakedCheesePlayer.SetActive(false);
                     fPController.interactPressed = false;
+                    pizzaBox.SetActive(false);
+                    cheeseBox = false;
                     interactions++;
 
                     if (interactions == order.numPizza)
@@ -132,6 +144,28 @@ public class Interact : MonoBehaviour
                         interactions = 0;
                         animator.SetBool("heldObject", false);
                     }
+                }
+            }
+            
+            if(inBoxZone)
+            {
+                if (oven.bakedPizzaPlayer.activeSelf)
+                {   
+                    fPController.interactPressed = false;
+                    pizzaBox.SetActive(true);
+                    oven.bakedPizzaPlayer.SetActive(false);
+                    pepBox = true;
+                    boxingSound.Play();
+
+                }
+
+                if (oven.bakedCheesePlayer.activeSelf)
+                {   
+                    fPController.interactPressed = false;
+                    pizzaBox.SetActive(true);
+                    oven.bakedCheesePlayer.SetActive(false);
+                    cheeseBox = true;
+                    boxingSound.Play();
                 }
             }
         }
@@ -191,6 +225,11 @@ public class Interact : MonoBehaviour
             givePizza = true;
         }
 
+        if (trigger.gameObject == pizzaBoxZone)
+        {
+            inBoxZone = true;
+        }
+
     }
 
     void OnTriggerExit(Collider other)
@@ -218,6 +257,11 @@ public class Interact : MonoBehaviour
         if (other.gameObject == collectSpot)
         {
             givePizza = false;
+        }
+
+        if (other.gameObject == pizzaBoxZone)
+        {
+            inBoxZone = false;
         }
 
     }

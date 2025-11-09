@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using System.Collections;
 
 public class Customer : MonoBehaviour
 {
@@ -15,9 +13,12 @@ public class Customer : MonoBehaviour
         public Order orderScript;
         public FPController fPController;
         public Animator animator;
-    
+
     [Header("Game Objects")]
     public GameObject customer;
+    public GameObject collectCollider;
+    public GameObject boxCustomer;
+
     [Header("Audio")]
         AudioSource audioSource;
         AudioClip audioClip;
@@ -39,6 +40,7 @@ public class Customer : MonoBehaviour
         orderSpot = GameObject.FindWithTag("Order Spot").transform;
         exitSpot = GameObject.FindWithTag("Exit Spot").transform;
         inLine = false;
+        boxCustomer.SetActive(false);
     }
 
     void Update()
@@ -60,13 +62,15 @@ public class Customer : MonoBehaviour
                 orderTaken = true;
                 inLine = true;
                 orderScript.order.enabled = true;
+                collectCollider.SetActive(true);
                 StartCoroutine(Timer());
             }
         }
 
         // After pizza taken, start leaving
         if (orderTaken && interact.takenPizza && !customerLeaving)
-        {
+        {   
+            boxCustomer.SetActive(true);
             animator.SetBool("PizzaTaken", true);
             StartCoroutine(Leave(customer));
             review.reviewScore += 500;
@@ -76,13 +80,15 @@ public class Customer : MonoBehaviour
     }
 
     IEnumerator Leave(GameObject cust)
-    {  
+    {   
+        
         customer.transform.Rotate(0f, 180f, 0f);
         animator.SetBool("AtOrderSpot", false);
         fPController.interactPressed = false; 
         interact.givePizza = false;
         orderScript.order.enabled = false;
         orderScript.timer.SetActive(false);
+        collectCollider.SetActive(false);
 
         // Move customer toward exit over time
         while (Vector3.Distance(cust.transform.position, exitSpot.position) > 0.5f)
@@ -109,6 +115,7 @@ public class Customer : MonoBehaviour
 
         // Reactivate same customer instead of random
         customer.SetActive(true);
+        boxCustomer.SetActive(false);
         orderScript.GenerateOrder();
     }
 

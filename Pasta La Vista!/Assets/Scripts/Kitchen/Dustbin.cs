@@ -5,6 +5,7 @@ public class Dustbin : MonoBehaviour
     public Oven oven;
     public FPController fPController;
     public PizzaBuild pizzaBuild;
+    public Interact interact;
     bool nearBin = false;
 
     void Update()
@@ -27,6 +28,13 @@ public class Dustbin : MonoBehaviour
         else if (nearBin && fPController.interactPressed && pizzaBuild.cheesePizza.activeSelf)
         {
             Throw(pizzaBuild.cheesePizza);
+        }
+
+        else if (nearBin && fPController.interactPressed && interact.pizzaBox.activeSelf)
+        {
+            Throw(interact.pizzaBox);
+            interact.pepBox = false;
+            interact.cheeseBox = false;
         }
     
     }

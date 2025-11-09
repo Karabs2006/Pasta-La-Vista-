@@ -1,18 +1,32 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PhoneTime : MonoBehaviour
 {
     public TMP_Text minutes;
     public TMP_Text hours;
+    public Review review;
     int hoursClock = 13;
     bool gamePlaying = true;
-    
-    void Start()
+
+    void Update()
     {
+        if(hoursClock == 19)
+        {
+            if (review.reviewScore >= 4000)
+            {
+                SceneManager.LoadSceneAsync("WinScene");
+            }
+
+            if (review.reviewScore < 4000)
+            {
+                SceneManager.LoadSceneAsync("LoseScene");
+            } 
+        }
     }
-    
+
     public IEnumerator Timer()
     {
         int mins = 0;
@@ -39,8 +53,6 @@ public class PhoneTime : MonoBehaviour
                 hours.text = $"{hoursClock}";
                 mins = 0;
             }
-
         }
-        
     }
 }
