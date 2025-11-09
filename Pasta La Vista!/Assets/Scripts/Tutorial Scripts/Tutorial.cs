@@ -16,6 +16,7 @@ public class Tutorial : MonoBehaviour
         public GameObject recipes;
         public GameObject pizzaBuilding;
         public GameObject baking;
+        public GameObject placeholder;
         public GameObject phone;
         public GameObject rivalReviews;
         public GameObject playerReviews;
@@ -43,6 +44,7 @@ public class Tutorial : MonoBehaviour
         recipes.SetActive(false);
         pizzaBuilding.SetActive(false);
         baking.SetActive(false);
+        placeholder.SetActive(false);
         phone.SetActive(false);
         rivalReviews.SetActive(false);
         playerReviews.SetActive(false);
@@ -95,11 +97,18 @@ public class Tutorial : MonoBehaviour
     }
 
     public void CloseBaking()//Same Name
-    {   
-        Resume();
+    {
+        placeholder.SetActive(true);
         buildTutorial = true;
         phaseTwo = true;
         baking.SetActive(false);
+        PlaySound();
+    }
+
+    public void ClosePlaceholder()
+    {
+        Resume();
+        placeholder.SetActive(false);
         PlaySound();
     }
 

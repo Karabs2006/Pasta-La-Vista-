@@ -20,6 +20,7 @@ public class FPController : MonoBehaviour
     public bool pausePressed = false;
     public bool phonePressed = false;
     public bool quitPressed;
+    public bool emptyHandPressed;
     public AudioSource walkingAudio;
     public Animator animator;
 
@@ -114,12 +115,20 @@ public class FPController : MonoBehaviour
             pausePressed = true;
         }
     }
-    
-     public void OnQuit(InputAction.CallbackContext context)
+
+    public void OnQuit(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            quitPressed = true; 
+            quitPressed = true;
+        }
+    }
+    
+     public void OnEmpty(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            emptyHandPressed = true; 
         }
     }
 }

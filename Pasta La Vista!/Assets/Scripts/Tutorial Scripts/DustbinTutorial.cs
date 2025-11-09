@@ -13,12 +13,14 @@ public class DustbinTutorial : MonoBehaviour
         {
             oven.bakedPizzaPlayer.SetActive(false);
             fPController.interactPressed = false;
+            oven.pizzaEquipped = false;
         }
 
         else if (nearBin && fPController.interactPressed && oven.bakedCheesePlayer.activeSelf)
         {
             oven.bakedCheesePlayer.SetActive(false);
             fPController.interactPressed = false;
+            oven.pizzaEquipped = false;
             oven.cheesePizzaActive = false;
         }
 
@@ -26,13 +28,15 @@ public class DustbinTutorial : MonoBehaviour
         {
             pizzaBuild.pizza.SetActive(false);
             fPController.interactPressed = false;
+            oven.pizzaEquipped = false;
         }
 
         else if (nearBin && fPController.interactPressed && pizzaBuild.cheesePizza.activeSelf)
         {
             pizzaBuild.cheesePizza.SetActive(false);
             fPController.interactPressed = false;
-            
+            oven.pizzaEquipped = false;
+            oven.cheesePizzaActive = false;
         }
     
     }

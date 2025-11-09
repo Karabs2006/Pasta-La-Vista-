@@ -41,7 +41,7 @@ public class InteractTutorial : MonoBehaviour
 
     void Update()
     {
-            if (fPController.interactPressed && tutorial.phaseTwo)
+        if (fPController.interactPressed && tutorial.phaseTwo)
         {
             if (!oven.pizzaEquipped)
             {
@@ -84,66 +84,93 @@ public class InteractTutorial : MonoBehaviour
             }
 
 
-                if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
+            if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
+            {
+                if (order.pizzaType == 1)
                 {
-                    if (order.pizzaType == 1)
+                    order.isPepPizzaHeld = false;
+                    oven.pizzaEquipped = false;
+                    oven.bakedPizzaPlayer.SetActive(false);
+                    fPController.interactPressed = false;
+                    interactions++;
+
+                    if (interactions == order.numPizza)
                     {
-                        order.isPepPizzaHeld = false;
-                        oven.pizzaEquipped = false;
-                        oven.bakedPizzaPlayer.SetActive(false);
-                        fPController.interactPressed = false;
-                        interactions++;
+                        audioSource.PlayOneShot(audioClip);
+                        takenPizza = true;
+                        order.enabled = false;
+                        interactions = 0;
+                        firstOrder = true;
 
-                        if (interactions == order.numPizza)
+                        if (firstOrder && !tutorial.firstOrderTutorial)
                         {
-                            audioSource.PlayOneShot(audioClip);
-                            takenPizza = true;
-                            order.enabled = false;
-                            interactions = 0;
-                            firstOrder = true;
-
-                            if (firstOrder && !tutorial.firstOrderTutorial)
-                            {
-                                StartCoroutine(LoadDelay());
-                            }
+                            StartCoroutine(LoadDelay());
                         }
-
-
                     }
+
 
                 }
 
-                if (givePizza && oven.bakedCheesePlayer.activeSelf && order.isCheesePizzaHeld)
-                {
-                    if (order.pizzaType == 0)
-                    {
-                        oven.cheesePizzaActive = false;
-                        oven.pizzaEquipped = false;
-                        order.isCheesePizzaHeld = false;
-                        oven.bakedCheesePlayer.SetActive(false);
-                        fPController.interactPressed = false;
-                        interactions++;
-
-                        if (interactions == order.numPizza)
-                        {
-                            audioSource.PlayOneShot(audioClip);
-                            takenPizza = true;
-                            order.enabled = false;
-                            interactions = 0;
-                            firstOrder = true;
-
-                            if (firstOrder && !tutorial.firstOrderTutorial)
-                            {
-                                StartCoroutine(LoadDelay());
-                            }
-
-                        }
-
-
-                    }
-
-                }
             }
+
+            if (givePizza && oven.bakedCheesePlayer.activeSelf && order.isCheesePizzaHeld)
+            {
+                if (order.pizzaType == 0)
+                {
+                    oven.cheesePizzaActive = false;
+                    oven.pizzaEquipped = false;
+                    order.isCheesePizzaHeld = false;
+                    oven.bakedCheesePlayer.SetActive(false);
+                    fPController.interactPressed = false;
+                    interactions++;
+
+                    if (interactions == order.numPizza)
+                    {
+                        audioSource.PlayOneShot(audioClip);
+                        takenPizza = true;
+                        order.enabled = false;
+                        interactions = 0;
+                        firstOrder = true;
+
+                        if (firstOrder && !tutorial.firstOrderTutorial)
+                        {
+                            StartCoroutine(LoadDelay());
+                        }
+
+                    }
+
+
+                }
+
+            }
+        }
+            
+
+            if(fPController.emptyHandPressed)
+        {
+            if (cheese.activeSelf)
+            {
+                cheese.SetActive(false);
+                fPController.emptyHandPressed = false;
+            }
+
+            if (pepperoni.activeSelf)
+            {
+                pepperoni.SetActive(false);
+                fPController.emptyHandPressed = false;
+            }
+
+            if (dough.activeSelf)
+            {
+                dough.SetActive(false);
+                fPController.emptyHandPressed = false;
+            }
+            if(sauce.activeSelf)
+            {
+                sauce.SetActive(false);
+                fPController.emptyHandPressed = false;
+            }
+        }
 
         }
     

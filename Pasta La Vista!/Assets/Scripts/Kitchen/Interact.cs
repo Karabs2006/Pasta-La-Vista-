@@ -40,12 +40,12 @@ public class Interact : MonoBehaviour
     void Update()
     {
 
-        if (fPController.interactPressed )
-        {   
-            if(!oven.pizzaEquipped)
+        if (fPController.interactPressed)
+        {
+            if (!oven.pizzaEquipped)
             {
-            if (cheeseZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
-            {
+                if (cheeseZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
+                {
                     cheese.SetActive(true);
                     pepperoni.SetActive(false);
                     dough.SetActive(false);
@@ -53,7 +53,7 @@ public class Interact : MonoBehaviour
                     fPController.interactPressed = false;
                     animator.SetBool("heldObject", true);
 
-            }
+                }
 
                 else if (pepZone && !oven.bakedPizzaPlayer.activeSelf && !oven.cheesePizzaActive)
                 {
@@ -87,18 +87,18 @@ public class Interact : MonoBehaviour
             }
             else
             {
-                 animator.SetBool("heldObject", false);
+                animator.SetBool("heldObject", false);
             }
 
-           if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
-            {  
+            if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
+            {
                 if (order.pizzaType == 1)
                 {
-                order.isPepPizzaHeld = false;
-                oven.pizzaEquipped = false;
-                oven.bakedPizzaPlayer.SetActive(false);
-                fPController.interactPressed = false;
-                interactions++;
+                    order.isPepPizzaHeld = false;
+                    oven.pizzaEquipped = false;
+                    oven.bakedPizzaPlayer.SetActive(false);
+                    fPController.interactPressed = false;
+                    interactions++;
 
                     if (interactions == order.numPizza)
                     {
@@ -108,13 +108,13 @@ public class Interact : MonoBehaviour
                         interactions = 0;
                         animator.SetBool("heldObject", false);
                     }
-                
-                } 
-                
+
+                }
+
             }
-            
+
             if (givePizza && oven.bakedCheesePlayer.activeSelf && order.isCheesePizzaHeld)
-            {   
+            {
                 if (order.pizzaType == 0)
                 {
                     oven.cheesePizzaActive = false;
@@ -131,8 +131,35 @@ public class Interact : MonoBehaviour
                         order.enabled = false;
                         interactions = 0;
                         animator.SetBool("heldObject", false);
-                    } 
+                    }
                 }
+            }
+        }
+        
+
+        if(fPController.emptyHandPressed)
+        {
+            if (cheese.activeSelf)
+            {
+                cheese.SetActive(false);
+                fPController.emptyHandPressed = false;
+            }
+
+            if (pepperoni.activeSelf)
+            {
+                pepperoni.SetActive(false);
+                fPController.emptyHandPressed = false;
+            }
+
+            if (dough.activeSelf)
+            {
+                dough.SetActive(false);
+                fPController.emptyHandPressed = false;
+            }
+            if(sauce.activeSelf)
+            {
+                sauce.SetActive(false);
+                fPController.emptyHandPressed = false;
             }
         }
     }

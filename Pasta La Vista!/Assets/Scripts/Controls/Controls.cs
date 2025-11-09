@@ -153,6 +153,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Empty Hand"",
+                    ""type"": ""Button"",
+                    ""id"": ""e470d339-63b3-4467-9267-723c64ca0663"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -441,6 +450,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Phone"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f82343b9-d4fa-4f66-a09c-ee9679646c10"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Empty Hand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -456,6 +476,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Quit = m_Player.FindAction("Quit", throwIfNotFound: true);
         m_Player_Phone = m_Player.FindAction("Phone", throwIfNotFound: true);
+        m_Player_EmptyHand = m_Player.FindAction("Empty Hand", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -543,6 +564,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Quit;
     private readonly InputAction m_Player_Phone;
+    private readonly InputAction m_Player_EmptyHand;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -582,6 +604,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Phone".
         /// </summary>
         public InputAction @Phone => m_Wrapper.m_Player_Phone;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/EmptyHand".
+        /// </summary>
+        public InputAction @EmptyHand => m_Wrapper.m_Player_EmptyHand;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -629,6 +655,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Phone.started += instance.OnPhone;
             @Phone.performed += instance.OnPhone;
             @Phone.canceled += instance.OnPhone;
+            @EmptyHand.started += instance.OnEmptyHand;
+            @EmptyHand.performed += instance.OnEmptyHand;
+            @EmptyHand.canceled += instance.OnEmptyHand;
         }
 
         /// <summary>
@@ -661,6 +690,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Phone.started -= instance.OnPhone;
             @Phone.performed -= instance.OnPhone;
             @Phone.canceled -= instance.OnPhone;
+            @EmptyHand.started -= instance.OnEmptyHand;
+            @EmptyHand.performed -= instance.OnEmptyHand;
+            @EmptyHand.canceled -= instance.OnEmptyHand;
         }
 
         /// <summary>
@@ -750,5 +782,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPhone(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Empty Hand" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEmptyHand(InputAction.CallbackContext context);
     }
 }
