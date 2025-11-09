@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingScreen.unity
     guid: 9b4478a58dfc1c7479e9f01a27fa9b15
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: ad96a4c977e534148b9ab73f7601d60c
+  - enabled: 1
+    path: Assets/Scenes/LoseScene.unity
+    guid: c64fa6e1b6bb2c445996e4dd417768ca
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

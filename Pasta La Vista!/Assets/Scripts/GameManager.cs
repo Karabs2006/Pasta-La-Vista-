@@ -14,12 +14,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(phoneTime.Timer());
 
     }
-
-    
     public void Controls()
     {
         controls.SetActive(true);
         buttonAudio.Play();
     }
+
+    
     
 }
