@@ -42,6 +42,13 @@ public class Interact : MonoBehaviour
         dough.SetActive(false);
         sauce.SetActive(false);
         pizzaBox.SetActive(false);
+
+
+        
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        fPController.lookSensitivity = 0.6f;
     }
 
     void Update()

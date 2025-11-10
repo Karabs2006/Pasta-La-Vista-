@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TutorialScene.unity
     guid: 2132301c17265484b9c4f86e094a3f42
   - enabled: 1
-    path: Assets/Scenes/New Loading Scene.unity
+    path: Assets/Scenes/LoadingScene.unity
     guid: fc06ad515bba5024c9c0aaadd55f303d
   - enabled: 1
     path: Assets/Scenes/GameScene.unity

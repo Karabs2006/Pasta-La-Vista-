@@ -41,20 +41,20 @@ public class Customer : MonoBehaviour
     [Header("Customers")]
         public GameObject cj;
         public GameObject franklin;
-        public GameObject trevor;
+     
         public GameObject micheal;
 
     [Header("Customer Boxes")]
         public GameObject cjBox;
         public GameObject frankBox;
-        public GameObject trevBox;
+       
         public GameObject mikeBox;
 
 
     [Header("Animators")]
         public Animator cjAnimator;
         public Animator franklinAnimator;
-        public Animator trevorAnimator;
+     
         public Animator mikeAnimator;
         
     void Start()
@@ -66,9 +66,9 @@ public class Customer : MonoBehaviour
         orderCheesePizza.SetActive(false);
         orderPepPizza.SetActive(false);
 
-        customers = new List<GameObject> { cj, franklin, trevor, micheal };
-        boxes = new List<GameObject> { cjBox, frankBox, trevBox, mikeBox };
-        animators = new List<Animator> { cjAnimator, franklinAnimator, trevorAnimator, mikeAnimator };
+        customers = new List<GameObject> { cj, franklin, micheal };
+        boxes = new List<GameObject> { cjBox, frankBox, mikeBox };
+        animators = new List<Animator> { cjAnimator, franklinAnimator, mikeAnimator };
 
         foreach (var cust in customers)
         {

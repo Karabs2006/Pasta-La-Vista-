@@ -18,7 +18,7 @@ public class RecipesTutorial : MonoBehaviour
 
     void Update()
     {   
-        if (playerInTrigger && fPController.interactPressed)
+        if (playerInTrigger && fPController.interactPressed && tutorial.phaseOne)
         {
             recipeActive = true;
         }

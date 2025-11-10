@@ -14,8 +14,8 @@ public class SceneSwitch : MonoBehaviour
         SceneManager.LoadSceneAsync("IntroductionScene02");
     }
 
-    public void PlayGameScene()
+    public void PlayTutScene()
     {
-        SceneManager.LoadSceneAsync("GameScene");
+        SceneManager.LoadSceneAsync("TutorialScene");
     }
 }

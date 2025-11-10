@@ -1,4 +1,4 @@
-using UnityEngine;
+/* using UnityEngine;
 using TMPro; // Essential for TextMeshPro
 
 public class ProximityTooltipTrigger : MonoBehaviour
@@ -73,3 +73,4 @@ public class ProximityTooltipTrigger : MonoBehaviour
         }
     }
 }
+*/

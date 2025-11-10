@@ -30,8 +30,9 @@ public class Tutorial : MonoBehaviour
         public bool firstPhonePickup = true;
         public bool phaseTwo = false;
         public bool phaseThree = false;
+        public bool phaseOne = false;
 
-        public AudioSource buttonAudio;
+    public AudioSource buttonAudio;
 
 
     void Start()
@@ -74,9 +75,10 @@ public class Tutorial : MonoBehaviour
     }
 
     public void CloseCustomer() //Put on Customer
-    {
+    {   
         customer.SetActive(false);
         StartCoroutine(TimedLoad(recipes, 3));
+        phaseOne = true;
         PlaySound();
     }
 
@@ -129,7 +131,7 @@ public class Tutorial : MonoBehaviour
 
     public void LoadingScreen()
     {
-        SceneManager.LoadSceneAsync("GameScene");
+        SceneManager.LoadSceneAsync("LoadingScene");
     }
 
     IEnumerator TimedLoad(GameObject obj, float i)
