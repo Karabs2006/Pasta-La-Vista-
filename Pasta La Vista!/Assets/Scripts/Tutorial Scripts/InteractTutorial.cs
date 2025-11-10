@@ -9,6 +9,8 @@ public class InteractTutorial : MonoBehaviour
         public GameObject pepperoni;
         public GameObject dough;
         public GameObject sauce;
+        public GameObject pizzaBox;
+        public GameObject pizzaBoxZone;
 
     [Header("Scripts")]
         public FPController fPController;
@@ -22,14 +24,18 @@ public class InteractTutorial : MonoBehaviour
         bool doughZone = false;
         bool sauceZone = false;
         bool firstOrder = false;
+        bool inBoxZone = false;
         public bool givePizza = false;
         public bool takenPizza = false;
         public bool nextCustomer = false;
+        public bool pepBox = false;
+        public bool cheeseBox = false;
         int interactions = 0;
 
     [Header("Audio")]
         public AudioSource audioSource;
-        public AudioClip audioClip;
+    public AudioClip audioClip;
+    public AudioSource boxingSound;
         
     void Start()
     {
@@ -37,6 +43,7 @@ public class InteractTutorial : MonoBehaviour
         pepperoni.SetActive(false);
         dough.SetActive(false);
         sauce.SetActive(false);
+        pizzaBox.SetActive(false);
     }
 
     void Update()
@@ -84,7 +91,7 @@ public class InteractTutorial : MonoBehaviour
             }
 
 
-            if (givePizza && oven.bakedPizzaPlayer.activeSelf && order.isPepPizzaHeld)
+            if (givePizza && pepBox)
             {
                 if (order.pizzaType == 1)
                 {
@@ -93,6 +100,9 @@ public class InteractTutorial : MonoBehaviour
                     oven.bakedPizzaPlayer.SetActive(false);
                     fPController.interactPressed = false;
                     interactions++;
+                    pizzaBox.SetActive(false);
+                    pepBox = false;
+
 
                     if (interactions == order.numPizza)
                     {
@@ -101,6 +111,7 @@ public class InteractTutorial : MonoBehaviour
                         order.enabled = false;
                         interactions = 0;
                         firstOrder = true;
+                        pizzaBox.SetActive(false);
 
                         if (firstOrder && !tutorial.firstOrderTutorial)
                         {
@@ -113,7 +124,7 @@ public class InteractTutorial : MonoBehaviour
 
             }
 
-            if (givePizza && oven.bakedCheesePlayer.activeSelf && order.isCheesePizzaHeld)
+            if (givePizza && cheeseBox)
             {
                 if (order.pizzaType == 0)
                 {
@@ -123,6 +134,8 @@ public class InteractTutorial : MonoBehaviour
                     oven.bakedCheesePlayer.SetActive(false);
                     fPController.interactPressed = false;
                     interactions++;
+                    pizzaBox.SetActive(false);
+                    cheeseBox = false;
 
                     if (interactions == order.numPizza)
                     {
@@ -131,6 +144,7 @@ public class InteractTutorial : MonoBehaviour
                         order.enabled = false;
                         interactions = 0;
                         firstOrder = true;
+                        pizzaBox.SetActive(false);
 
                         if (firstOrder && !tutorial.firstOrderTutorial)
                         {
@@ -142,6 +156,31 @@ public class InteractTutorial : MonoBehaviour
 
                 }
 
+            }
+
+
+
+
+            if(inBoxZone)
+            {
+                if (oven.bakedPizzaPlayer.activeSelf)
+                {   
+                    fPController.interactPressed = false;
+                    pizzaBox.SetActive(true);
+                    oven.bakedPizzaPlayer.SetActive(false);
+                    pepBox = true;
+                    boxingSound.Play();
+
+                }
+
+                if (oven.bakedCheesePlayer.activeSelf)
+                {   
+                    fPController.interactPressed = false;
+                    pizzaBox.SetActive(true);
+                    oven.bakedCheesePlayer.SetActive(false);
+                    cheeseBox = true;
+                    boxingSound.Play();
+                }
             }
         }
             
@@ -202,6 +241,11 @@ public class InteractTutorial : MonoBehaviour
             givePizza = true;
         }
 
+        if (trigger.gameObject == pizzaBoxZone)
+        {
+            inBoxZone = true;
+        }
+
     }
 
     void OnTriggerExit(Collider other)
@@ -230,6 +274,13 @@ public class InteractTutorial : MonoBehaviour
         {
             givePizza = false;
         }
+
+        if (other.gameObject == pizzaBoxZone)
+        {
+            inBoxZone = false;
+        }
+
+
 
     }
 

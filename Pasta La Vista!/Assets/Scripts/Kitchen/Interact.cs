@@ -143,6 +143,7 @@ public class Interact : MonoBehaviour
                         order.enabled = false;
                         interactions = 0;
                         animator.SetBool("heldObject", false);
+                        pizzaBox.SetActive(false);
                     }
                 }
             }
