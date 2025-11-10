@@ -73,8 +73,7 @@ public class SteveCustomers : MonoBehaviour
     {   
         animator.SetBool("TookPizza", false);
         pizzaBox.SetActive(false);
-        int mat = Random.Range(0, materials.Count);
-        renderer.material = materials[mat];
+
         customer.SetActive(true);
 
         orderTaken = false;

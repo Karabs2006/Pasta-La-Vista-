@@ -92,6 +92,7 @@ public class Interact : MonoBehaviour
                     animator.SetBool("heldObject", true);
                 }
             }
+
             else
             {
                 animator.SetBool("heldObject", false);

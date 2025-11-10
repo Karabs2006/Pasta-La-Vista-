@@ -12,8 +12,8 @@ public class PizzaBuild : MonoBehaviour
 
     [Header ("Scripts")]
         public Interact interact;
-        public FPController fPController;
-    public GameManager gameManager;
+    public FPController fPController;
+
        
     [Header("Booleans")]
         bool buildPizza;
@@ -43,7 +43,7 @@ public class PizzaBuild : MonoBehaviour
     {
         if (!buildPizza) return;
 
-        if (fPController.interactPressed && gameManager.count < 2 && gameManager.count >=0)
+        if (fPController.interactPressed)
         {
             if (interact.dough.activeSelf)
             {

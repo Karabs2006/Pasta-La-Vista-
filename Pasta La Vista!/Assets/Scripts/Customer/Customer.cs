@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Customer : MonoBehaviour
 {
@@ -22,21 +23,40 @@ public class Customer : MonoBehaviour
     public GameObject orderPepPizza;
 
     [Header("Audio")]
-        AudioSource audioSource;
-        AudioClip audioClip;
         public AudioSource angryCustomer;
-        public AudioSource maleOrder;
-        public AudioSource femaleOrder;
+        public AudioSource orderSound;
         public AudioClip angrySound;
-        public AudioClip male;
-        public AudioClip female;
+       
 
     //Variables
         float moveSpeed = 2f;
         private bool orderTaken = false;
         private bool customerLeaving = false;
         bool inLine;
+    private List<GameObject> customers;
+    private List<GameObject> boxes;
+    private List<Animator> animators;
 
+
+    [Header("Customers")]
+        public GameObject cj;
+        public GameObject franklin;
+        public GameObject trevor;
+        public GameObject micheal;
+
+    [Header("Customer Boxes")]
+        public GameObject cjBox;
+        public GameObject frankBox;
+        public GameObject trevBox;
+        public GameObject mikeBox;
+
+
+    [Header("Animators")]
+        public Animator cjAnimator;
+        public Animator franklinAnimator;
+        public Animator trevorAnimator;
+        public Animator mikeAnimator;
+        
     void Start()
     {
         orderSpot = GameObject.FindWithTag("Order Spot").transform;
@@ -45,6 +65,23 @@ public class Customer : MonoBehaviour
         boxCustomer.SetActive(false);
         orderCheesePizza.SetActive(false);
         orderPepPizza.SetActive(false);
+
+        customers = new List<GameObject> { cj, franklin, trevor, micheal };
+        boxes = new List<GameObject> { cjBox, frankBox, trevBox, mikeBox };
+        animators = new List<Animator> { cjAnimator, franklinAnimator, trevorAnimator, mikeAnimator };
+
+        foreach (var cust in customers)
+        {
+            cust.SetActive(false);
+        }
+
+        foreach (var box in boxes)
+        {
+            box.SetActive(false);
+        }
+
+        PickRandomCustomer();
+        
     }
 
     void Update()
@@ -66,6 +103,7 @@ public class Customer : MonoBehaviour
                 orderTaken = true;
                 inLine = true;
                 orderScript.order.enabled = true;
+                orderSound.Play();
 
                 if (orderScript.pizzaType == 0)
                 {
@@ -97,19 +135,20 @@ public class Customer : MonoBehaviour
 
     IEnumerator Leave(GameObject cust)
     {   
-        
-        customer.transform.Rotate(0f, 180f, 0f);
+        cust.transform.Rotate(0f, 180f, 0f);
         animator.SetBool("AtOrderSpot", false);
+
         fPController.interactPressed = false; 
         interact.givePizza = false;
         orderScript.order.enabled = false;
-        
+
         orderScript.timer.SetActive(false);
         collectCollider.SetActive(false);
         orderCheesePizza.SetActive(false);
         orderPepPizza.SetActive(false);
+        boxCustomer.SetActive(false);
 
-        // Move customer toward exit over time
+        // Move customer toward exit
         while (Vector3.Distance(cust.transform.position, exitSpot.position) > 0.5f)
         {
             cust.transform.position = Vector3.MoveTowards(
@@ -117,24 +156,20 @@ public class Customer : MonoBehaviour
                 exitSpot.position,
                 moveSpeed * Time.deltaTime
             );
-            yield return null; // wait 1 frame before next movement
+            yield return null;
         }
 
         cust.SetActive(false);
 
-        // Customer reached exit
-        yield return new WaitForSeconds(2f);
-        customer.transform.Rotate(0f, 180f, 0f);
-        
-        // Reset flags for next customer
+        // Reset flags
         orderTaken = false;
         customerLeaving = false;
         interact.takenPizza = false;
         inLine = false;
 
-        // Reactivate same customer instead of random
-        customer.SetActive(true);
-        boxCustomer.SetActive(false);
+        // Pick next random customer
+        PickRandomCustomer();
+        cust.transform.Rotate(0f, 180f, 0f);
         orderScript.GenerateOrder();
     }
 
@@ -166,10 +201,27 @@ public class Customer : MonoBehaviour
     }
 
     public void StopTimer()
-    {   
+    {
         StopCoroutine(Timer());
         orderScript.timer.SetActive(false);
         fPController.interactPressed = false;
     }
+
+    void PickRandomCustomer()
+    {
+        
+        int rand = Random.Range(0, customers.Count);
+
+        if (customer != null) customer.SetActive(false);
+        if (boxCustomer != null) boxCustomer.SetActive(false);
+
+        customer = customers[rand];
+        customer.SetActive(true);
+
+        boxCustomer = boxes[rand];
+        animator = animators[rand];
+
+    }
+     
 }
 
