@@ -22,6 +22,9 @@ public class SteveCustomers : MonoBehaviour
     public GameObject custMaterial;
     public GameObject pizzaBox;
 
+    public AudioSource robotGreet;
+    public AudioSource robotBye;
+
     private List<Material> materials;
 
     float moveSpeed = 2f;
@@ -59,6 +62,7 @@ public class SteveCustomers : MonoBehaviour
         {
             orderTaken = true;
             animator.SetBool("AtOrderSpot", true);
+            robotGreet.Play();
 
             if (timerCoroutine == null)
                 timerCoroutine = StartCoroutine(Timer());
@@ -81,6 +85,7 @@ public class SteveCustomers : MonoBehaviour
     IEnumerator Leave(GameObject cust)
     {
         pizzaBox.SetActive(true);
+        robotBye.Play();
         customerLeaving = true;
         animator.SetBool("TookPizza", true);
         animator.SetBool("AtOrderSpot", false);

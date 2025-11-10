@@ -18,6 +18,8 @@ public class Customer : MonoBehaviour
     public GameObject customer;
     public GameObject collectCollider;
     public GameObject boxCustomer;
+    public GameObject orderCheesePizza;
+    public GameObject orderPepPizza;
 
     [Header("Audio")]
         AudioSource audioSource;
@@ -41,6 +43,8 @@ public class Customer : MonoBehaviour
         exitSpot = GameObject.FindWithTag("Exit Spot").transform;
         inLine = false;
         boxCustomer.SetActive(false);
+        orderCheesePizza.SetActive(false);
+        orderPepPizza.SetActive(false);
     }
 
     void Update()
@@ -62,6 +66,18 @@ public class Customer : MonoBehaviour
                 orderTaken = true;
                 inLine = true;
                 orderScript.order.enabled = true;
+
+                if (orderScript.pizzaType == 0)
+                {
+                    orderCheesePizza.SetActive(true);
+                }
+
+                
+                if (orderScript.pizzaType == 1)
+                {
+                    orderPepPizza.SetActive(true);
+                }
+                
                 collectCollider.SetActive(true);
                 StartCoroutine(Timer());
             }
@@ -87,8 +103,11 @@ public class Customer : MonoBehaviour
         fPController.interactPressed = false; 
         interact.givePizza = false;
         orderScript.order.enabled = false;
+        
         orderScript.timer.SetActive(false);
         collectCollider.SetActive(false);
+        orderCheesePizza.SetActive(false);
+        orderPepPizza.SetActive(false);
 
         // Move customer toward exit over time
         while (Vector3.Distance(cust.transform.position, exitSpot.position) > 0.5f)
